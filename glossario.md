@@ -35,4 +35,14 @@ I 5 PG si sono divisi in 5 squadre diverse, ciascuna al servizio di un Saggio, p
 * **Torneo dell'Ambizione:** Competizione dell'Accademia con un contratto magico che muta chiunque divulghi informazioni sulla *propria* squadra (ma permette di divulgare scoperte fatte sulle squadre *avversarie*).
 * **Mano Nera:** Fazione ostile su cui il party sta indagando; Prometheus sospetta che abbia infiltrati all'interno delle stesse squadre del torneo.
 * **Sentinelle:** Guardie non-umane/costrutti che pattugliano i corridoi dell'Accademia dopo il coprifuoco di mezzanotte (non vedono con gli occhi normali, quindi l'invisibilità non basta).
-* **Luoghi dell'Accademia:** Salone/Camera dei Rituali, Giardino degli Abeti Rossi (2° piano, con cripta sotterranea), Giardino dei Cicli Autunnali (piano terra), Forgia (6° piano), Terme.
+* **Luoghi dell'Accademia:** Salone/Camera dei Rituali, Sala Grande (con le 4 statue dei Fondatori), Giardino degli Abeti Rossi (2° piano, con cripta sotterranea), Giardino dei Cicli Autunnali (piano terra), Forgia (6° piano), Terme, Abbazia del Ghiacciaio (antico nucleo originario della scuola 1500 anni fa).
+* **I Quattro Fondatori e Casate dell'Accademia (1500 anni fa):**
+  * **Remus Enea** (Colore arancione ambrato): Protettore dei deboli che fortificò le mura dell'Accademia.
+  * **Esper Zamin** (Colore verde — *Arco Arboreo*): Esploratore che viaggiò per il mondo e aprì la scuola a tutti *(spesso trascritto come: Zamil, Damin, Tamin)*.
+  * **Vardan Yokul** (*Lama dell'Assorbimento*): Mago spietato che istituì la *Via del Sapiente* per selezionare solo i meritevoli *(spesso trascritto come: Pardan Yokul, Vardan Diokul)*.
+  * **Jor Cantala** (*Falce Consacrata*): Facoltoso esperto di oggetti magici che istituì la meritocrazia basata sui doni di conoscenza e la Biblioteca *(spesso trascritto come: Joar Cantala, Orcantara, George Cantara)*.
+* **Maestri e Lezioni dell'Accademia:**
+  * **Cassius Orland:** Tiene la lezione di Trasmutazione Umana sull'*Homunculus* nell'ampolla; ha una mano gelida per averne già assorbito il potere.
+  * **Atasharev:** Tiene la lezione sulla *Magia Limite* (superamento del limite della trama tramite glifi individuali; *spesso trascritto come: Tatash, Attaccarev, Tascarev, Atas*).
+  * **Tulamesh:** Maestro che ha approvato la cerimonia di Serah e tiene lezioni seguite da Rogus.
+  * **Fendrel:** Tiene la lezione di Comunione del Drago / Assimilazione dell'Energia nell'aula di Abiurazione con la testa di drago animata.

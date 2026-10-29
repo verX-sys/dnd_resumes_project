@@ -464,19 +464,44 @@ REGOLE FONDAMENTALI:
 --- FINE TRASCRIZIONE ---
 """
 
-    print("🧠 Analisi della trascrizione e generazione del riassunto con Gemini (gemini-3.8-flash)...")
-    interaction = client.interactions.create(
-        model="gemini-3.8-flash",
-        system_instruction=system_instruction,
-        input=prompt,
-        response_format={
-            "type": "text",
-            "mime_type": "application/json",
-            "schema": SessionSummaryOutput.model_json_schema(),
-        },
-    )
+    models_to_try = [
+        "gemini-3.8-flash",
+        "gemini-3.5-flash-lite",
+        "gemini-4-argon",
+    ]
 
-    return SessionSummaryOutput.model_validate_json(interaction.output_text)
+    last_error = None
+    for model_name in models_to_try:
+        for attempt in range(1, 3):
+            try:
+                print(
+                    f"🧠 Analisi della trascrizione e generazione del riassunto con Gemini ({model_name}, tentativo {attempt}/2)..."
+                )
+                interaction = client.interactions.create(
+                    model=model_name,
+                    system_instruction=system_instruction,
+                    input=prompt,
+                    response_format={
+                        "type": "text",
+                        "mime_type": "application/json",
+                        "schema": SessionSummaryOutput.model_json_schema(),
+                    },
+                )
+                return SessionSummaryOutput.model_validate_json(interaction.output_text)
+            except Exception as e:
+                last_error = e
+                err_str = str(e).lower()
+                if "503" in err_str or "high demand" in err_str or "unavailable" in err_str or "429" in err_str or "overloaded" in err_str:
+                    wait_sec = 5 * attempt
+                    print(
+                        f"⚠️ Il modello {model_name} è temporaneamente sovraccarico (503/429). "
+                        f"Attendo {wait_sec}s prima di riprovare o passare al modello successivo..."
+                    )
+                    time.sleep(wait_sec)
+                else:
+                    raise e
+
+    raise RuntimeError(f"Tutti i modelli Gemini sono attualmente sovraccarichi. Ultimo errore: {last_error}")
 
 
 # =====================================================================
@@ -811,6 +836,18 @@ def main():
         help="URL o ID di uno specifico video YouTube (se omesso e non usi --month, prende l'ultima live).",
     )
     parser.add_argument(
+        "--transcript-file",
+        type=str,
+        default=None,
+        help="Percorso di un file di trascrizione (.txt o .md) già pronto in locale da riassumere direttamente senza YouTube.",
+    )
+    parser.add_argument(
+        "--title",
+        type=str,
+        default=None,
+        help="Titolo personalizzato della sessione (usato insieme a --transcript-file).",
+    )
+    parser.add_argument(
         "--max-videos",
         type=int,
         default=50,
@@ -878,6 +915,50 @@ def main():
     # Caso C: Pubblica su Discord tutti i riassunti locali in sospeso (o quelli di un mese)
     if args.post_pending:
         post_pending_summaries(target_month=args.month)
+        return
+
+    # Caso C2: Riassumi direttamente un file di trascrizione locale (--transcript-file)
+    if args.transcript_file:
+        t_path = Path(args.transcript_file).resolve()
+        if not t_path.exists():
+            print(f"❌ File di trascrizione non trovato: {t_path}")
+            sys.exit(1)
+
+        transcript_text = t_path.read_text(encoding="utf-8")
+        session_title = args.title or t_path.stem
+        date_From_title = parse_date_from_title(session_title) or datetime.now().strftime("%Y%m%d")
+        video_info = {
+            "id": t_path.stem[:15],
+            "title": session_title,
+            "url": "Trascrizione Locale",
+            "upload_date": date_From_title,
+            "month": format_month_from_upload_date(date_From_title),
+        }
+
+        glossary_text = GLOSSARY_PATH.read_text(encoding="utf-8") if GLOSSARY_PATH.exists() else ""
+        summary_output = generate_summary_with_gemini(
+            transcript=transcript_text,
+            glossary_text=glossary_text,
+            video_title=session_title,
+        )
+
+        markdown_summary = format_summary_as_markdown(summary_output, video_info)
+        target_dir = SUMMARIES_DIR / video_info["month"]
+        target_dir.mkdir(parents=True, exist_ok=True)
+        date_prefix = format_date_from_yyyymmdd(date_From_title)
+        safe_title = re.sub(r"[^\w\-_]", "_", session_title)[:50].strip("_")
+        summary_path = target_dir / f"{date_prefix}_{safe_title}.md"
+        summary_path.write_text(markdown_summary, encoding="utf-8")
+        print(f"✅ Riassunto Markdown salvato in locale: {summary_path.relative_to(BASE_DIR)}")
+
+        if args.update_glossary and summary_output.nuove_voci_glossario:
+            update_glossary_file(summary_output.nuove_voci_glossario, session_title, date_From_title)
+
+        posted = False
+        if args.discord:
+            posted = send_to_discord(markdown_summary)
+
+        record_video_summary(video_info, summary_path, posted_to_discord=posted)
         return
 
     # Caso D: Elaborazione storico di un intero mese (--month YYYY-MM)
