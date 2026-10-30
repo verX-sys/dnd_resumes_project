@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+processed_videos.json
+channel_videos_cache.json
+trascrizioni
+riassunti
