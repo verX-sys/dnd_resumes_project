@@ -1,6 +1,6 @@
 # 🐉 D&D Live Summarizer (YouTube ➔ Markdown Locale ➔ Discord)
 
-Questo progetto controlla il canale YouTube di **Stefano Leone** (`https://www.youtube.com/@stefanoleone4578/streams`), scarica le trascrizioni delle live di D&D, genera i riassunti sfruttando il [glossario.md](./glossario.md) della campagna e **salva prima i riassunti in Markdown in locale** (`riassunti/<YYYY-MM>/`), permettendoti di controllarli o modificarli prima di inviarli su **Discord**.
+Questo progetto controlla il canale YouTube di **Stefano Leone** (`https://www.youtube.com/@stefanoleone4578/streams`), scarica le trascrizioni delle live di D&D, genera i riassunti sfruttando i glossari della campagna nella cartella [`glossari/`](./glossari/) ([`glossario.md`](./glossari/glossario.md), [`glossario_2025.md`](./glossari/glossario_2025.md), [`glossario_2026.md`](./glossari/glossario_2026.md)) e **salva prima i riassunti in Markdown in locale** (`riassunti/<YYYY-MM>/`), permettendoti di controllarli o modificarli prima di inviarli su **Discord**.
 
 Il progetto può essere usato direttamente tramite **Agente AI in Chat** (modalità consigliata, che evita i limiti di quota e gli errori `503 / 429` del piano gratuito delle API Gemini esterne) oppure tramite riga di comando con [dnd_summarizer.py](./dnd_summarizer.py).
 
@@ -21,7 +21,7 @@ Il progetto può essere usato direttamente tramite **Agente AI in Chat** (modali
 
 ## 🤖 Utilizzo tramite Agente in Chat (Consigliato)
 
-Grazie alle istruzioni definite in [AGENTS.md](./AGENTS.md), puoi chiedere direttamente in chat all'Agente di occuparsi di tutto. L'Agente userà lo script Python solo per scaricare le trascrizioni (`--fetch-only`) e per inviare i messaggi a Discord, mentre leggerà personalmente le trascrizioni, genererà i riassunti Markdown, aggiornerà [glossario.md](./glossario.md) e registrerà lo stato in `processed_videos.json`.
+Grazie alle istruzioni definite in [AGENTS.md](./AGENTS.md), puoi chiedere direttamente in chat all'Agente di occuparsi di tutto. L'Agente userà lo script Python solo per scaricare le trascrizioni (`--fetch-only`) e per inviare i messaggi a Discord, mentre leggerà personalmente le trascrizioni, genererà i riassunti Markdown, aggiornerà sia il glossario generale ([`glossari/glossario.md`](./glossari/glossario.md)) sia il glossario dell'anno in esame (`glossari/glossario_<YYYY>.md`) e registrerà lo stato in `processed_videos.json`.
 
 ### 💬 Esempi di Richieste in Chat all'Agente
 
