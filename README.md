@@ -33,6 +33,8 @@ Grazie alle istruzioni definite in [AGENTS.md](./AGENTS.md), puoi chiedere diret
 | **Recuperare un intero mese passato** | *"Riassumi il mese 2026-09"* | Scarica tutte le trascrizioni del mese (`--month 2026-09 --fetch-only`) ed elabora le puntate **una alla volta in ordine cronologico**, aggiornando `glossario.md` dopo ogni puntata prima di passare alla successiva. |
 | **Riassumere una trascrizione locale** | *"Riassumi il file `trascrizioni/xyz.txt`"* | Legge direttamente il file di testo locale e `glossario.md`, genera il riassunto Markdown e aggiorna il glossario. |
 | **Revisionare o ritoccare un riassunto** | *"Aggiungi nei prossimi obiettivi del riassunto di ieri che devono parlare con Osiro"* | Modifica direttamente il file `.md` salvato in `riassunti/<YYYY-MM>/` prima dell'invio su Discord. |
+| **Ricostruire / Aggiornare i glossari dai riassunti** | *"Ricostruisci i glossari del 2026 partendo dai riassunti"* | Esegue `--rebuild-glossary --year 2026`, legge tutti i riassunti in rigoroso ordine cronologico (`startTimestamp` in `channel_videos_cache.json`) e rigenera `glossari/glossario_2026.md` e `glossari/glossario.md`. |
+| **Resettare un anno / mese / puntata** | *"Resetta i riassunti del 2026"* | Esegue `--reset --year 2026`, eliminando i file `.md` e le voci in `processed_videos.json` ma conservando le trascrizioni in `trascrizioni/`. |
 | **Pubblicare su Discord** | *"Pubblica i riassunti in sospeso su Discord"* *(oppure *"Pubblica su Discord il mese 2026-09"*)* | Esegue `--post-pending` (o `--post-file`) per inviare sul Webhook di Discord i riassunti pronti in ordine cronologico e segnarli come pubblicati (`✅`). |
 
 ---
@@ -72,7 +74,23 @@ Se preferisci eseguire i comandi manualmente da PowerShell:
   py dnd_summarizer.py --post-file "riassunti/2026-09/nome_file.md"
   ```
 
-### 3️⃣ Generazione tramite API Gemini Esterne (Opzionale)
+### 3️⃣ Reset dei Riassunti e Rebuild dei Glossari
+- **Ricostruire i glossari (`glossari/glossario_<YYYY>.md` e `glossari/glossario.md`) dai riassunti in ordine cronologico:**
+  ```powershell
+  # Tutti gli anni presenti in riassunti/:
+  py dnd_summarizer.py --rebuild-glossary
+
+  # Solo un anno specifico (es. 2026):
+  py dnd_summarizer.py --rebuild-glossary --year 2026
+  ```
+- **Resettare i riassunti conservando le trascrizioni in `trascrizioni/`:**
+  ```powershell
+  py dnd_summarizer.py --reset --year 2026
+  py dnd_summarizer.py --reset --month 2026-10
+  py dnd_summarizer.py --reset --video <ID_O_URL>
+  ```
+
+### 4️⃣ Generazione tramite API Gemini Esterne (Opzionale)
 Se hai una chiave API Gemini attiva in `.env` e vuoi far generare il riassunto direttamente allo script Python:
 ```powershell
 # Ultima live in locale + aggiornamento glossario:

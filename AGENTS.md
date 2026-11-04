@@ -44,12 +44,12 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    - **Naming del file**: se il titolo originale YouTube è generico (`"Mia trasmissione"`), **non** usare `_Mia_trasmissione.md`, ma usa il titolo evocativo dell'episodio sanitizzato (solo lettere/numeri/underscore, max 45 caratteri):
      `riassunti/<YYYY-MM>/<YYYY-MM-DD>_<video_id>_<Titolo_Episodio_Sanitizzato>.md`
    - Crea il file usando `write_file` e seguendo **rigorosamente** le *Regole Fondamentali del Cronista* e il *Template Obbligatorio* riportati più sotto.
-4. **Aggiorna Entrambi i Glossari (`glossari/glossario.md` e `glossari/glossario_<YYYY>.md`)**:
+4. **Aggiorna Entrambi i Glossari (`glossari/glossario.md` e `glossari/glossario_<YYYY>.md`) rispettando SEMPRE l'ordine cronologico**:
    - Una volta processato un nuovo riassunto, **aggiorna SEMPRE sia il glossario generale sia quello dell'anno in esame** secondo i rispettivi ruoli:
      1. **`glossari/glossario.md` (Glossario Generale — Quadro Tematico)**:
-        Non contiene la cronologia puntata per puntata, ma le sezioni tematiche permanenti (`🛡️ Membri del Party`, `🏛️ Saggi e PNG`, `🗺️ Luoghi`). Aggiornalo integrando nelle sezioni appropriate i nuovi PNG rilevanti, i nuovi luoghi scoperti, le nuove varianti fonetiche e lo stato/reliquie delle squadre dei PG.
+        Non contiene la cronologia puntata per puntata, ma le sezioni tematiche permanenti (`🛡️ Membri del Party`, `🏛️ Saggi e PNG`, `🗺️ Luoghi`). Aggiornalo integrando nelle sezioni appropriate i nuovi PNG rilevanti, i nuovi luoghi scoperti, le nuove varianti fonetiche e lo stato/reliquie delle squadre dei PG (aggiornando lo stato squadra solo se la sessione è più recente di quella attualmente indicata!).
      2. **`glossari/glossario_<YYYY>.md` (Glossario Annuale — Cronologia Sessioni)**:
-        Contiene la cronologia dettagliata sessione per sessione dell'anno in esame. Aggiungi la sezione della puntata (creando il file se è il primo di un nuovo anno) con il link relativo `../riassunti/<YYYY-MM>/<nome_file>.md`:
+        Contiene la cronologia dettagliata sessione per sessione dell'anno in esame. **ATTENZIONE ALL'ORDINE CRONOLOGICO**: le sessioni devono essere **sempre** ordinate dalla data più vecchia alla più recente (raggruppate per mese `### ❄️ Gennaio <YYYY>`, `### 🌨️ Febbraio <YYYY>`, ecc.). Se riassumi una puntata meno recente dopo una più recente, inseriscila nella posizione cronologica corretta (oppure lancia `py dnd_summarizer.py --rebuild-glossary --year <YYYY>`) con il link relativo `../riassunti/<YYYY-MM>/<nome_file>.md`:
         ```markdown
         #### 📌 Sessione del <YYYY-MM-DD> — <Titolo Episodio> ([Riassunto](../riassunti/<YYYY-MM>/<YYYY-MM-DD>_<video_id>_<Titolo_Episodio_Sanitizzato>.md))
         * **<Nome>** (`<Categoria>`): <Descrizione> *(varianti fonetiche: <v1, v2>)*
@@ -128,6 +128,25 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 
 ---
 
+### 7️⃣ "Ricostruisci / Aggiorna i glossari partendo dai riassunti" (`--rebuild-glossary`)
+1. Quando l'utente chiede di rigenerare, riordinare o aggiornare i glossari a partire dai riassunti già presenti in `riassunti/`:
+   - Esegui il comando:
+     ```powershell
+     # Per ricostruire i glossari di tutti gli anni presenti in riassunti/:
+     py dnd_summarizer.py --rebuild-glossary
+
+     # Oppure per uno specifico anno (es. 2026):
+     py dnd_summarizer.py --rebuild-glossary --year 2026
+     ```
+   - **Cosa fa `--rebuild-glossary`**:
+     1. Scansiona tutti i file `.md` in `riassunti/`, estrae il `video_id` e verifica obbligatoriamente la data certificata (`startTimestamp`) in `channel_videos_cache.json` (bloccandosi se manca).
+     2. Ordina tutti i riassunti in **rigoroso ordine cronologico crescente** (dalla sessione più antica alla più recente).
+     3. Ricostruisce la cronologia di `glossari/glossario_<YYYY>.md` divisa per mese e sessione con le voci di `## 📖 Nuove Voci Rilevate per il Glossario` e i link relativi `../riassunti/...`.
+     4. Integra in ordine cronologico le nuove voci tematiche (`PNG`, `Luogo`, `Fazione/Terminologia`) in `glossari/glossario.md`.
+   - **Rifinitura dell'Agente**: dopo aver eseguito `--rebuild-glossary`, leggi i riassunti in ordine cronologico (dal più vecchio al più recente) per aggiornare anche i paragrafi discorsivi di sintesi (come `🛡️ Membri del Party` in `glossari/glossario.md` e `🏆 Quadro Riepilogativo delle Squadre` in `glossari/glossario_<YYYY>.md`) in modo che riflettano fedelmente lo stato della campagna fino all'ultima sessione riassunta.
+
+---
+
 ## 🧠 Regole Fondamentali del Cronista (Analisi Trascrizione)
 
 1. **Conversione Giocatori ➔ Personaggi Giocanti (PG)**:
@@ -142,7 +161,7 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    I sottotitoli automatici di YouTube storpiano i nomi fantasy (es. *"Caret"*, *"Velendoran"*, *"Osiro"*, *"Baltasar"*, *"Gideon"*, *"Yokul"*, *"Atasharev"*). Usa `glossari/glossario.md`, `glossari/glossario_<YYYY>.md` e il contesto per scrivere sempre i nomi corretti, annotando le nuove storpiature tra le varianti fonetiche del glossario.
 3. **Filtro Off-Game vs Recap Iniziale / Retcon / Giocate in Privato**:
    - Ignora chiacchiere puramente fuori gioco, problemi tecnici di audio/streaming o battute off-game.
-   - **ATTENZIONE AI RECAP INIZIALI**: Nei primi 10-15 minuti della live, i giocatori e il Master spesso raccontano ad alta voce **sessioni giocate in privato, retcon o azioni svolte off-screen** tra una sessione e l'altra (anche per PG il cui giocatore è assente alla serata o non gioca attivamente il resto della live). **Includi sempre** una sotto-sezione dedicata a quel PG in `## ⚔️ Vicende delle Squadre e dei Personaggi` specificando `*(Recap / Retcon inizio live)*`, così nessun evento di trama viene perso.
+   - **ATTENZIONE AI RECAP INIZIALI**: Nei primi 10-15 minuti della live, i giocatori e il Master spesso raccontano ad alta voce **sessioni giocate in privato, retcon o azioni svolte off-screen** tra una sessione e l'altra (anche per PG il cui giocatore è assente alla serata o non gioca attivamente il resto della live). **Includi sempre** una sotto-sezione dedicata a quel PG in `## ⚔️ Vicende dei Personaggi` specificando `*(Recap / Retcon inizio live)*`, così nessun evento di trama viene perso.
 4. **Dialoghi Salienti Integrati con Timestamp Cliccabili e Separazione Riga**:
    - All'interno della sezione di ciascun PG (`### 🛡️ ...`), subito dopo il paragrafo che racconta una scena chiave, inserisci **da 1 a 3 riquadri di citazione (`>`)** con gli scambi di battute più belli, drammatici, epici o divertenti emersi dalla trascrizione.
    - **Pulizia e fedeltà**: ricostruisci le battute partendo dalle parole reali pronunciate nella trascrizione, ripulendole da intercalari off-game (*"allora"*, *"diciamo"*, *"tiro dado"*) e correggendo gli errori dei sottotitoli automatici. Se il Master o il giocatore descrive in terza persona (*"Lui ti dice che..."*), trasformalo in discorso diretto teatrale fedele al tono del personaggio.
@@ -179,8 +198,8 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 ## 📜 Sinossi della Puntata
 <Introduzione narrativa di 3-5 righe che riassume il cuore della sessione>
 
-## ⚔️ Vicende delle Squadre e dei Personaggi
-### 🛡️ <Nome PG> (<Nome Giocatore>) — *<Saggio e/o Compagni di Squadra PNG>*
+## ⚔️ Vicende dei Personaggi
+### 🛡️ <Nome PG> (<Nome Giocatore>) — *<Compagni di Squadra PNG>*
 <Riassunto dettagliato e narrativo di cosa ha fatto questo PG/squadra durante la puntata, includendo eventuali callout meccanici come *(🎲 TS Saggezza superato)* o *(🪄 Incantesimo)*>
 
 > 💬 **[[HH:MM:SS - HH:MM:SS]](https://www.youtube.com/watch?v=<VIDEO_ID>&t=<X>h<Y>m<Z>s) — <Titolo breve della scena>**
@@ -189,7 +208,7 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 > - **<Nome PG/PNG>:** *"<Risposta del personaggio o del PNG>"*
 
 ## 🔍 Eventi Chiave, Indizi e Rivelazioni
-- <Colpo di scena, indizio risolto, scoperta sulla Mano Nera, il Custode o il Torneo>
+- <Colpo di scena, indizio risolto, scoperta sulla Mano Nera>
 
 ## 💎 Reliquie, Oggetti e Ricompense
 - <Oggetti, reliquie, oro, contratti o punteggi delle lezioni ottenuti/persi>
