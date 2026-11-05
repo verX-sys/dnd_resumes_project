@@ -65,7 +65,6 @@ Mentre salgono ai piani superiori, Link (in forma di ragno) si arrampica per olt
 ---
 
 ## 📖 Nuove Voci Rilevate per il Glossario
-- **Anastrisanna** [PNG]: Magistra alchimista degli Elfi della Pietra di Myth Drannor, ossessionata dalla purezza di Evermeet e dal rituale per farsi Lich attraverso il sacrificio di Dara e Tiala. *(trascritto anche come: Anastrian)*
+- **Diario Segreto di Anastrisanna** [Oggetto/Reliquia]: Manoscritto storico e alchemico rinvenuto a Myth Drannor, contenente le confessioni sul saccheggio di Tilverton, l'origine del miasma di Mystorio e i rituali sacrificali su Dara e Tiala.
 - **Dara** [PNG]: Giovane elfa discendente di Evermeet, sacrificata nelle sperimentazioni alchemiche di Anastrisanna da cui fu generato il servitore Tart; gemella di Tiala. *(trascritto anche come: Tara)*
 - **Tilverton** [Luogo]: Antica città umana del Cormyr, saccheggiata in segreto dagli Elfi della Pietra di Myth Drannor per carpirne le scoperte alchemiche proibite. *(trascritto anche come: Tilberto, Tilverton)*
-- **Il Saggio sulle Anime e la Carne** [Oggetto/Reliquia]: Grimorio necromantico rilegato in pelle e ossa recuperato a Myth Drannor, contenente formule di non-morte e la dottrina sulla genesi degli Artigli d'Ossa.

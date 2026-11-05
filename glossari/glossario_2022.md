@@ -117,10 +117,9 @@ Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tara
 * **Ascia da Battaglia Elfica +1** (`Oggetto/Reliquia`): Ascia da guerra magica elfica finemente lavorata rinvenuta nel magazzino dell'accademia di Myth Drannor.
 
 #### 📌 Sessione del 2022-10-24 — Il Diario di Anastrisanna e l'Incubo di Tilverton ([Riassunto](../riassunti/2022-10/2022-10-24_awUH2s4Jgw4_Il_Diario_di_Anastrisanna_e_l_Incubo_di_Tilverton.md))
-* **Anastrisanna** (`PNG`): Magistra alchimista degli Elfi della Pietra di Myth Drannor, ossessionata dalla purezza di Evermeet e dal rituale per farsi Lich attraverso il sacrificio di Dara e Tiala. *(varianti fonetiche: Anastrian)*
+* **Diario Segreto di Anastrisanna** (`Oggetto/Reliquia`): Manoscritto storico e alchemico rinvenuto a Myth Drannor, contenente le confessioni sul saccheggio di Tilverton, l'origine del miasma di Mystorio e i rituali sacrificali su Dara e Tiala.
 * **Dara** (`PNG`): Giovane elfa discendente di Evermeet, sacrificata nelle sperimentazioni alchemiche di Anastrisanna da cui fu generato il servitore Tart; gemella di Tiala. *(varianti fonetiche: Tara)*
 * **Tilverton** (`Luogo`): Antica città umana del Cormyr, saccheggiata in segreto dagli Elfi della Pietra di Myth Drannor per carpirne le scoperte alchemiche proibite. *(varianti fonetiche: Tilberto, Tilverton)*
-* **Il Saggio sulle Anime e la Carne** (`Oggetto/Reliquia`): Grimorio necromantico rilegato in pelle e ossa recuperato a Myth Drannor, contenente formule di non-morte e la dottrina sulla genesi degli Artigli d'Ossa.
 
 ---
 

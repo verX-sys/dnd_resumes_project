@@ -1175,9 +1175,20 @@ def rebuild_glossaries_from_summaries(year: Optional[str] = None) -> None:
     added_general = []
     for s_item in parsed_summaries:
         for p_entry in s_item["parsed_entries"]:
+            clean_name = re.sub(r"\(.*?\)", "", p_entry["nome"]).strip().lower()
+            clean_base = re.sub(r"^(?:il|la|lo|le|i|gli|l'|un'|un|una)\s+", "", clean_name).strip()
+            already_present = (
+                p_entry["nome"].lower() in general_text.lower()
+                or (len(clean_base) >= 3 and clean_base in general_text.lower())
+            )
+            if not already_present:
+                core_name = re.sub(r"\s+(?:di|del|della|dello|dei|degli|delle)\s+.*$", "", clean_base).strip()
+                core_name = re.sub(r"\s+(?:sotterraneo|sommerso|cittadino)$", "", core_name).strip()
+                if len(core_name) >= 4 and core_name in general_text.lower():
+                    already_present = True
             if (
                 p_entry["categoria"] in ("PNG", "Luogo", "Fazione/Terminologia")
-                and p_entry["nome"].lower() not in general_text.lower()
+                and not already_present
             ):
                 added_general.append(p_entry["line"])
                 general_text += "\n" + p_entry["line"]

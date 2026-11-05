@@ -126,7 +126,7 @@ Per il quadro tematico d'insieme dei Personaggi Giocanti, delle fazioni storiche
 * **Guardie di Cristallo** (`Fazione/Terminologia`): Sentinelle incorporee e invisibili armate di scudi e lame traslucide, che pattugliano a circuito chiuso i cunicoli segreti del Revenant emettendo un tintinnio metallico simile a calici di vetro.
 
 #### 📌 Sessione del 2023-05-08 — Il Bozzolo del Barone e la Corruzione degli Abissi ([Riassunto](../riassunti/2023-05/2023-05-08_l1WbyBQ92xA_Il_Bozzolo_del_Barone_e_la_Corruzione_degli_Abissi.md))
-* **Christopher Egon (Il Barone)** (`PNG`): Eminente sovrano e figura di massimo spicco del Mare della Luna; il suo clone mutaforma sottratto all'incubatore di Svart costituisce la prova inconfutabile del complotto eversivo.
+* **Clone del Barone Christopher Egon** (`PNG`): Mutaforma ibrido sottratto all'incubatore di Svart a Hillsfar Bassa; costituisce la prova inconfutabile del complotto eversivo della Congiura del Mare mirato a rimpiazzare il sovrano di Forte Zhentil.
 * **Lara Ceci** (`PNG`): Giovane figlia del nobile Pietro Ceci (affiliato alla Mano Nera), inserita a sorpresa nell'elenco dei nove bersagli designati per la sostituzione da parte degli Svart.
 * **Aquasfera** (`Fazione/Terminologia`): Arena planare e prova sportiva culminante dei Giochi di Hillsfar, consistente in un colossale globo d'acqua di 36 metri dove due squadre si affrontano in una contesa aerea e natatoria per segnare due gol nelle porte opposte.
 

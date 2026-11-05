@@ -87,7 +87,7 @@ Rogus mantiene la linea difensiva erigendo i suoi Guardiani Spirituali *(🪄 Gu
 ---
 
 ## 📖 Nuove Voci Rilevate per il Glossario
-- **Christopher Egon (Il Barone)** [PNG]: Eminente sovrano e figura di massimo spicco del Mare della Luna; il suo clone mutaforma sottratto all'incubatore di Svart costituisce la prova inconfutabile del complotto eversivo.
+- **Clone del Barone Christopher Egon** [PNG]: Mutaforma ibrido sottratto all'incubatore di Svart a Hillsfar Bassa; costituisce la prova inconfutabile del complotto eversivo della Congiura del Mare mirato a rimpiazzare il sovrano di Forte Zhentil.
 - **Lara Ceci** [PNG]: Giovane figlia del nobile Pietro Ceci (affiliato alla Mano Nera), inserita a sorpresa nell'elenco dei nove bersagli designati per la sostituzione da parte degli Svart.
 - **Aquasfera** [Fazione/Terminologia]: Arena planare e prova sportiva culminante dei Giochi di Hillsfar, consistente in un colossale globo d'acqua di 36 metri dove due squadre si affrontano in una contesa aerea e natatoria per segnare due gol nelle porte opposte.
 
