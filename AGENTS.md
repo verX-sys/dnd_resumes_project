@@ -82,6 +82,11 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 2. Elabora le puntate **una alla volta in rigoroso ordine cronologico** (dalla data più vecchia alla più recente):
    - Per ogni puntata esegui i passaggi **2, 3, 4 e 5** del flusso singolo.
    - **Importante:** Aggiorna sia `glossari/glossario.md` sia `glossari/glossario_<YYYY>.md` dopo *ogni* puntata prima di passare alla successiva, così le nuove scoperte sono già disponibili per la puntata seguente.
+   - **Gestione Puntate Senza Sottotitoli YouTube:** Se una puntata presente in `channel_videos_cache.json` non ha sottotitoli disponibili (trascrizione non estraibile), **non ignorarla**: inseriscila sempre nel glossario annuale `glossari/glossario_<YYYY>.md` nella sua esatta collocazione cronologica:
+     ```markdown
+     #### ⚠️ Sessione del <YYYY-MM-DD> — [Live YouTube](https://www.youtube.com/watch?v=<VIDEO_ID>) *(Priva di sottotitoli YouTube)*
+     * *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*
+     ```
 
 ---
 
@@ -141,7 +146,7 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    - **Cosa fa `--rebuild-glossary`**:
      1. Scansiona tutti i file `.md` in `riassunti/`, estrae il `video_id` e verifica obbligatoriamente la data certificata (`startTimestamp`) in `channel_videos_cache.json` (bloccandosi se manca).
      2. Ordina tutti i riassunti in **rigoroso ordine cronologico crescente** (dalla sessione più antica alla più recente).
-     3. Ricostruisce la cronologia di `glossari/glossario_<YYYY>.md` divisa per mese e sessione con le voci di `## 📖 Nuove Voci Rilevate per il Glossario` e i link relativi `../riassunti/...`.
+     3. Ricostruisce la cronologia di `glossari/glossario_<YYYY>.md` divisa per mese e sessione con le voci di `## 📖 Nuove Voci Rilevate per il Glossario`, i link relativi `../riassunti/...` e inserendo le sessioni prive di sottotitoli YouTube censite in `channel_videos_cache.json` nell'esatta collocazione temporale (`#### ⚠️ Sessione del <YYYY-MM-DD>`).
      4. Integra in ordine cronologico le nuove voci tematiche (`PNG`, `Luogo`, `Fazione/Terminologia`) in `glossari/glossario.md`.
    - **Rifinitura dell'Agente**: dopo aver eseguito `--rebuild-glossary`, leggi i riassunti in ordine cronologico (dal più vecchio al più recente) per aggiornare anche i paragrafi discorsivi di sintesi (come `🛡️ Membri del Party` in `glossari/glossario.md` e `🏆 Quadro Riepilogativo delle Squadre` in `glossari/glossario_<YYYY>.md`) in modo che riflettano fedelmente lo stato della campagna fino all'ultima sessione riassunta.
 

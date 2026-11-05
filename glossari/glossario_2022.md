@@ -7,19 +7,19 @@ Per il quadro tematico d'insieme dei Personaggi Giocanti, delle fazioni storiche
 
 ## 🏆 Quadro Riepilogativo del Party — La Compagnia del Tarallo (Stato a fine 2022)
 
-Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tarallo**. Dalle cospirazioni nei bassifondi di **Sfar** alle rovine secolari dell'antica metropoli elfica di **Myth Drannor**, fino all'arrivo nella strategica città-stato di **Hillsfar**, i membri del gruppo hanno affrontato minacce oscure e profonde trasformazioni:
+Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tarallo**. Dalle cospirazioni nei bassifondi di **Hillsfar** alle rovine secolari dell'antica metropoli elfica di **Myth Drannor**, fino all'approfondimento dei segreti della stessa città-stato di **Hillsfar**, i membri del gruppo hanno affrontato minacce oscure e profonde trasformazioni:
 
 1. **Aerial Aldebaran** (Druido) — Interpretato da **Michele (Mike)**
    * **Focus & Dotazione:** Druido del Circolo della Luna; combatte spesso assumendo la forma di *Gorilla Gigante* combinata al *Guardiano della Natura*. Porta con sé il **Bastone dell'Estensione** (arma in legno di Banyan con durezza dell'adamantio, creata da Nick alla Torre dell'Artificio) e il **Vaso Risvegliante di Terracotta**.
-   * **Legami di Trama:** È l'interprete e il diplomatico del gruppo verso gli elfi del Cormanthor (**Beiro** e l'oracolo **Tiala**). È sulle tracce della madre **Ymeris**, ex allieva alchimista di Julius a Sfar: Ymeris lo ha avvisato dell'avanzata congiunta dei **Giganti** e della **Mano Nera** verso est (con la caduta del *Signore delle Tempeste*) e della sua disperata ricerca del leggendario cavaliere **Artorius** nel *Deserto degli Infiniti Resti*.
+   * **Legami di Trama:** È l'interprete e il diplomatico del gruppo verso gli elfi del Cormanthor (**Beiro** e l'oracolo **Tiala**). È sulle tracce della madre **Ymeris**, ex allieva alchimista di Julius a Hillsfar: Ymeris lo ha avvisato dell'avanzata congiunta dei **Giganti** e della **Mano Nera** verso est (con la caduta del *Signore delle Tempeste*) e della sua disperata ricerca del leggendario cavaliere **Artorius** nel *Deserto degli Infiniti Resti*.
 
 2. **Prometheus** (Mago/Necromante) — Interpretato da **Carlo (Carle)**
    * **Stato & Condizione (Paradosso Corporeo):** Devoto a Selûne ma studioso dei misteri della vita e della non-morte. Squarciato mortalmente dall'abominio di Anastrisanna a Myth Drannor, è sopravvissuto a causa di un paradosso mistico: l'incantesimo *Revivify* non ha attecchito perché il suo corpo non risultava biologicamente defunto. Mentre la salma umana è poi misteriosamente svanita dall'altare di Sirio Flint a Hillsfar, la sua anima è stata trasferita dall'entità oscura **Josafat** nel corpo di un **elfo albino** con occhi di pura ossidiana.
    * **Marchio & Grimorio:** È afflitto da un tic cervicale ritmico legato alle rotazioni di una misteriosa clessidra da polso. Custodisce il grimorio necromantico ***Il Saggio sulle Anime e la Carne***, il cui marchio del Dracolich risplende di luce violetta fungendo da spia e faro di collegamento per Josafat.
 
 3. **Lucio Malaver** (Barbaro) — Interpretato da **Nicola (Niky)**
-   * **Stato & Condizione:** Barbaro formidabile alimentato da furia divina e danni necrotici. Bersaglio dell'attenzione morbosa di **Aladrix Svart** (capobanda degli Smart dotato di poteri oscuri di dominazione), che lo considera un suo "prescelto" e lo ha umiliato pubblicamente rianimando il cadavere di un suo cadetto.
-   * **Conflitti a Hillsfar:** Ha sfidato a muso duro la letale compagnia mercenaria degli **Irriducibili** guidata da **Zarathustra** (bruciando con sdegno il preventivo di 20.000 mo per scovare Aladrix) ed è entrato in rotta di collisione con il **Marchese** e **Magister Romporon**, i quali gli negano la restituzione delle armi confiscate a causa del suo passato cruento.
+   * **Stato & Condizione:** Barbaro formidabile alimentato da furia divina e danni necrotici. Bersaglio dell'attenzione morbosa di **Aldrik Svart** (capobanda degli Smart dotato di poteri oscuri di dominazione), che lo considera un suo "prescelto" e lo ha umiliato pubblicamente rianimando il cadavere di un suo cadetto.
+   * **Conflitti a Hillsfar:** Ha sfidato a muso duro la letale compagnia mercenaria degli **Irriducibili** guidata da **Zarathustra** (bruciando con sdegno il preventivo di 20.000 mo per scovare Aldrik) ed è entrato in rotta di collisione con il **Marchese** e **Magister Doron Poron**, i quali gli negano la restituzione delle armi confiscate a causa del suo passato cruento.
 
 4. **Rogus Harndrekker** (Chierico) — Interpretato da **Giuseppe (Cici)**
    * **Stato & Condizione (Il Morbo Nero):** Nano chierico e combattente devoto alla giustizia, afflitto da una parassitosi magica nota come **Morbo Nero**. La corruzione si alimenta di ira e malvagità minacciando di tramutarlo in aberrazione; tuttavia, nella foresta del Cormanthor si è scoperto che la sua oscurità interiore agisce come uno "schermo per le stelle", donando pace temporanea all'estenuante chiaroveggenza dell'oracolo elfico **Tiala**.
@@ -30,7 +30,7 @@ Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tara
    * **Imprese Recenti:** Decisivo con le sue raffiche di *Palle di Fuoco* nell'abbattere le orde di zombie e l'abominio di Myth Drannor. A Hillsfar ha immobilizzato prudentemente il redivivo Prometheus con le *Fasce Metalliche di Bilarro* per scongiurare possessioni e ha trattato con **Thomas Torquemada** l'acquisto per 1.000 mo della **Moneta del Drago di Platino (DDP)** per accedere al mercato astrale di **Calamit**.
 
 6. *(Quarion)* (Paladino) — Interpretato da **Francesco**
-   * Paladino combattente della luce, compagno fidato nelle prime tappe dell'avventura (Sfar e inizio dell'incursione a Myth Drannor con l'assoggettamento degli spettri d'ombra tramite potere divino).
+   * Paladino combattente della luce, compagno fidato nelle prime tappe dell'avventura (Hillsfar e inizio dell'incursione a Myth Drannor con l'assoggettamento degli spettri d'ombra tramite potere divino).
 
 ---
 
@@ -47,11 +47,11 @@ Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tara
 
 ### 🔥 Luglio 2022
 
-#### 📌 Sessione del 2022-07-18 — La Mano di Rey e il Risveglio di Aladrix ([Riassunto](../riassunti/2022-07/2022-07-18_rRZLW-8e6So_La_Mano_di_Rey_e_il_Risveglio_di_Aladrix.md))
-* **Aladrix Svart (Adrik)** (``PNG``): Signore del crimine degli Smart dotato di poteri oscuri di dominazione e necromanzia *(varianti fonetiche: Adrik, Aldrik, Aladrix)*.
-* **Julius (Iulius)** (``PNG``): Maestro alchimista dai tratti ferini di Sfar Alta, creatore di tatuaggi magici e antico mentore di Ymeris.
-* **Ymeris** (``PNG``): Madre di Aerial Aldebaran, fuggita da Sfar lasciando dietro di sé una sfera alchemica.
-* **Taverna del Cinghiale** (``Luogo``): Covo degli Smart e teatro della dominazione di Aladrix a Sfar Bassa.
+#### 📌 Sessione del 2022-07-18 — La Mano di Rey e il Risveglio di Aldrik ([Riassunto](../riassunti/2022-07/2022-07-18_rRZLW-8e6So_La_Mano_di_Rey_e_il_Risveglio_di_Aldrik.md))
+* **Aldrik Svart (Adrik)** (``PNG``): Signore del crimine degli Smart dotato di poteri oscuri di dominazione e necromanzia *(varianti fonetiche: Adrik, Aldrik, Aladrix)*.
+* **Julius (Iulius)** (``PNG``): Maestro alchimista dai tratti ferini di Hillsfar Alta, creatore di tatuaggi magici e antico mentore di Ymeris.
+* **Ymeris** (``PNG``): Madre di Aerial Aldebaran, fuggita da Hillsfar lasciando dietro di sé una sfera alchemica.
+* **Taverna del Cinghiale** (``Luogo``): Covo degli Smart e teatro della dominazione di Aldrik a Hillsfar Bassa.
 * **Morbo Nero** (``Fazione/Terminologia``): Piaga parassitaria magica che consuma la trama spirituale dell'ospite se alimentata da odio e crudeltà.
 
 ---
@@ -63,13 +63,22 @@ Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tara
 * **Artorius** (``PNG``): Mitico e leggendario eroe/cavaliere del passato, scomparso nel Deserto degli Infiniti Resti; ricercato attivamente da Ymeris Aldebaran per fermare l'avanzata congiunta di Giganti e Mano Nera *(varianti fonetiche: Artorius, Artoris, Arctoris)*.
 * **Signore delle Tempeste** (``PNG / Entità``): Potente entità sovrannaturale situata nelle regioni orientali, recentemente assoggettata e piegata al volere della Mano Nera e dei Giganti.
 * **Deserto degli Infiniti Resti** (``Luogo``): Desolata e letale regione desertica orientale, tomba di antiche civiltà e luogo in cui è sprofondato l'eroe Artorius *(varianti fonetiche: Deserto degli Infiniti Resti, Deserto dei Resti)*.
-* **Casa Raudr** (``Fazione/Terminologia``): Nobile e potente casata caratterizzata da livree con ricami rossi e grifoni dorati; i suoi emissari tramano nell'ombra per colpire la rivale Casa Grant durante i giochi di Sfar *(varianti fonetiche: Raudr, Raudur, Rauder)*.
-* **Casa Grant** (``Fazione/Terminologia``): Casata nobiliare presente a Sfar, rivale designata di Casa Raudr.
+* **Casa Raudr** (``Fazione/Terminologia``): Nobile e potente casata caratterizzata da livree con ricami rossi e grifoni dorati; i suoi emissari tramano nell'ombra per colpire la rivale Casa Grant durante i giochi di Hillsfar *(varianti fonetiche: Raudr, Raudur, Rauder)*.
+* **Casa Grant** (``Fazione/Terminologia``): Casata nobiliare presente a Hillsfar, rivale designata di Casa Raudr.
 * **Mezzo Demone d'Ombra** (``PNG / Nemico``): Imponente creatura alata con zanne e corna al servizio di un misterioso padrone occulto, evocata all'interno di una sfera di tenebra magica per eliminare Quarion.
 
 ---
 
 ### 🍂 Settembre 2022
+
+#### ⚠️ Sessione del 2022-09-05 — [Live YouTube](https://www.youtube.com/watch?v=h9vdt7HMpjs) *(Priva di sottotitoli YouTube)*
+* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*
+
+#### ⚠️ Sessione del 2022-09-12 — [Live YouTube](https://www.youtube.com/watch?v=55fv4nmUgjo) *(Priva di sottotitoli YouTube)*
+* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*
+
+#### ⚠️ Sessione del 2022-09-19 — [Live YouTube](https://www.youtube.com/watch?v=_aOyJkKo_JM) *(Priva di sottotitoli YouTube)*
+* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*
 
 #### 📌 Sessione del 2022-09-28 — I Guardiani di Cormanthor e il Sigillo di Myth Drannor ([Riassunto](../riassunti/2022-09/2022-09-28_wlGSBPNYQjc_I_Guardiani_di_Cormanthor_e_il_Sigillo_di_Myth_Drannor.md))
 * **Myth Drannor (Mitrannor / Metdrannor)** (``Luogo``): Leggendaria metropoli elfica situata nel cuore del Cormanthor, anticamente all'avanguardia ma sigillata millenni prima a seguito di un cataclisma alchemico che trasformò la popolazione in aberrazioni *(varianti fonetiche: Mitrannor, Metranor, Mith Drannor)*.
@@ -144,4 +153,7 @@ Durante l'anno 2022, il gruppo opera unito sotto il nome di **Compagnia del Tara
 * **Calamit** (`Luogo`): Città spettrale errante situata sul Piano Astrale, sede del Mercato dei Draghi di Platino (DDP) dove entità di vari piani commerciano contratti, anime, artefatti e schiavi in forma spirituale anonima.
 * **Mercato dei Draghi di Platino (DDP)** (`Fazione/Terminologia`): Rete commerciale interplanare clandestina creata e supervisionata dai Chierici della dea Waukeen; vi si accede solo possedendo la Moneta del Drago di Platino e consumando una statuetta di platino da 100 mo.
 * **Thomas Torquemada** (`PNG`): Chierico di Waukeen e dignitario facoltoso proveniente da Zhentil Keep, custode del tempio a Hillsfar e referente locale per il Mercato dei Draghi di Platino *(varianti fonetiche: Torquemada)*.
-* **Magister Romporon** (`PNG`): Magister della Difesa e supremo comandante militare delle guardie di Hillsfar, artefice del campo antimagia della città alta *(varianti fonetiche: Romporon, Don Romporon, D'Ora un Po' Ron)*.
+* **Magister Doron Poron** (`PNG`): Magister della Difesa e supremo comandante militare delle guardie di Hillsfar, artefice del campo antimagia della città alta *(varianti fonetiche: Romporon, Don Romporon, D'Ora un Po' Ron)*.
+
+#### ⚠️ Sessione del 2022-12-12 — [Live YouTube](https://www.youtube.com/watch?v=xcw6eJPOVpo) *(Priva di sottotitoli YouTube)*
+* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*

@@ -1050,9 +1050,43 @@ def rebuild_glossaries_from_summaries(year: Optional[str] = None) -> None:
             continue
         parsed_summaries.append(item)
 
+    # Carica la cache degli streaming per recuperare anche le sessioni prive di sottotitoli/riassunto
+    cache_dict = {}
+    if CACHE_PATH.exists():
+        try:
+            cache_dict = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            cache_dict = {}
+
+    known_summary_ids = {item["id"] for item in parsed_summaries}
+    for c_id, c_data in cache_dict.items():
+        c_date = c_data.get("upload_date", "")
+        if not c_date:
+            continue
+        c_year = c_date[:4]
+        if year and c_year != str(year).strip():
+            continue
+        if c_id not in known_summary_ids:
+            d_fmt = f"{c_date[:4]}-{c_date[4:6]}-{c_date[6:8]}" if len(c_date) >= 8 else c_date
+            m_num = c_date[4:6] if len(c_date) >= 6 else "00"
+            parsed_summaries.append({
+                "id": c_id,
+                "upload_date": c_date,
+                "date_str": d_fmt,
+                "year": c_year,
+                "month_num": m_num,
+                "episode_title": c_data.get("title", ""),
+                "rel_link": f"https://www.youtube.com/watch?v={c_id}",
+                "is_missing_subtitles": True,
+                "glossary_lines": [
+                    "* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*"
+                ],
+                "parsed_entries": [],
+            })
+
     if not parsed_summaries:
         scope = f" per l'anno {year}" if year else ""
-        print(f"ℹ️ Nessun riassunto Markdown trovato in 'riassunti/'{scope} da cui ricostruire i glossari.")
+        print(f"ℹ️ Nessun riassunto o video trovato in cache{scope} da cui ricostruire i glossari.")
         return
 
     # ORDINAMENTO CRONOLOGICO RIGOROSO (dal più vecchio al più recente)
@@ -1101,21 +1135,30 @@ def rebuild_glossaries_from_summaries(year: Optional[str] = None) -> None:
                 out_lines.extend(["", f"### {month_label} {y_str}"])
                 current_month = m_num
 
-            ep_title_part = (
-                f" — {s_item['episode_title']}"
-                if s_item["episode_title"].lower() not in ("mia trasmissione", "live streaming di stefano leone")
-                else ""
-            )
-            out_lines.extend(
-                [
-                    "",
-                    f"#### 📌 Sessione del {s_item['date_str']}{ep_title_part} ([Riassunto]({s_item['rel_link']}))",
-                ]
-            )
-            if s_item["glossary_lines"]:
+            if s_item.get("is_missing_subtitles"):
+                out_lines.extend(
+                    [
+                        "",
+                        f"#### ⚠️ Sessione del {s_item['date_str']} — [Live YouTube]({s_item['rel_link']}) *(Priva di sottotitoli YouTube)*",
+                    ]
+                )
                 out_lines.extend(s_item["glossary_lines"])
             else:
-                out_lines.append("* *(Nessuna nuova voce specifica registrata in calce al riassunto)*")
+                ep_title_part = (
+                    f" — {s_item['episode_title']}"
+                    if s_item["episode_title"].lower() not in ("mia trasmissione", "live streaming di stefano leone")
+                    else ""
+                )
+                out_lines.extend(
+                    [
+                        "",
+                        f"#### 📌 Sessione del {s_item['date_str']}{ep_title_part} ([Riassunto]({s_item['rel_link']}))",
+                    ]
+                )
+                if s_item["glossary_lines"]:
+                    out_lines.extend(s_item["glossary_lines"])
+                else:
+                    out_lines.append("* *(Nessuna nuova voce specifica registrata in calce al riassunto)*")
 
         yearly_path.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
         print(

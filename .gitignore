@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 .ignore_files/
+scratch/
 processed_videos.json
 channel_videos_cache.json
 trascrizioni

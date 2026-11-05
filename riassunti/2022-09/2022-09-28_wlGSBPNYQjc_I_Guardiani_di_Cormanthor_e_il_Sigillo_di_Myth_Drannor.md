@@ -27,7 +27,7 @@ Nello scontro nella radura, Aerial orchestra una complessa combinazione magica: 
 >
 > - **Beiro:** *"Di nuovo qui... di nuovo nella mia foresta a portare baccano! A cosa devo l'onore di ritrovarvi davanti a questo luogo sacro dopo aver fatto a pezzi i totem antichi del nostro popolo?"*
 > - **Aerial Aldebaran:** *"Signor Beiro, siamo venuti in pace. Questi guardiani ci hanno attaccato non appena ci siamo avvicinati alla collina. Non siamo qui per violare le vostre leggi, ma per indagare sul male che minaccia queste terre."*
-> - **Beiro:** *"Non mi fido degli umani di Sfar né delle loro parole, ma ricordo le vostre azioni passate e il rispetto che questo elfo del bosco ha mostrato per le nostre radici. Ascoltate bene ciò che giace sigillato dietro questa roccia."*
+> - **Beiro:** *"Non mi fido degli umani di Hillsfar né delle loro parole, ma ricordo le vostre azioni passate e il rispetto che questo elfo del bosco ha mostrato per le nostre radici. Ascoltate bene ciò che giace sigillato dietro questa roccia."*
 
 ---
 

@@ -10,12 +10,12 @@ Lasciato l'accampamento di Beiro nella foresta di Cormanthor e scortando il pres
 ## ⚔️ Vicende delle Squadre e dei Personaggi
 
 ### 🛡️ Lucio Malaver (Nicola) — *Barbaro / Il Faccia a Faccia con gli Irriducibili*
-All'interno della gremita Locanda del Pellegrino, Lucio si fa largo tra la folla fino a urtare un imponente energumeno a torso nudo: Spezza Ossa. Lo scontro fisico viene prontamente disinnescato dall'arrivo del capo della banda mercenaria degli "Irriducibili", Zarathustra di Chessenta, armato di spadone e scortato da un mago divinatore lucertoloide (Kepes) e da un bardo umano. Zarathustra dimostra di conoscere fin troppo bene le gesta della Compagnia del Tarallo a Thentia e Hillsfar. Nel corso di una tesa conversazione al bancone, Lucio sonda il mercenario chiedendogli una quotazione per rintracciare ed eliminare Aladrix Svart. Quando Zarathustra scrive su una pergamena la vertiginosa cifra di 20.000 monete d'oro, Lucio afferra con disinvoltura il foglio e lo brucia alla fiamma di una candela *(🎲 Intimidire/Interazione sociale)*, chiudendo temporaneamente la contrattazione senza piegarsi al ricatto economico dei mercenari.
+All'interno della gremita Locanda del Pellegrino, Lucio si fa largo tra la folla fino a urtare un imponente energumeno a torso nudo: Spezza Ossa. Lo scontro fisico viene prontamente disinnescato dall'arrivo del capo della banda mercenaria degli "Irriducibili", Zarathustra di Chessenta, armato di spadone e scortato da un mago divinatore lucertoloide (Kepes) e da un bardo umano. Zarathustra dimostra di conoscere fin troppo bene le gesta della Compagnia del Tarallo a Thentia e Hillsfar. Nel corso di una tesa conversazione al bancone, Lucio sonda il mercenario chiedendogli una quotazione per rintracciare ed eliminare Aldrik Svart. Quando Zarathustra scrive su una pergamena la vertiginosa cifra di 20.000 monete d'oro, Lucio afferra con disinvoltura il foglio e lo brucia alla fiamma di una candela *(🎲 Intimidire/Interazione sociale)*, chiudendo temporaneamente la contrattazione senza piegarsi al ricatto economico dei mercenari.
 
-> 💬 **[[01:00:38 - 01:09:15]](https://www.youtube.com/watch?v=fcpmO7T4Tco&t=1h0m38s) — L'Incontro con Zarathustra e la Taglia su Aladrix**
+> 💬 **[[01:00:38 - 01:09:15]](https://www.youtube.com/watch?v=fcpmO7T4Tco&t=1h0m38s) — L'Incontro con Zarathustra e la Taglia su Aldrik**
 >
 > - **Zarathustra:** *"Calma, Spezza Ossa, non vogliamo mica farci riconoscere o creare scompiglio. Tu dovresti essere della Compagnia del Tarallo... anzi, forse ne sei proprio il capo. Oste, una birra per il nostro ospite, pago io."*
-> - **Lucio Malaver:** *"E come fai a conoscere la Compagnia del Tarallo? Se sei così informato, fammi un prezzo per scovare Aladrix Svart."*
+> - **Lucio Malaver:** *"E come fai a conoscere la Compagnia del Tarallo? Se sei così informato, fammi un prezzo per scovare Aldrik Svart."*
 > - **Zarathustra:** *"Questo bersaglio vale moltissimo, Lucio. Non ti chiedo il perché lo cerchi, ma dubito abbiate l'oro necessario. Eccoti la mia cifra."*
 > - **Lucio Malaver:** *(Legge il foglietto recante '20.000 mo' e lo avvicina alla fiamma)* *"Venti-mila... interessante."* *(Guarda la pergamena ridursi in cenere senza battere ciglio).*
 
@@ -53,7 +53,7 @@ Durante il viaggio di ritorno attraverso il Cormanthor, Aerial esamina attentame
 
 ## 🔍 Eventi Chiave, Indizi e Rivelazioni
 - **Mobilitazione Militare:** Hillsfar è sguarnita di truppe regolari poiché la maggior parte delle guardie cittadine è stata reclutata o spedita a rinforzare il fronte nella guerra scoppiata tra Zhentil Keep e Suzail (Cormyr).
-- **Zarathustra e gli Irriducibili:** Fanno la loro comparsa i mercenari capeggiati da Zarathustra di Chessenta, una squadra esperta composta da Spezza Ossa, dal divinatore Kepes e da un bardo. Hanno una vasta rete di informatori e chiedono 20.000 mo per rintracciare Aladrix.
+- **Zarathustra e gli Irriducibili:** Fanno la loro comparsa i mercenari capeggiati da Zarathustra di Chessenta, una squadra esperta composta da Spezza Ossa, dal divinatore Kepes e da un bardo. Hanno una vasta rete di informatori e chiedono 20.000 mo per rintracciare Aldrik.
 - **La Salma Evaporata:** Il cadavere umano di Prometheus si è volatilizzato dall'altare del Tempio di Selûne senza alcun residuo magico tangibile, contemporaneamente alla rivelazione della vasca di Sirio Flint che ne attestava la presenza vivente a Hillsfar.
 - **Il Nuovo Aspetto di Prometheus:** Prometheus cammina in un involucro elfico dai capelli bianchi e occhi neri come la notte, afflitto da un tic cervicale sincronizzato al 17° giro di una clessidra orizzontale da polso.
 
