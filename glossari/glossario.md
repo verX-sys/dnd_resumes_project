@@ -14,32 +14,37 @@ Questa fonte serve come riferimento principale per associare i nomi reali dei gi
 
 ## 🛡️ Membri del Party (PG e Giocatori — La Compagnia del Tarallo)
 
-Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nome di **Compagnia del Tarallo**:
+La **Compagnia del Tarallo** riunisce gli eroi che dal Mare della Luna affrontano le trame della Mano Nera, degli Svart e dei regni belligeranti:
 
 1. **Aerial Aldebaran** (Druido) — Interpretato da **Michele (Mike)**
    * **Classe & Ruolo:** Druido del Circolo della Luna, votato alle metamorfosi titaniche (es. Gorilla Gigante) e al legame mistico con la natura.
-   * **Equipaggiamento Chiave:** *Bastone dell'Estensione* (focus druidico in legno di Banyan con proprietà d'adamantio, forgiato alla Torre dell'Artificio), *Vaso Risvegliante di Terracotta*.
-   * **Trama Personale:** Figlio di Ymeris Aldebaran. Fa da ponte culturale e diplomatico con gli elfi del Cormanthor. È a conoscenza dell'avanzata dei Giganti alleati della Mano Nera a oriente verso il Signore delle Tempeste.
+   * **Poteri & Mutazioni:** Porta i *Tatuaggi Primordiali Linfatici* infusi dall'alchimista Julius, che gli donano un'aura difensiva draconica e la facoltà di dispiegare colossali *Ali di Pipistrello* dalle scapole per volare a velocità vertiginosa (72 m/round).
+   * **Equipaggiamento Chiave:** *Bastone dell'Estensione* (legno di Banyan con anima d'adamantio), *Vaso Risvegliante di Terracotta*.
+   * **Trama Personale:** Figlio di Ymeris Aldebaran. Custode morale del gruppo, scontratosi duramente con il Barone Egon per il destino dei profughi di Sintral dopo la vittoria dell'assedio di Zhentil.
 
 2. **Prometheus** (Mago/Necromante) — Interpretato da **Carlo (Carle)**
-   * **Classe & Ruolo:** Mago specializzato nella scuola della Necromanzia, devoto a Selûne.
-   * **Condizione & Paradosso Corporeo:** Squarciato a morte dall'abominio di Anastrisanna a Myth Drannor, è sopravvissuto per via di un paradosso ontologico: il suo corpo non risultava biologicamente morto per la magia divina. Mentre la sua salma umana è svanita dal tempio di Sirio Flint a Hillsfar, la sua anima è stata trasferita dall'entità oscura **Josafat** nel corpo di un **elfo albino** dagli occhi neri, con un tic al collo scandito ogni 17 rotazioni da una clessidra al polso.
-   * **Equipaggiamento Chiave:** Grimorio necromantico *Il Saggio sulle Anime e la Carne* (con il marchio del Dracolich pulsante di luce viola che funge da faro per Josafat).
+   * **Classe & Ruolo:** Mago specializzato nella scuola della Necromanzia e nella divinazione planare, devoto a Selûne.
+   * **Condizione & Paradosso Corporeo:** La sua anima risiede nel corpo di un **elfo albino** dagli occhi neri, con un tic al collo scandito ogni 17 rotazioni da una clessidra al polso, vincolato dal patto con Josafat.
+   * **Equipaggiamento Chiave:** Grimorio necromantico *Il Saggio sulle Anime e la Carne* (con marchio pulsante del Dracolich), sfera di cristallo per *Scrutare* a distanza interplanare.
+   * **Scoperte Chiave:** Ha localizzato l'assenza di Farmax dal Piano Materiale e la prigione extradimensionale in cui è incatenato l'arciere Sigurd; traccia la rotta verso la metropoli arcana di Akx.
 
 3. **Lucio Malaver** (Barbaro) — Interpretato da **Nicola (Niky)**
-   * **Classe & Ruolo:** Barbaro possente, combattente d'assalto guidato da ira barbarica e furia divina con danni necrotici.
-   * **Nemici & Conflitti:** Bersaglio dell'attenzione di **Aldrik Svart** (signore criminale degli Smart), che intende soggiogarlo e lo considera suo discepolo. A Hillsfar ha sfidato a viso aperto Zarathustra degli Irriducibili ed è entrato in aspro contrasto con Magister Doron Poron e il Marchese per la confisca delle armi.
+   * **Classe & Ruolo:** Barbaro d'assalto guidato da ira barbarica implacabile e furia divina.
+   * **La Piaga Interiore:** Il medico ducale Mentor ha diagnosticato nel suo spirito una presenza immonda, mostruosa e non-umana che si nutre direttamente della sua collera cieca. L'uso estremo di cinque ire consecutive lo espone a collasso sistemico (sfinimento grado 4).
+   * **Nemici & Taglia Continentale:** Oltre all'antico legame con Aldrik Svart, a Westgate una cabala guidata dal nano Kadrit ha posto una taglia enorme sulla sua testa accusandolo formalmente del regicidio del Magister di Hillsfar e della rovina della città.
 
 4. **Rogus Harndrekker** (Chierico) — Interpretato da **Giuseppe (Cici)**
-   * **Classe & Ruolo:** Nano chierico e combattente in prima linea al servizio della fede e dell'onore del gruppo.
-   * **Condizione (Il Morbo Nero):** Contratto da un'antica lama di ferro meteorico, il Morbo Nero è una piaga parassitaria magica che si nutre di impulsi violenti. Nelle foreste di Cormanthor si è rivelato capace di fungere da schermo protettivo per l'oracolo Tiala, oscurando temporaneamente la sua dolorosa visione del fato.
+   * **Classe & Ruolo:** Nano chierico e baluardo spirituale del gruppo; eroe dell'assedio di Zhentil dove ha giustiziato il Mirmidone d'Acqua imperiale con *Infliggi Ferite*.
+   * **Condizione (Il Morbo Nero):** Infettato dal parassita oscuro, dimostra una straordinaria resistenza spirituale che converte l'afflizione in risolutezza.
+   * **Retaggio:** Custodisce i segreti ingegneristici dell'antenato Gorim Harndrekker legati alla macchina d'assedio *Sole Oscuro* e a Westgate; usa il suo potere divino per interrogare i prigionieri distanti e sanare i compagni sul filo della morte.
 
 5. **Rey Sekigan** (Warlock / Spadaccino Arcano) — Interpretato da **Raffaele (Raffa)**
-   * **Classe & Ruolo:** Combattente d'ingegno e carisma, anima propulsiva del nome della *Compagnia del Tarallo*, maestro di deflagrazioni occulte e *Palle di Fuoco*.
-   * **Compagni & Manufatti:** Accompagnato dal famiglio Imp **Link** (in grado di mutare in corvo e volare invisibile). Possiede le *Fasce Metalliche di Bilarro* e ha negoziato l'acquisizione della *Moneta del Drago di Platino* per accedere al mercato astrale di Calamit.
+   * **Classe & Ruolo:** Guerriero carismatico e spadaccino occulto, ideatore del nome della *Compagnia del Tarallo*.
+   * **La Mutazione Demoniaca:** Durante la traversata in mare aperto, ha manifestato una violenta degenerazione immonda: il suo braccio destro si è mutato in un artiglio mostruoso rosso sangue che ha quasi ucciso Lucio inerme in acqua. Sconvolto dalla colpa e dalla paura di perdere il senno, si rifugia temporaneamente nelle ombre ultraterrene.
+   * **Compagni & Manufatti:** Accompagnato dall'Imp **Link**, possiede l'*Anello dell'Inganno* (per schermarsi dalle divinazioni e mutare forma) e le *Fasce Metalliche di Bilarro*.
 
-6. *(Quarion)* (Paladino) — Interpretato da **Francesco**
-   * Paladino devoto alla luce radiosa, compagno d'armi del gruppo nelle prime tappe dell'avventura (Hillsfar e inizio dell'incursione a Myth Drannor).
+6. **Quarion** (Paladino / Barbaro) — Interpretato da **Francesco**
+   * Paladino combattente della luce. Caduto tragicamente il 18 marzo 2024 nei sotterranei di Tilverton per un colpo mortale, è stato resuscitato a Forte Zhentil tramite un diamante ottenuto nel Bazar Mascherato. Decisivo nella difesa dei bastioni grazie al Guardiano della Fede e agli Spiriti di Ysgard; in mare aperto ha salvato la vita a Lucio ripescandolo dalle onde gelide prima che annegasse.
 
 ---
 
@@ -67,6 +72,8 @@ Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nom
 
 ### 🏰 Hillsfar e Fazioni del Moonsea
 * **Robin Stone (Il Marchese di Hillsfar)** (`PNG`): Sovrano illuminato e carismatico di Hillsfar, alleato fedele del Tarallo; caduto da martire sacrificandosi ed erigendo un'aura divina per proteggere il gruppo e i Magister dalla Pioggia di Meteore della Mano Nera *(varianti fonetiche: marchese stone)*.
+* **Mentor** (PNG): Saggio, medico ed erudito di corte di Zhentil Keep al servizio del Barone Christopher Egon; tenta di esaminare la maledizione di Lucio definendolo un immondo privo di umanità *(varianti fonetiche: Mentalias, Mentor)*.
+* **Kadrit** (PNG): Losco emissario e cacciatore di taglie nano operante a Westgate, tra i principali finanziatori della caccia all'uomo contro Lucio Malaver *(varianti fonetiche: Cadril, Cadrit)*.
 * **Christopher Egon (Il Barone)** (PNG): Eminente sovrano e figura di massimo spicco del Mare della Luna; il suo clone mutaforma sottratto all'incubatore di Svart costituisce la prova inconfutabile del complotto eversivo.
 * **Lara Ceci** (PNG): Giovane figlia del nobile Pietro Ceci (affiliato alla Mano Nera), inserita a sorpresa nell'elenco dei nove bersagli designati per la sostituzione da parte degli Svart.
 * **Zarathustra** (`PNG`): Guerriero carismatico di Chessenta con spadone a due mani, supremo comandante della prestigiosa banda mercenaria de "Gli Irriducibili".
@@ -78,10 +85,23 @@ Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nom
 * **Magister Dominick** (`PNG`): Magister di Hillsfar preposto all'organizzazione e disciplina dei Giochi delle Quattro Casate; figura guardata con sospetto dal Marchese per la sua crescente intesa con Torquemada.
 * **Il Marchese di Hillsfar** (`PNG`): Sovrano della città-stato di Hillsfar, guardingo e inflessibile verso gli stranieri in vista dei Giochi delle Quattro Casate.
 * **Thomas Torquemada** (`PNG`): Chierico di Waukeen e dignitario facoltoso proveniente da Zhentil Keep, custode del tempio a Hillsfar e referente locale per il Mercato dei Draghi di Platino (DDP).
+* **Sigurd** (`PNG`): Alto comandante militare ed emissario personale del Barone Christopher Egon di Forte Zhentil; coordina le difese di frontiera e riceve le testimonianze del gruppo sulla cospirazione di Tilverton *(varianti fonetiche: Sigur, Sigurt)*.
+* **Mentalias** (`PNG`): Castellano e consigliere del Barone Christopher Egon a Forte Zhentil; burocrate inflessibile preposto al rispetto della legge e dei protocolli cittadini *(varianti fonetiche: Mental, Mentalias)*.
+* **Generale Thoret** (`PNG`): Comandante supremo dell'armata imperiale di Suzail (Cormyr) stanziata a Tilverton; invia un rigido ultimatum a Forte Zhentil minacciando l'invasione con 10.000 uomini *(varianti fonetiche: Thoret, Toret)*.
+* **Kion (Kyon)** (`PNG`): Ufficiale analista e braccio destro di Thoret; esamina i documenti drow della Compagnia del Tarallo ma sostiene le richieste di sottomissione di Suzail.
 * **Miguel il Tessitore** (`PNG`): Maestro sarto e tessitore di Hillsfar Bassa (Bottega n. 2), esperto delle rotte e leggende del Mare della Luna, custode delle mappe verso la campana sommersa del Marid.
 * **Duca Rido (il Marid di Hillsfar)** (`PNG / Entità`): Antico genio nobile del Piano Elementare dell'Acqua insediatosi sotto Hillsfar Bassa in devozione a Selûne. Alimenta le acque curative del Nosocomio cittadino e custodisce un laboratorio segreto dove trasmuta cadaveri umani cedutigli da Aldrik Svart in mutaforma marini *(varianti fonetiche: Rido, Ridodà, il Marit)*.
 * **Peppino il Morcote** (`PNG / Aberrazione`): Bizzarra e letale aberrazione marina (ibrido tra pesce, polpo e uccello) con immensi poteri psionici e collezionista compulsivo di reliquie; insediatosi nella cupola ermetica del campanile sommerso di Belling Deep, annientato dal gruppo dopo essersi rifiutato di cedere la Tela del Marid *(varianti fonetiche: Morcot, Morcote)*.
 * **Josafat** (`PNG / Antagonista`): Oscura nemesi demoniaca alata e alter-ego di Prometheus, collegato al simbolo del Dracolich; ha reclamato il controllo sul destino del necromante imprigionandolo in un corpo elfico.
+
+### 🕳️ Underdark (Sottosuolo) e Tilverton
+* **Varis** (`PNG / Antagonista`): Spietato e gelido arcimago Drow alla guida della roccaforte sotterranea; sottopone la sorella Faral a sperimentazioni chimiche per vincolare il potere della sfera radiosa ed espandere le conquiste della Mano Nera.
+* **Faral la Drider** (`PNG`): Principessa Drow tramutata da Lolth in Drider per essersi ribellata ai massacri dei fratelli; il suo sangue alimenta la sfera della torre.
+* **Gorim Harndrekker** (`PNG`): Oscuro e geniale ingegnere bellico della casata nanica di Rogus, ideatore del colosso d'assedio "L'Impeto del Sole Oscuro" conservato negli archivi Drow.
+* **Lucan** (`PNG`): Fratello drow di Faral, Varis e Ilian; guardiano corazzato e balestriere d'assalto, fanatico esecutore dei disegni di Lolth a presidio del faro ipogeo *(varianti fonetiche: Luan)*.
+* **Ilian** (`PNG`): Sorella drow di Faral, Varis e Lucan; potente incantatrice devota a Lolth, padroneggia i flussi della Sfera di En ed è capace di forzare le mutazioni mostruose sul sangue della sorella *(varianti fonetiche: Iran, Ileran)*.
+* **Farmax** (`PNG`): Drow errante e collezionista senza casata incontrato nell'Underdark; ricompare in superficie come letale campione mercenario al soldo del generale Thoret di Suzail, affrontando Aerial nel duello rituale sotto le mura di Forte Zhentil *(varianti fonetiche: Farmina)*.
+
 
 ---
 
@@ -96,7 +116,7 @@ Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nom
   * *L'Accademia Elfica:* Depositi di minerali, biblioteche e laboratori segreti (incluso quello di Anastrisanna).
   * *La Cattedrale / Mansarda:* Teatro dell'assedio finale contro l'abominio di Anastrisanna, scoperchiata dalle palle di fuoco.
 * **Tilverton**: Antica città del Cormyr, saccheggiata in segreto dagli Elfi della Pietra di Myth Drannor e in seguito ridotta a terra desolata e arcanamente instabile dopo la contesa del Raritarium tra Zhentil Keep e Suzail.
-* **Forte Zhentil (Zhentil Keep)**: Formidabile città-fortezza portuale sul Mare della Luna e base di potere del Barone Christopher Egon; destinazione dell'esodo dei profughi di Hillsfar. Comprende il monumentale *Porto dei Draghi Lunari*, il *Tempio Perlaceo* di Torquemada, la *Fontana del Ristoro* e lo *Specchio della Realtà*.
+* **Forte Zhentil (Zhentil Keep)**: Formidabile città-fortezza portuale sul Mare della Luna e base di potere del Barone Christopher Egon; destinazione dell'esodo dei profughi di Hillsfar. Comprende il monumentale *Porto dei Draghi Lunari*, il *Tempio Perlaceo* di Torquemada, il *Bazar Mascherato* sotterraneo per il commercio occulto, la *Fontana del Ristoro* e lo *Specchio della Realtà*.
 * **Hillsfar**: Città-stato strategica sulle sponde del Moonsea:
   * *Hillsfar Alta:* Sede del Palazzo del Marchese, delle casate nobiliari e della Scuola di Magia; protetta dal perimetro antimagia di Doron Poron.
   * *Hillsfar Bassa:* Città portuale e commerciale comprendente la Locanda del Pellegrino, il Tempio di Selûne, la Chiesa di Waukeen e il Nosocomio.
@@ -108,6 +128,8 @@ Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nom
 * **Calamit**: Città fantasma ed errante situata sul Piano Astrale, sede del clandestino Mercato dei Draghi di Platino (DDP).
 * **Semipiano di Sonal**: Dimensione planare artificiale creata dai Magister di Hillsfar (Leicester il Grigio e Mia Joy) per ospitare le quattro tappe estreme dei Giochi delle Quattro Casate (Arcadia, Limbo, Pandemonio e Abisso).
 * **Taverna del Revenant e Incubatore Sotterraneo**: Malfamata locanda di Hillsfar Bassa, facciata pubblica delle operazioni criminali di Aldrik Svart. Nei suoi sotterranei si cela un dedalo sorvegliato da sentinelle cristalline incorporee e una titanica biosfera acquatica sospesa ('Incubatore della Congiura del Mare') con 9 postazioni di gestazione per cloni mutaforma.
+* **Yuwood**: Antica e fitta regione boschiva orientale, bersaglio designato delle mire espansionistiche Drow.
+* **Veller Printler (Avern Pintler)**: Roccaforte e territorio boschivo degli elfi silvani cacciatori di Drow.
 
 ---
 
@@ -175,3 +197,41 @@ Durante il 2022, i personaggi affrontano uniti le vicende del mondo sotto il nom
 * **Eferil (Eil)** (`PNG`): Figlio illegittimo di Reardon e scout fidato del clan di Mendartis; guida il gruppo tra le insidie del fiume sotterraneo e fornisce la via d'accesso subacquea alle cantine della torre *(varianti fonetiche: eil, eferil)*.
 * **Sussur (Minerale/Legno dell'Underdark)** (`Fazione/Terminologia`): Rara risorsa magica del Sottosuolo dotata di proprietà antimagiche e assorbenti, impiegata nelle fornaci della torre insieme al Raritarium per alimentare armi e corazze meccaniche d'avanguardia *(varianti fonetiche: sursur)*.
 * **La Torre a Sei Piani dell'Underdark** (`Luogo`): Imponente roccaforte sotterranea eretta sopra una forra fluviale acida, sormontata dalla sfera magica radiosa che proietta luce e campi di dominazione mentale sulla superficie di Tilverton.
+* **Akx**: Leggendaria e inaccessibile città-stato degli arcimaghi e del sapere proibito situata oltre il Mare delle Stelle Cadute; protetta da severe tasse d'ingresso in manufatti rari o segreti arcani *(varianti fonetiche: Acx, Ax)*.
+* **Simbar**: Porto commerciale e snodo marittimo strategico sul Mare delle Stelle Cadute, principale punto d'imbarco per raggiungere Akx.
+* **Montagne Dragonspine** (`Luogo`): Aspra catena montuosa a nord del Mare della Luna; segna l'approdo all'aria aperta della Compagnia del Tarallo al termine delle gallerie e delle antiche miniere dell'Underdark.
+* **Campo delle Ossa delle Profondità** (`Luogo`): Vasta piana sotterranea pervasa da nebbia spettrale e silenzio tombale; antico campo di battaglia tra casate drow e mostri ipogei cosparso di scheletri e armi arrugginite.
+
+* **Spada Solare di Lucan** (`Oggetto/Reliquia`): Spada leggendaria del drow Lucan; sprigiona 3d6 radiosi e 3d6 da tuono sotto la luce solare, genera sfere di luce magica ed emette dardi traccianti come azione bonus.
+* **Scudo Boomerang** (`Oggetto/Reliquia`): Scudo da lancio metallico capace di incapacitare bersagli a distanza e tornare dall'utilizzatore.
+* **Membrana d'Argento Organica** (`Oggetto/Reliquia`): Reperto rinvenuto tra le radici necrotiche del sottosuolo; flessibile come stoffa ma dall'aspetto metallico argenteo e gelido al tatto.
+* **Anello dell'Inganno** (`Oggetto/Reliquia`): Manufatto leggendario che scherma l'utilizzatore da qualsiasi divinazione, localizzazione o sottomissione mentale, a patto di risiedere su un piano diverso da quello dello scrutatore.
+* **Imbarcazione del Tarallo** (Oggetto / Reliquia): Nave d'altura modulare concessa e armata a Forte Zhentil per consentire alla Compagnia del Tarallo di attraversare il Mare della Luna e raggiungere le rotte orientali di Simbar.
+* **Prigione Extradimensionale di Sigurd** (Oggetto/Reliquia): Manufatto sagomato a forma di pietra runica in grado di trattenere un prigioniero in stasi nel vuoto di una tasca dimensionale sul Piano Materiale.
+* **Lancia Cristallina da Assedio** (`Oggetto/Reliquia`): Congegno difensivo montato sui bastioni di Forte Zhentil in grado di canalizzare slot di incantesimo in devastanti raggi prismatici.
+* **Mortaio da Fortezza di Zhentil** (`Oggetto/Reliquia`): Pezzo d'artiglieria pesante impiegato per il tiro parabolico di colpi esplosivi dall'alto delle mura.
+* **Adan Rug** (`PNG`): Antico fondatore della fucina del clan Drow, commemorato nella torre con una statua votiva e un'iscrizione legata alla prima fiamma dell'orgoglio elfico.
+* **Reiner** (`PNG`): Sergente capo della pattuglia di guardia dei piani intermedi della torre, sgozzato da Lucio durante l'infiltrazione.
+* **La Frantumazione dei Prismi di En** (`Fazione/Terminologia`): Manovra tattica ideata dalla Compagnia del Tarallo che ha consentito di disinnescare la Sfera di En e salvare la drider Faral mediante la distruzione fisica dei prismi specchiati anziché attraverso l'eccidio dei custodi vincolati.
+* **Carne di Catoblepas** (`Fazione/Terminologia`): Pregiata pietanza ricavata dalla selvaggina mostruosa dell'Underdark, consumata dagli esploratori e dai reietti delle profondità come fonte di sostentamento energetico.
+* **Radici Necrotiche dell'Underdark** (`Fazione/Terminologia`): Fitto intreccio di rampicanti carnosi e radici sotterranee infestate da cadaveri umanoidi capaci di afferrare e risucchiare nel fango le creature viventi.
+* **Camminare nel Vento (Wind Walk)** (`Fazione/Terminologia`): Potente incantesimo druidico di 6° livello che dissolve fino a dieci creature consenzienti in nubi nebbiose ad altissima velocità di volo (90 metri a round per 8 ore).
+* **Julius (Maestro Occultista Tabaxi)** (`PNG`): Ex Gran Cavaliere e alchimista della Casata Grant a Hillsfar, rifugiatosi a Forte Zhentil per approfondire le arti dell'inganno e i rituali primordiali; artefice dei tatuaggi organici di Aerial *(varianti fonetiche: Julius)*.
+* **Maestro del Tempio Perlaceo** (`PNG`): Saggio incantatore e monaco in perenne levitazione all'interno della camera asettica del tempio di Waukeen; mette alla prova la lucidità spirituale dei supplicanti prima di concedere udienza.
+* **Bazar Mascherato di Forte Zhentil** (`Luogo`): Mercato nero sotterraneo custodito sotto il Tempio Perlaceo di Torquemada, accessibile solo a volti coperti da maschere; fulcro di traffici occulti, schiavitù e compravendita di reliquie e gemme rare.
+* **Aura Protettiva Draconica** (`Fazione/Terminologia`): Scudo istintivo scaturito dalla fusione tra i tatuaggi linfatici e l'organismo di Aerial, capace di respingere fisicamente con energia draconica chiunque tenti di interferire con la metamorfosi.
+* **Mercante Nano del Tempio Perlaceo** (`PNG`): Astuto ricettatore e mediatore di informazioni operante nel Bazar Mascherato di Zhentil Keep; vanta legami clandestini con Aldrik Svart e il sindacato dei contrabbandieri del Moonsea.
+* **I Tributi di Carne Planari** (`Fazione/Terminologia`): Macabre clausole contrattuali imposte da mercanti extraplanari del mercato nero di Zhentil che esigono organi o fluidi biologici da creature viventi come prezzo per reliquie leggendarie.
+* **L'Ultimatum dei Diecimila di Suzail** (`Fazione/Terminologia`): Minaccia di invasione militare mossa dal contingente imperiale del Cormyr contro Forte Zhentil a meno di una totale subordinazione economica e politica della città-fortezza.
+* **Il Duello dei Campioni di Zhentil** (`Fazione/Terminologia`): Tenzone rituale disputata sotto le mura di Forte Zhentil tra Aerial Aldebaran e il drow Farmax per decidere le sorti della guerra tra Suzail e Zhentil Keep prima dello scoppio dell'assedio.
+* **I Carri Telati della Mano Nera** (`Fazione/Terminologia`): Carri d'assedio pesanti impiegati dall'avanguardia di Suzail, celanti mostruosità aberranti e costrutti drow a riprova dell'infiltrazione dei cultisti nell'esercito del Cormyr.
+* **Incursori su Ippogrifo di Suzail** (`Fazione/Terminologia`): Cavalleria aerea d'élite dell'esercito imperiale del Cormyr, impiegata per ricognizioni a lungo raggio, supporto con archi compositi e assalti verticali sulle merlature.
+* **La Difesa della Breccia Sinistra** (`Fazione/Terminologia`): Episodio cruciale dell'assedio di Forte Zhentil in cui la combinazione di olio infuocato, nubi chimiche e Guardiano della Fede ha impedito lo sfondamento imperiale.
+* **Innesco delle Cariche Piriche di Suzail** (`Fazione/Terminologia`): Meccanismo d'accensione a tempo impiegato dai genieri cormyriani durante l'assedio per coordinare le esplosioni contro le mura con l'avanzata delle truppe di sfondamento.
+* **Conto alla Rovescia della Breccia** (`Fazione/Terminologia`): Momento di massima tensione dell'assedio di Forte Zhentil in cui la compagnia ha dovuto gestire l'eliminazione dei plotoni nemici con l'imminente scoppio delle polveri alla base dei bastioni.
+* **Cavalieri di Grifone di Suzail** (`Fazione/Terminologia`): Unità d'assalto aereo pesante del Cormyr capaci di compiere picchiate sismiche per travolgere i difensori e atterrarli sulle merlature.
+* **Guerrieri Scelti di Ysgard** (`Fazione/Terminologia`): Spiriti combattenti immortali del Piano Eroico di Ysgard evocati sul campo di battaglia da Quarion per contrastare l'avanzata delle truppe imperiali.
+* **Velocità Primordiale (Ali di Pipistrello)** (`Fazione/Terminologia`): Abilità biologica atavica scaturita dai tatuaggi linfatici di Aerial, capace di far germogliare ali giganti dalle scapole per garantire un volo fulmineo di 72 metri al round.
+* **Sintral** (`Luogo`): Città secondaria del territorio del Moonsea evacuata e ridotta a rovina durante i prodromi della guerra tra Suzail e Forte Zhentil, oggetto di aspra contesa etica tra Aerial e il Barone Egon.
+* **La Vittoria dell'Assedio di Forte Zhentil** (`Fazione/Terminologia`): Trionfo campale e difensivo che ha visto la Compagnia del Tarallo respingere diecimila soldati imperiali di Suzail salvaguardando l'indipendenza della fortezza del Mare della Luna.
+* **La Mutazione Artigliata di Rey** (`Fazione/Terminologia`): Tratto sovrannaturale e abissale manifestatosi sul braccio destro di Rey Sekigan; ingigantisce l'arto tingendolo di cremisi e armandolo di artigli demoniaci in grado di lacerare mortalmente la carne dei compagni.
