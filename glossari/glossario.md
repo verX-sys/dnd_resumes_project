@@ -3,7 +3,10 @@
 Questa fonte serve come riferimento principale per associare i nomi reali dei giocatori sentiti nelle trascrizioni di YouTube ai rispettivi Personaggi Giocanti (PG), ai PNG, alle fazioni e ai luoghi storici della campagna.
 
 > 📚 **Archivio Cronologico Annuale:**
-> - **[`glossario_2022.md`](./glossario_2022.md)**: Cronologia dettagliata di tutte le scoperte, voci ed eventi emersi nelle sessioni del **2022** (da Luglio a Dicembre 2022).
+> - **[`glossario_2022.md`](./glossario_2022.md)**: Cronologia dettagliata delle sessioni del **2022** (da Luglio a Dicembre 2022).
+> - **[`glossario_2023.md`](./glossario_2023.md)**: Cronologia dettagliata delle sessioni del **2023** (da Gennaio a Dicembre 2023).
+> - **[`glossario_2024.md`](./glossario_2024.md)**: Cronologia dettagliata delle sessioni del **2024** (da Gennaio a Dicembre 2024).
+> - **[`glossario_2025.md`](./glossario_2025.md)**: Cronologia dettagliata delle sessioni del **2025** (da Gennaio a Dicembre 2025).
 
 ---
 
@@ -117,9 +120,43 @@ La **Compagnia del Tarallo** riunisce gli eroi che dal Mare della Luna affrontan
 * **Farminax (Farmax)** (`PNG`): Drow errante e collezionista senza casata incontrato nell'Underdark; ricompare in superficie come letale campione mercenario al soldo del generale Thoret di Suzail, affrontando Aerial nel duello rituale sotto le mura di Forte Zhentil *(varianti fonetiche: Farmina, Farminax, Farmax)*.
 * **Gorim Harndrekker** (`PNG`): Oscuro e geniale ingegnere bellico della casata nanica di Rogus, ideatore del colosso d'assedio "L'Impeto del Sole Oscuro" conservato negli archivi Drow.
 
+### 🌊 Mare delle Stelle Cadute, Simbar e Akanax
+* **Blad Baltimore** (`PNG`): Governatore militare, capitano e capo indiscusso della città portuale di Simbar *(varianti fonetiche: Blast, Blad, Baltimore)*.
+* **Kai** (`PNG`): Erudito ed emissario radiato dalla città arcana di Akanax, rifugiatosi a Simbar; contatto designato dal Barone Egon per condurre la Compagnia del Tarallo ad Akanax *(varianti fonetiche: Kai, Kay)*.
+* **Flix** (`PNG`): Bizzarro e sfrontato gnomo ladruncolo e informatore dei pirati nel Mare delle Stelle Cadute; precipitato sulla nave del Tarallo dopo essere stato sparato da un cannone da Simbar per scommesse perse col Conte Nox *(varianti fonetiche: Flix, Flixbus)*.
+* **Conte Nox** (`PNG`): Nobile e allibratore di bische clandestine e scommesse operante a Simbar *(varianti fonetiche: Nox, Noxe)*.
+* **Merana** (`PNG`): Mercenaria e furba ostessa della Taverna del Maglio nel Ghetto di Simbar; dedita alla vendita di informazioni e a patti sottobanco con ricattatori *(varianti fonetiche: Merana, Menara, Marina)*.
+* **Moonshade Lariel** (`PNG`): Elfo informatore aristocratico del Ghetto sud di Simbar; risiede in una dimora arborea protetta da magie di abiurazione, allarmi divinatori nella chioma e dal guardiano Tino *(varianti fonetiche: monade, mun shade, lariel)*.
+* **Tino** (`PNG`): Omino guardiano di marzapane vivente al servizio di Moonshade Lariel; produce succhi alchemici frizzanti ed è in grado di possedere e controllare il corpo di chi lo ingerisce finché non viene espulso con la forza *(varianti fonetiche: biscottino, omino di zenzero)*.
+* **Zevran Ashwell** (`PNG`): Capitano marittimo/pirata di rilievo nelle cronache di Simbar, oggetto di un'informativa segreta per i suoi recenti patti con una ciurma pirata di sole quattro persone *(varianti fonetiche: zebran ashville, zevran ashvale, ashwell)*.
+* **Borin Thorn** (`PNG`): Umano informatore del settore ovest di Simbar; proprietario di una torre apparentemente disabitata e decadente ma celata da potenti illusioni, appunti crittografici e trappole soporifere *(varianti fonetiche: Torin, Thorn, Borin)*.
+* **Lady Valiria Maeltas (Vaelira)** (`PNG`): Nobile dama di spicco della casata Maeltas a Simbar e della Forgia Arcana, destinataria della pregiata bottiglia di vino e di carichi speciali dalla madrepatria di Alagon *(varianti fonetiche: va elira, Vaelira, Lady Valiria, Valeria Meltas)*.
+* **Cliff** (`PNG`): Rigido, meticoloso e scorbutico contabile del porto della casata Ashwell a Simbar; custode dei registri delle merci in arrivo e delle tratte con Alagon *(varianti fonetiche: Cliff, Criff)*.
+* **Pep e Phil** (`PNG`): Marinai mercantili sottopagati operanti sulle rotte insulari della casata Ashwell; reclutati dalla Compagnia del Tarallo per sottrarre i registri riservati delle spedizioni *(varianti fonetiche: Pep, Phil, Filippo)*.
+* **Vogart** (`PNG`): Vecchio alchimista e informatore dragonide del settore nord di Simbar; ucciso in un'esplosione che ha disintegrato la sua abitazione prima dell'arrivo del gruppo *(varianti fonetiche: Brogar, Vogar, Vogart)*.
+* **Nicola di Rotary** (`PNG`): Bizzarro sarto e mercante del Ghetto di Simbar; proprietario della "Bottega di Rotary", celebre per i tentativi di vendere vesti fluttuanti a prezzi esorbitanti *(varianti fonetiche: Nicola di Rotter, Nicola di Rotary)*.
+* **Lord Marlich Arcantis** (`PNG`): Eminente arcanista, patriarca e fondatore del Teatro della Trama di Simbar; presiede le cerimonie e i tornei magici dell'Arca *(varianti fonetiche: malrick, marlich arcantis, marlik)*.
+* **Leida** (`PNG`): Micidiale cacciatore di taglie monocolo armato di due spade ed ex commilitone de "Gli Irriducibili" nel Mare della Luna; giunto a Simbar seguendo le taglie di Westgate e ingaggiato da Nivara Erindor; ucciso da Quarion durante una colluttazione all'interno di un Trucco della Corda *(varianti fonetiche: Leida, Leda, Leila)*.
+* **Alta Guardia della Corona di Simbar** (`Fazione/Terminologia`): Corpo militare d'élite al servizio diretto dei sovrani di Simbar, riconoscibile dall'emblema del Serpente-Drago di Platino e composto da guerrieri scelti e mezze creature come i mezzi giganti *(varianti fonetiche: alta guardia reale)*.
+* **Nivara Erindor (L'Occhio Blu Glaciale)** (`PNG`): Nobile e autorevole magistrato di Simbar dagli occhi blu glaciali, responsabile della sicurezza esterna e delle relazioni con le potenze estere; comunica tramite specchi incantati e ha ingaggiato Leida per sradicare quella che riteneva una cellula della Mano Nera *(varianti fonetiche: nivara erindor, niri erindor, occhio blu)*.
+* **Lorendas Squire ("Filiberto")** (`PNG`): Illustre arcanista alato di stirpe tiefling della Corona di Simbar a cui Kai fa rapporto regolarmente; vigila sui cieli notturni armato d'arco e costituisce il tramite designato per ottenere udienza presso Silara *(varianti fonetiche: lauren das squir, lorendas squire, filiberto)*.
+* **Silara Starforge** (`PNG`): Rigida, colta ed elegante maga elfa bionda con occhiali da vista; discepola diretta di Cael Veridian e arcanista diplomatica incaricata di selezionare doni e credenziali per l'accesso a Caderish *(varianti fonetiche: silara, silara starforge)*.
+* **Tarrick Moonblade ("Il Cavaliere Gemmato")** (`PNG`): Eminente e stravagante arcanista della Corona di Simbar membro del consiglio dei cinque, inventore di tecnologia magica d'avanguardia. Indossa un caratteristico elmo sferico rotante di vetro ("la sfera") che gli garantisce visione del magico, vista estesa e percezione dell'invisibile; parla con voce modulata ed è profondamente fiero delle sue creazioni *(varianti fonetiche: Tarik Moonblade, Talrik, Tallrik)*.
+* **Cael Veridian (Araldo del Nexus)** (`PNG`): Supremo governante della città di Simbar residente nel Palazzo dell'Araldo, insignito del titolo onorifico di Ottavo Saggio con poteri pari ai sette Antichi Saggi di Caderish. Potentissimo mago e Araldo del Nexus (l'Ottavo Saggio), figura apicale della Corona di Simbar custode dell'equilibrio cosmico tra i portali del Nexus e le divinità; si manifesta spesso come un ragazzo biondo con vesti logore e copie eteree *(varianti fonetiche: Kael Veridian, El Veridian, Kel Veridian, araldo del nexus, araldo del nessus)*. 
+* **Luspa ("Nikla") Ashvale** (`PNG`): Giovane alchimista umana della casata Ashvale, nipote del capitano Zevran. Stringe un patto con Rogus per fuggire via mare in cambio della rotta segreta per Akanax *(varianti fonetiche: Luspa, Nikla, Lucilla)*.
+* **Darion Emberfall** (`PNG`): Rozzo, sfrontato ma esperto nano chierico di Mystra a Porto Corona. Sfoggia un monocolo, dente d'oro e catena con simbolo sacro al braccio; profondo conoscitore della carpenteria navale, del mare e del Linde *(varianti fonetiche: Dario Amberfall, Emberfall)*.
+* **Artorias** (`PNG`): Leggendario guerriero o creatura semidivina protettrice delle gelide terre del nordest; imbattuto in battaglia, è l'obiettivo del viaggio di Nemeria ed Egon *(varianti fonetiche: Artorias, Artoria)*.
+* **Gioela (Joela) & Giulia** (`PNG`): Arcaniste fuggitive un tempo legate a Lorendas Squire e Olafis sotto un comune signore; Gioela ha stretto patti occulti con Lucio scambiando informazioni per la Sfera di Lolth *(varianti fonetiche: Gioela, Joela, Giulia, Giuglia)*.
+* **Mastro Joseph** (`PNG`): Fabbro e docente nella stanza 117 della Forgia Arcana, specializzato nell'addestramento alla forgiatura e nello smantellamento di armature esotiche *(varianti fonetiche: Mastro Josef)*.
+* **Salazar (Torquemada)** (`PNG / Fazione`): Leggendaria e terrificante figura accusata della distruzione di un'intera metropoli nel deserto del Thay, bersaglio di una taglia record da 100.000 monete d'oro a Westgate *(varianti fonetiche: Salazar, Torchemada)*.
+* **Cassius Orlant** (`PNG`): Sacerdote e bibliotecario di Caderish, coinvolto in antichi riti con Borin Thorn sulla Via del Sapiente *(varianti fonetiche: Cassius Orland, Casius)*.
+* **Tarion** (`PNG`): Misterioso arcanista associato ai rituali di Borin Thorn e Cassius Orlant *(varianti fonetiche: Tarion, Starion)*.
+* **Lance Careldon** (`PNG`): Aristocratico di Alagon, fornitore di carichi di Aurvis e metalli speciali per la Forgia Arcana di Simbar *(varianti fonetiche: Lance Careldon, Carendon)*.
+
 ### 🌌 Entità Sovrannaturali, Piani e Antagonisti Maggiori
 * **Josafat** (`PNG / Antagonista`): Oscura nemesi demoniaca alata e alter-ego di Prometheus, collegato al simbolo del Dracolich; ha reclamato il controllo sul destino del necromante imprigionandolo in un corpo elfico.
 * **Signore delle Tempeste** (`PNG / Entità`): Potente entità sovrannaturale situata nelle regioni orientali, assoggettata e piegata al volere della Mano Nera e dei Giganti.
+* **Botabar Scrov** (`PNG / Entità`): Voce oscura e implacabile manifestatasi nei recessi mentali di Rogus durante la trance del Morbo Nero; predica l'odio contro gli dei e la ribellione spirituale *(varianti fonetiche: Botabar Scrov, Botabar)*.
 
 ---
 
@@ -151,9 +188,33 @@ La **Compagnia del Tarallo** riunisce gli eroi che dal Mare della Luna affrontan
 * **Zhentil Keep (Forte Zhentil)**: Formidabile città-fortezza portuale sul Mare della Luna e base di potere del Barone Christopher Egon; destinazione dell'esodo dei profughi di Hillsfar. Comprende il monumentale *Porto dei Draghi Lunari*, il *Tempio Perlaceo* di Torquemada, la *Fontana del Ristoro* e lo *Specchio della Realtà*.
 * **Bazar Mascherato di Forte Zhentil**: Mercato nero sotterraneo custodito sotto il Tempio Perlaceo di Torquemada, accessibile solo a volti coperti da maschere; fulcro di traffici occulti, schiavitù e compravendita di reliquie e gemme rare.
 * **Sintral**: Città secondaria del territorio del Moonsea evacuata e ridotta a rovina durante i prodromi della guerra tra Suzail e Forte Zhentil, oggetto di aspra contesa etica tra Aerial e il Barone Egon.
-* **Simbar**: Porto commerciale e snodo marittimo strategico sul Mare delle Stelle Cadute, principale punto d'imbarco per raggiungere Akanax.
-* **Akanax**: Leggendaria e inaccessibile città-stato degli arcimaghi e del sapere proibito situata oltre il Mare delle Stelle Cadute; protetta da severe tasse d'ingresso in manufatti rari o segreti arcani *(varianti fonetiche: Akx, Acx, Ax)*.
 * **Deserto degli Infiniti Resti**: Letale e sterminata regione desertica orientale, cimitero di antichi regni e luogo in cui è scomparso il cavaliere Artorius.
+* **Ordulin** (`Luogo`): Importante città continentale dell'entroterra a nord priva di sbocchi sul mare, nota nelle rotte commerciali per le imponenti mura e il traffico di polveri alchemiche e manufatti *(varianti fonetiche: Ordulin, Hordulin)*.
+
+### 🌊 Mare delle Stelle Cadute, Simbar e Akanax
+* **Simbar**: Porto commerciale e snodo marittimo strategico sul Mare delle Stelle Cadute, diviso tra la Città Bassa (**Il Ghetto**) e la rocca arroccata (**La Corona**).
+* **La Corona di Simbar**: Quartiere nobiliare blindato arroccato sul promontorio a picco sul mare, accessibile solo tramite passpartout, incarichi per patrizi o biglietti per gli eventi del Teatro della Trama.
+* **Il Ghetto di Simbar**: Vasto quartiere popolare costiero abitato da artigiani e pescatori che usano la magia per mestieri quotidiani, costantemente sorvegliato da globi rossi fluttuanti.
+* **Taverna del Maglio**: Locanda a due piani in legno e ferro nel Ghetto di Simbar, con fondamenta fluttuanti, stalle e insegne magiche luminose.
+* **Taverna dell'Unicorno** (`Luogo`): Taverna della città di Simbar situata nei pressi della radura degli alberi Norion, scelta come punto di ritrovo da Leida *(varianti fonetiche: taverna unicorno)*.
+* **Taverna del Granchio** (`Luogo`): Locanda appartata e tranquilla della Corona di Simbar, situata sopra gli alberi Norion, scelta da Kai come punto di ritrovo sicuro per la Compagnia del Tarallo *(varianti fonetiche: taverna del granchio)*.
+* **Il Norion (Tessuto della Trama)** (`Luogo / Fazione`): Pavimentazione scura e viva che riveste le strade della Corona di Simbar; funge da catalizzatore della Trama per il teletrasporto rapido delle Sentinelle e la protezione occulta della città *(varianti fonetiche: norion)*.
+* **Teatro della Trama**: Complesso monumentale nella Corona di Simbar dedicato all'eccellenza magica e fondato da Lord Marlich Arcantis; comprende l'anfiteatro **L'Arca** e 10 torri dedicate alle otto scuole canoniche di magia e ai poli di Luce e Ombra.
+* **Porto Corona**: Il maestoso porto terrazzato della città alta di Simbar, solcato da cascate artificiali che fungono da elevatori per le navi dotate di fornaci magiche *(varianti fonetiche: porto corona)*.
+* **Isole Mistiche**: Arcipelago di isole ghiacciate su cui sorgono le caratteristiche torri-trullo della nobile casata Ashvale, fulcro dei cantieri e delle spedizioni marittime della Corona *(varianti fonetiche: isole mistiche)*.
+* **La Forgia Arcana (Complesso Maelas)** (`Luogo`): Imponente centro di ricerca metallurgica e magica su due livelli dominato da un calderone colossale, celebre per la manipolazione del Raritanium e la creazione di costrutti e oggetti meravigliosi *(varianti fonetiche: forgia arcana)*.
+* **Palazzo dell'Araldo**: Roccaforte cubica priva di ingressi visibili situata al centro della Corona di Simbar, le cui mura mutaforma si aprono ad attivazione vocale; ospita la Galleria dei Piani, la Camera degli Specchi (che non riflettono i viventi ma l'Araldo) e il Trono di Cael Veridian sopra il cristallo del Piano Materiale.
+* **Il Nexus Planare** (`Luogo / Fazione`): Punto nodale di convergenza cosmica situato nel Palazzo dell'Araldo di Simbar, in cui convergono i portali diretti per tutti i Piani Elementali, Superiori e Inferiori sotto la custodia neutrale di Cael Veridian al servizio di tutte le divinità.
+* **Taverna del Pellicano** (`Luogo`): Locanda situata nella Corona di Simbar tra la Bilancia di Mystra e il Palazzo dell'Araldo, gestita dall'oste Mario; rifugio ordinato per studiosi dove la Compagnia del Tarallo prende alloggio *(varianti fonetiche: taverna del pelicano, taverna del pellicano)*.
+* **Bilancia di Mystra** (`Luogo`): Santuario oracolare situato nella Corona di Simbar nei pressi della Taverna del Pellicano, custodito da tre sacerdotesse della Trama dedicate alla divinazione assoluta del passato, presente e futuro *(varianti fonetiche: bilancia di mistra)*.
+* **Akanax**: Leggendaria e inaccessibile città-stato degli arcimaghi e del sapere proibito situata oltre il Mare delle Stelle Cadute *(varianti fonetiche: Akx, Acx, Ax)*.
+* **Akemex**: Cittadina montuosa situata ai piedi dell'imponente ghiacciaio che sovrasta l'accademia di Caderish, caratterizzata da clima rigido mitigato dalle magie atmosferiche dei saggi *(varianti fonetiche: Akemex, Akemecs)*.
+* **Sunenar**: Città continentale segnalata al bivio all'imbocco della Via del Sapiente, da cui provengono recenti tracce di carovane e viaggiatori armati *(varianti fonetiche: Sunenar, Sunenhar)*.
+* **Cattedrale di Caderish (Caderish / Scuola di Akanax)**: Prestigiosa accademia superiore di magia di Akanax; da 7-8 mesi isolata da un misterioso massacro di novizi lungo la via montuosa da Simbar *(varianti fonetiche: kadris, kadlish, cattedrale di acx)*.
+* **La Via del Sapiente**: L'antico e ripido sentiero montano che collega Simbar alla Cattedrale di Caderish e ad Akanax; costellato da antichi rifugi in pietra nera, prove magiche per novizi e presenze selvagge *(varianti fonetiche: via del sapiente)*.
+* **Enigma del Baratro**: Prima delle cinque prove lasciate dai saggi lungo la Via del Sapiente; consiste in una voragine di 9 metri con gravità intensificata sorvegliata dall'albero delle mele d'argento e delle quattro stagioni *(varianti fonetiche: enigma del baratro)*.
+* **Laghetto dei Magi (Seconda Prova — La Cascata)**: Bacino lacustre di 36 metri situato sotto una cascata di 18 metri lungo la Via del Sapiente; protetto da *Vincolo della Terra*, ospita l'enigma dei passi sulle rocce per raggiungere la seconda gemma *(varianti fonetiche: laghetto dei magi)*.
+* **Le Scie del Mare delle Stelle Cadute**: Correnti marine bioluminescenti che di notte tracciano sentieri navigabili sulle acque del Mare delle Stelle Cadute, consentendo l'orientamento verso i porti costieri anche a cielo coperto.
 
 ### 🕳️ Underdark (Sottosuolo)
 * **La Torre a Sei Piani dell'Underdark**: Imponente roccaforte sotterranea eretta sopra una forra fluviale acida, sormontata dalla sfera magica radiosa che proietta luce e campi di dominazione mentale sulla superficie di Tilverton.
@@ -184,9 +245,17 @@ La **Compagnia del Tarallo** riunisce gli eroi che dal Mare della Luna affrontan
 * **Scudo Boomerang** (`Oggetto/Reliquia`): Scudo da lancio metallico capace di incapacitare bersagli a distanza e tornare dall'utilizzatore.
 * **Membrana d'Argento Organica** (`Oggetto/Reliquia`): Reperto rinvenuto tra le radici necrotiche del sottosuolo; flessibile come stoffa ma dall'aspetto metallico argenteo e gelido al tatto.
 * **Imbarcazione del Tarallo** (`Oggetto/Reliquia`): Nave d'altura modulare concessa e armata a Forte Zhentil per consentire alla Compagnia del Tarallo di attraversare il Mare della Luna e raggiungere le rotte orientali di Simbar.
+* **Fornace Magica Navale** (`Oggetto/Reliquia`): Dispositivo centrale installabile sui velieri per coordinare e alimentare potenziamenti magici di difesa, attacco e propulsione (come il Vento Incantato).
 * **Prigione Extradimensionale di Sigurd** (`Oggetto/Reliquia`): Manufatto sagomato a forma di pietra runica in grado di trattenere un prigioniero in stasi nel vuoto di una tasca dimensionale sul Piano Materiale.
+* **Lippo Cavallo (Cavalcatura Marina di Quarion)** (`Oggetto/Reliquia`): Creatura magica marina argentata evocata da Quarion, con torso equino, pinne e coda di pesce sirena, adatta al trasporto veloce di due cavalieri sull'acqua.
+* **Sfere di Registrazione della Memoria** (`Oggetto/Reliquia`): Manufatti sferici di cristallo diffusi a Simbar capaci di catturare fino a trenta minuti di scene visive e sonore entro 36 metri e riprodurle come proiezioni tridimensionali.
+* **Marchio del Triangolo con Gancio** (`Oggetto/Reliquia`): Sigillo di forgia impresso su reperti di rame e polveri alchemiche ritrovati nel laboratorio distrutto di Vogart *(varianti fonetiche: punzone triangolo con gancio)*.
 * **Lancia Cristallina da Assedio & Mortaio da Fortezza di Zhentil** (`Oggetto/Reliquia`): Congegni bellici d'artiglieria pesante e di canalizzazione prismatica montati sui bastioni di Forte Zhentil.
-* **Le Sette Pietre Draconiche** (`Oggetto/Reliquia`): Antichi artefatti draconici legati alle sette scuole di magia (Illusione, Divinazione, Necromanzia, ecc.), capaci di risuonare tra loro e alterare l'equilibrio della Trama.
+* **Le Otto Pietre Draconiche Primordiali** (`Oggetto/Reliquia`): Antichi artefatti draconici intagliati da un'unica matrice d'ambra legati alle otto scuole di magia della Trama (Evocazione, Illusione, Divinazione, Necromanzia, ecc.), capaci di risuonare tra loro e alterare l'equilibrio della Trama *(varianti fonetiche: pietre draconiche, amuleti dei draghi)*.
+* **Aurvis (Combustibile Primordiale)** (`Oggetto/Reliquia`): Rara sostanza magica energetica verdognola estratta dalle estreme profondità del sottosuolo di Toril ad Alagon; un solo grammo genera fiamme immani ed è considerato la causa scatenante della piaga del Morbo Nero *(varianti fonetiche: Aurvis, Aruvis, Aurovis)*.
+* **Gemma Biancastra della Via del Sapiente** (`Oggetto/Reliquia`): Prima delle cinque gemme necessarie per aprire i portoni di Caderish, estratta dalla mela rossa dell'albero delle stagioni dopo aver risolto l'Enigma del Baratro *(varianti fonetiche: gemma biancastra, prima gemma)*.
+* **Mazzafrusto del Ferimento** (`Oggetto/Reliquia`): Arma incantata acquisita e impugnata da Lucio Malaver; infligge ferite necrotiche progressive che impediscono la guarigione o rigenerazione del bersaglio colpito *(varianti fonetiche: mazzafrusto del ferimento)*.
+* **Fagioli Magici di Quarion** (`Oggetto/Reliquia`): Sei legumi essiccati impregnati di instabile magia elementale e pirotecnica, materializzatisi nella mano di Quarion al termine della prima prova *(varianti fonetiche: fagioli magici, legumi secchi)*.
 
 ---
 
@@ -229,3 +298,77 @@ La **Compagnia del Tarallo** riunisce gli eroi che dal Mare della Luna affrontan
 * **La Difesa della Breccia Sinistra & Conto alla Rovescia della Breccia** (`Fazione/Terminologia`): Episodio cruciale dell'assedio di Forte Zhentil in cui la combinazione di olio infuocato, nubi chimiche e Guardiano della Fede ha sventato lo scoppio delle cariche piriche e impedito lo sfondamento imperiale.
 * **Guerrieri Scelti di Ysgard** (`Fazione/Terminologia`): Spiriti combattenti immortali del Piano Eroico di Ysgard evocati sul campo di battaglia da Quarion per contrastare l'avanzata delle truppe imperiali.
 * **La Vittoria dell'Assedio di Forte Zhentil** (`Fazione/Terminologia`): Trionfo campale e difensivo che ha visto la Compagnia del Tarallo respingere diecimila soldati imperiali di Suzail salvaguardando l'indipendenza della fortezza del Mare della Luna.
+* **Il Morbo Grigio** (`Fazione/Terminologia`): Letale epidemia e maledizione cutanea legata alla Mano Nera a Simbar; causa macchie grigie su tutto il corpo e l'esilio forzato degli infetti nei sobborghi periferici fuori dalle mura cittadine.
+* **Casata Maelas** (`Fazione/Terminologia`): Nobile casata costruttrice originaria di Dagon insediatasi a Simbar; gestisce la Forgia Arcana e fabbrica le Sentinelle metalliche cittadine fondendo edilizia e magia *(varianti fonetiche: maelas, meltis, mtas)*.
+* **Casata Ashwell (Ashvale)** (`Fazione/Terminologia`): Stirpe di mastri carpentieri e navigatori di Simbar che controlla i cantieri delle Isole Mistiche, specializzata nella propulsione e navigazione magica navale *(varianti fonetiche: ashwell, ashvale, ashil)*.
+* **Vrock** (`Fazione/Terminologia`): Grandi demoni aviani immondeggianti simili a giganteschi avvoltoi mostruosi, capaci di emettere spore tossiche avvelenanti e laceranti stridii ad alta frequenza che stordiscono e incapacitano i nemici *(varianti fonetiche: Vrock, Vrok)*.
+* **Girallon** (`Fazione/Terminologia`): Mastodontica e feroce mostruosità scimmiesca a quattro braccia con zanne ricurve e folto pelo bianco-argenteo, preda ambita dai bracconieri per il contrabbando di trofei anatomici e pelli pregiate *(varianti fonetiche: Girallon, Gorillon, Giallognolo)*.
+
+* **Lady Vaelira** (`PNG`): Nobile o dama influente, destinataria di una pregiata bottiglia con sigillo ermetico trovata nella torre di Borin Thorn. *(varianti fonetiche: va elira, Vaelira, Vire)*
+* **Incantesimo Vincolo della Terra (Earthbind)** (`Fazione/Terminologia`): Magia di trasmutazione di 2° livello che avvolge le creature in strisce di energia gravitazionale azzerando la loro velocità di volo e costringendole al suolo.
+* **Glabrezu** (`PNG`): Demone immondezzale con chele titaniche e braccia umanoidi dotato di poteri arcani oscuri; guida l'agguato alla cascata dei Magi *(varianti fonetiche: Glabrezzu)*.
+* **Hezrou** (`PNG`): Demoni anfibi dalla pelle spessa e maleodorante al servizio dell'abisso, comparsi in quattro esemplari a guardia del varco della cascata *(varianti fonetiche: Ezru)*.
+
+* **Ponte di Betul** (`Luogo`): Passaggio invisibile largo dodici metri sospeso sul vuoto abissale; reagisce alla fede e al movimento solido, materializzandosi dodici metri avanti a chi vi cammina e dissolvendosi dodici metri dietro.
+* **Carzel** (`PNG`): Androsfinge maschio guardiano del Ponte di Betul; custode incorruttibile delle porte planari tra Isgard e i regni ultraterreni.
+* **Selura** (`PNG`): Ginosfinge femmina del Ponte di Betul; esaminatrice della sapienza cosmica e custode dell'indovinello sulla Trama di Mystra.
+
+* **Pandemonium** (`Luogo`): Piano planare caotico dominato da oscurità perenne, cunicoli rocciosi labirintici, venti assordanti e aberrazioni volanti (Vrock).
+* **Città a Gravità Invertita** (`Luogo`): Bizzarro insediamento situato nel Pandemonium, caratterizzato da una volta superiore che funge da suolo calpestabile e un vuoto atmosferico inferiore in cui la gravità attira verso l'aperto.
+
+* **Tok'Varun** (`PNG`): Demone Nalfeshnee, giudice del combattimento nel Tribunale dei Tre; scaglia Rogus nel vuoto prima di essere trafitto agli occhi da Rey Sekigan.
+* **Zelaran** (`PNG`): Demone Nalfeshnee, giudice della parola; dotato di poteri illusori e teletrasporto, abbattuto e fracassato da Lucio Malaver.
+* **Moltur (Moltrul)** (`PNG`): Demone Nalfeshnee, giudice dell'enigma; responsabile dell'uccisione e sventramento di Roté, incenerito dalle punizioni divine di Quarion e rifinito da Lucio.
+
+* **Zambor** (`PNG`): Gigantesco Girallon argenteo a quattro braccia, patriarca e capo della colonia di primati della Torre di Ofnir. Dimostra intelligenza e onore, stringendo un patto con la squadra per liberare la torre dal male che affligge il suo branco. *(varianti fonetiche: Zamor, Girallon capo)*
+* **Vormarot** (`Fazione/Terminologia`): Entità malvagia e corruttrice che ha preso possesso della Torre di Ofnir, assoggettando la mente dei Girallon e facendoli esplodere in vampate di fuoco alla morte. *(varianti fonetiche: Vormarot, Vormaroth)*
+
+* **Conte Ofnir** (`PNG`): Antico nobile e signore della torre che porta il suo nome. La sua essenza risiede nella sedia runica del primo piano, dove saggia la purezza e l'autoconsapevolezza dei viandanti prima di donare loro il proprio favore. *(varianti fonetiche: Ofnir, Conte di Ofnir)*
+* **Goristro** (`PNG`): Imponente demone minotauro dell'Abisso di taglia enorme (GS 17), dotato di corna devastanti e forza titanica, evocato da Vormarot a guardia della quarta gemma. *(varianti fonetiche: Goristro, Minotauro Demone)*
+* **Chasme** (`Fazione/Terminologia`): Demoni abissali simili a gigantesche zanzare alate. Emettono un ronzio stridente in grado di far perdere i sensi e posseggono una proboscide capace di risucchiare la linfa vitale decurtando i punti ferita massimi. *(varianti fonetiche: Chasme, Demoni Zanzara)*
+
+* **Famiglia Thorm** (`Fazione/Terminologia`): Antica stirpe nobiliare legata a Borin Thorm, le cui anime vennero sacrificate lungo la Via del Sapiente per scatenare le distorsioni demoniache di Vormarot. Si narra che un membro sia scampato al massacro per cercare vendetta. *(varianti fonetiche: Casa Thorm, Stirpe Thorn)*
+
+* **Galadonel** (`PNG`): Terribile e titanico demone Balor dell'Abisso, armato di frusta di fuoco e spada di fulmine. Conosciuto come il "demone dalle mille forme", fu evocato ed imprigionato durante il rituale sacrificale della famiglia Thorm; ha orchestrato le aberrazioni lungo la Via del Sapiente per attirare Quarion e impossessarsi del suo corpo come varco verso il piano materiale. *(varianti fonetiche: Garadonel, Galadone)*
+
+* **Quarion Balor** (`PNG`): Forma assunta dal paladino Quarion a seguito dell'interazione tra la pietra rosso carminio dell'altare, l'anello di Reincarnazione e il risveglio della seconda runa del suo spadone; entità demoniaca titanica dotata di 262 PF, CA 19 e pieno intelletto tattico.
+
+* **Spasmi di Morte del Balor** (`Fazione/Terminologia`): Tratto intrinseco dei demoni Balor che alla morte innesca una colonna di fuoco esplosiva ad area capace di infliggere 76 danni da fuoco e vaporizzare armi e corpi circostanti.
+
+* **Sette Saggi di Caderish** (`Fazione/Terminologia`): Consiglio supremo dei maestri arcani che governa la cattedrale e scuola di ricerca di Caderish (Kadris), composto da sette anziani residenti più l'Eraldo del Nexus a Simbar.
+* **Enea** (`Fazione/Terminologia`): Divisione accademica contrassegnata dal colore bronzo; accoglie studiosi facoltosi amanti dello sfarzo, del comfort e delle arti dilettevoli.
+* **Jokul** (`Fazione/Terminologia`): Divisione contrassegnata dal colore blu; raccoglie alchimisti, studiosi rigorosi e ricercatori di materiali rari e artefatti magici.
+* **Zamin** (`Fazione/Terminologia`): Divisione contrassegnata dal colore verde; raduna asceti legati alla natura, alla convivialità comunitaria e alla cooperazione disinteressata.
+* **Tala** (`Fazione/Terminologia`): Divisione contrassegnata dal colore oro; comprende maghi cinici, pragmatici e rigorosi, orientati all'efficienza e al potere.
+* **Shimi Moradi** (`PNG`): Anziana dell'Ammaliamento detta "Vecchia Strega"; sebbene abbia 77 anni, la sua ascendenza da ninfe le conferisce una giovinezza e bellezza angelica eterna; presiede il consiglio dei saggi.
+* **Tulamesh Marakbi** (`PNG`): Mezzelfo del sole con occhio destro bendato, saggio dell'Illusione soprannominato "Fanale".
+* **Baltazar Veritas** (`PNG`): Anziano della Necromanzia detto "Il Vanitoso"; figura enigmatica con maschera d'ossa e capelli rosa, artefice del richiamo dell'anima di Rey Sekigan.
+* **Gideon Lance** (`PNG`): Genasi dell'aria con pelle turchese e corporatura possente, saggio dell'Abiurazione detto "Il Guardiano".
+* **Atash Karev** (`PNG`): Mago da guerra umano dai capelli bianchi, saggio dell'Invocazione detto "Il Diavolo" per la ferocia delle sue fiamme; avverso all'ingresso del party.
+* **Victoria Zamart** (`PNG`): Maga Kalashtar legata agli spiriti Quori dei sogni, anziana della Divinazione detta "La Divina"; favorevole al party.
+
+* **La Voliera** (`Luogo`): Torre al settimo piano di Caderish che ospita rapaci messaggeri e uccelli meccanici utilizzati per le comunicazioni nel continente.
+
+* **Kareth El Mora** (`PNG`): Tritone appartenente ai Tala, nobile e fiero custode delle regole e del decoro della casata.
+* **Horvet** (`PNG`): Elfo androgino dei Tala dalla bellezza impeccabile, incline ad ammaliare i nuovi arrivati con profumi ed essenze per carpirne le ricchezze.
+* **Velura** (`PNG`): Amministratrice contabile dei Tala, incaricata di registrare i tributi della cassa comune e custodire le chiavi d'accesso.
+* **Liren Veltorn** (`PNG`): Studioso degli Zamin con escrescenze naturali e un mantello di muschio cangiante a seconda dell'umore.
+* **Sera Ninvil** (`PNG`): Giovane maga della divinazione degli Zamin, affascinata dai fiori e dalla lettura delle linee della mano.
+* **Tarnel Dascrot** (`PNG`): Maturo saggio degli Zamin vestito con rami intrecciati e ghirlande floreali, sostenitore del cameratismo e guida morale.
+* **Fendrel** (`PNG`): Centauro guardiano degli Zamin con corona di palchi di cervo, studioso di potenti pergamene e custode della chiave di legno.
+* **Liora Vassenti** (`PNG`): Elfa ammaliatrice dei Liennea, amante dei giochi d'illusione sensuali e dello sfarzo.
+* **Cassian Dorello** (`PNG`): Guerriero-fabbro githzerai dei Liennea, rinomato maestro nell'incantamento e forgiatura di armature magiche.
+* **Errick Watson** (`PNG`): Alchimista folle e muscoloso degli Yokul, coperto di cicatrici e costantemente intento a testare pozioni estreme. *(varianti fonetiche: Erick, Eric)*
+* **Darin Volcar** (`PNG`): Mago anziano e superbo degli Yokul, convinto della propria superiorità intellettuale e abile manipolatore accademico. *(varianti fonetiche: Darin, Darius)*
+* **Sivra** (`PNG`): Schiva e fiera maga corvide (kenku) degli Yokul, legata alla gestione della voliera dell'Accademia.
+* **Runa Keldir** (`PNG`): Ricercatrice runica degli Yokul dai capelli rossi e armatura di squame, capace di piegare lo spaziotempo con effetti collaterali distruttivi.
+
+* **Cavaliere Artorias** (`PNG`): Leggendario drago antico e cavaliere in armatura cerulea e argentea, custode dei misteri dell'Alleanza dei Draghi e guardiano dell'equilibrio *(varianti fonetiche: Ortorius, Artorius)*.
+* **Drizzt Do'Urden** (`PNG`): Celebre ranger drow rinnegato, antico mentore marziale di Rey Sekigan; agisce clandestinamente a Westgate per contrastare la Mano Nera *(varianti fonetiche: Dritz, Driz)*.
+* **Famiglia Ceci** (`Fazione/Terminologia`): Stirpe di spietati corsari e tiranni assurti al potere a Westgate come braccio armato e politico della Mano Nera di Bane *(varianti fonetiche: Ceci, Cece)*.
+* **Verprintler** (`Luogo`): Enclave sicura e comunità boschiva abitata da elfi dei boschi e circoli druidici a nord di Westgate, indicata da Drizzt come rifugio per i fuggiaschi *(trascritta anche come: Veller Print, Veller Printral, Verprint)*.
+
+* **Fendrel Offblom** (`PNG`): Saggio centauro, studioso dei cicli naturali, delle costellazioni e maestro di arti protettive ed erbologiche all'Accademia di Caderish *(varianti fonetiche: Fernel, Fenrel, Feller Offblom)*.
+* **Luca Teso** (`PNG`): Studente dell'Accademia di Caderish che interroga apertamente Atashkarev durante la lezione di invocazione sulla natura della fiamma nera.
+* **Sergiones** (`PNG`): Paladino e nobile guerriero tiefling devoto all'ordine, noto per aver braccato senza sosta Rosaceis la carnefice *(varianti fonetiche: Sergios, Sergione)*.
+* **Deserto dell'Anauroch** (`Luogo`): Vasta e insidiosa distesa desertica che separa le terre orientali da quelle occidentali del Faerûn, terra d'origine di Velendoran *(varianti fonetiche: deserto del Naurok)*.
