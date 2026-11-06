@@ -15,21 +15,73 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-import requests
-import yt_dlp
-from dotenv import load_dotenv
-from google import genai
-from pydantic import BaseModel, Field
-from youtube_transcript_api import YouTubeTranscriptApi
+try:
+    import requests
+except ImportError:
+    requests = None
 
-# Carica le variabili d'ambiente da .env
-load_dotenv()
+try:
+    import yt_dlp
+except ImportError:
+    yt_dlp = None
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+try:
+    from google import genai
+except ImportError:
+    genai = None
+
+try:
+    from pydantic import BaseModel, Field
+except ImportError:
+    class BaseModel:  # type: ignore
+        pass
+
+    def Field(*args, **kwargs):  # type: ignore
+        return None
+
+try:
+    from youtube_transcript_api import YouTubeTranscriptApi
+except ImportError:
+    YouTubeTranscriptApi = None
+
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(__file__).parent.resolve()
-GLOSSARY_PATH = BASE_DIR / "glossario.md"
+GLOSSARIES_DIR = BASE_DIR / "glossari"
+GLOSSARY_PATH = GLOSSARIES_DIR / "glossario.md"
 PROCESSED_PATH = BASE_DIR / "processed_videos.json"
 SUMMARIES_DIR = BASE_DIR / "riassunti"
 TRANSCRIPTS_DIR = BASE_DIR / "trascrizioni"
+
+
+def get_yearly_glossary_path(date_or_year: str = "") -> Path:
+    """Restituisce il percorso del glossario annuale (es. `glossari/glossario_2026.md`)."""
+    clean = (date_or_year or "").replace("-", "").strip()
+    if len(clean) >= 4 and clean[:4].isdigit():
+        year = clean[:4]
+    else:
+        year = datetime.now().strftime("%Y")
+    return GLOSSARIES_DIR / f"glossario_{year}.md"
+
+
+def load_glossary_context(upload_date: str = "") -> str:
+    """Legge sia il glossario generale (`glossari/glossario.md`) sia quello dell'anno in esame (`glossari/glossario_<YYYY>.md`)."""
+    parts = []
+    if GLOSSARY_PATH.exists():
+        parts.append(GLOSSARY_PATH.read_text(encoding="utf-8"))
+    yearly_path = get_yearly_glossary_path(upload_date)
+    if yearly_path.exists() and yearly_path != GLOSSARY_PATH:
+        parts.append(yearly_path.read_text(encoding="utf-8"))
+    return "\n\n---\n\n".join(parts)
 
 DEFAULT_CHANNEL_URL = os.getenv(
     "YOUTUBE_CHANNEL_URL", "https://www.youtube.com/@stefanoleone4578/streams"
@@ -71,6 +123,10 @@ class CharacterEvent(BaseModel):
 class SessionSummaryOutput(BaseModel):
     titolo_episodio: str = Field(
         description="Un titolo evocativo per la sessione (o il titolo della puntata)."
+    )
+    nota_audio_copyright: str = Field(
+        default="Nessun taglio o segmento mutato rilevato.",
+        description="Breve appunto su eventuali segmenti mutati da YouTube (per copyright o problemi tecnici) o buchi di trascrizione rilevati, indicando i minutaggi [HH:MM:SS - HH:MM:SS]. Se l'audio è integro, indica 'Nessun taglio rilevato'.",
     )
     sinossi_breve: str = Field(
         description="Un'introduzione narrativa di 3-5 righe che riassume il cuore della sessione."
@@ -178,21 +234,48 @@ def extract_video_id(url_or_id: str) -> str:
     raise ValueError(f"Impossibile estrarre un ID video YouTube valido da: {url_or_id}")
 
 
-def get_video_metadata(video_id: str) -> dict:
-    """Recupera titolo, data di pubblicazione (YYYYMMDD) e URL di un singolo video tramite yt-dlp."""
+def extract_true_stream_date(info: dict) -> str:
+    """
+    Estrae la vera data di trasmissione della live da un dizionario yt-dlp:
+    1. `release_timestamp` (corrispondente a `liveBroadcastDetails.startTimestamp`, convertito in ora locale)
+    2. `release_date` (data di inizio della live)
+    3. `timestamp` / `upload_date` (solo come fallback per video non-live; attenzione: su YouTube
+       `uploadDate`/`publishDate` viene sovrascritto quando un vecchio flusso viene rinominato o reso pubblico!).
+    """
+    if info.get("release_timestamp"):
+        return datetime.fromtimestamp(info["release_timestamp"]).strftime("%Y%m%d")
+    if info.get("release_date"):
+        return str(info["release_date"]).replace("-", "").strip()
+    if info.get("timestamp"):
+        return datetime.fromtimestamp(info["timestamp"]).strftime("%Y%m%d")
+    return (info.get("upload_date") or "").replace("-", "").strip()
+
+
+def get_video_metadata(video_id: str, ignore_cache: bool = False) -> dict:
+    """Recupera titolo, data reale di trasmissione (YYYYMMDD) e URL di un singolo video tramite yt-dlp (o cache)."""
     url = f"https://www.youtube.com/watch?v={video_id}"
+    channel_cache = load_channel_cache()
+    if not ignore_cache and video_id in channel_cache and channel_cache[video_id].get("upload_date"):
+        return {
+            "id": video_id,
+            "title": channel_cache[video_id].get("title", f"Sessione D&D ({video_id})"),
+            "url": url,
+            "upload_date": channel_cache[video_id].get("upload_date", ""),
+            "duration": None,
+            "live_status": None,
+        }
+
     ydl_opts = {"quiet": True, "no_warnings": True, "skip_download": True}
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            upload_date = info.get("upload_date") or info.get("release_date") or ""
-            if not upload_date and info.get("timestamp"):
-                upload_date = datetime.fromtimestamp(info["timestamp"]).strftime("%Y%m%d")
+            upload_date = extract_true_stream_date(info)
             return {
                 "id": video_id,
                 "title": info.get("title", f"Sessione D&D ({video_id})"),
                 "url": url,
                 "upload_date": upload_date,
+                "duration": info.get("duration"),
                 "live_status": info.get("live_status"),
             }
     except Exception:
@@ -201,6 +284,7 @@ def get_video_metadata(video_id: str) -> dict:
             "title": f"Sessione D&D ({video_id})",
             "url": url,
             "upload_date": "",
+            "duration": None,
             "live_status": None,
         }
 
@@ -221,6 +305,91 @@ def load_channel_cache() -> dict:
 def save_channel_cache(cache: dict) -> None:
     with open(CACHE_PATH, "w", encoding="utf-8") as f:
         json.dump(cache, f, indent=2, ensure_ascii=False)
+
+
+def get_video_info_from_cache(video_id: str) -> dict:
+    """
+    Recupera obbligatoriamente le informazioni dello streaming da `channel_videos_cache.json`.
+    Se il file cache non esiste o il video (o la sua upload_date) è assente, blocca l'esecuzione.
+    """
+    if not CACHE_PATH.exists():
+        print(
+            f"❌ ERRORE BLOCCANTE: Il file '{CACHE_PATH.name}' non esiste.\n"
+            "   Impossibile recuperare le informazioni dello streaming senza la cache del canale."
+        )
+        sys.exit(1)
+
+    channel_cache = load_channel_cache()
+    if video_id not in channel_cache:
+        print(
+            f"❌ ERRORE BLOCCANTE: Il video '{video_id}' non è presente in '{CACHE_PATH.name}'.\n"
+            "   Esegui prima `--list-months` o `--refresh-cache` per censire il video nella cache."
+        )
+        sys.exit(1)
+
+    entry = channel_cache[video_id]
+    upload_date = (entry.get("upload_date") or "").replace("-", "").strip()
+    title = (entry.get("title") or "").strip()
+    if not upload_date or not title:
+        print(
+            f"❌ ERRORE BLOCCANTE: Informazioni dello streaming incomplete in '{CACHE_PATH.name}' "
+            f"per il video '{video_id}' (title='{title}', upload_date='{upload_date}')."
+        )
+        sys.exit(1)
+
+    return {
+        "id": video_id,
+        "title": title,
+        "url": entry.get("url", f"https://www.youtube.com/watch?v={video_id}"),
+        "upload_date": upload_date,
+        "month": format_month_from_upload_date(upload_date),
+        "duration": entry.get("duration"),
+        "live_status": entry.get("live_status"),
+    }
+
+
+def get_cached_videos(
+    year: Optional[str] = None,
+    month: Optional[str] = None,
+) -> List[dict]:
+    """
+    Restituisce la lista dei video (ordinati cronologicamente dal più vecchio al più recente)
+    leggendo esclusivamente `channel_videos_cache.json`.
+    Se la cache è assente, vuota o se una trascrizione locale non ha i metadati in cache, blocca l'esecuzione.
+    """
+    if not CACHE_PATH.exists():
+        print(
+            f"❌ ERRORE BLOCCANTE: Il file '{CACHE_PATH.name}' non esiste.\n"
+            "   Impossibile procedere senza le informazioni dello streaming in cache."
+        )
+        sys.exit(1)
+
+    channel_cache = load_channel_cache()
+    if not channel_cache:
+        print(f"❌ ERRORE BLOCCANTE: '{CACHE_PATH.name}' è vuoto o non valido.")
+        sys.exit(1)
+
+    # Verifica bloccante: ogni trascrizione presente in trascrizioni/<id>.txt deve avere info valide in cache
+    if TRANSCRIPTS_DIR.exists():
+        for t_file in sorted(TRANSCRIPTS_DIR.glob("*.txt")):
+            _ = get_video_info_from_cache(t_file.stem)
+
+    results = []
+    for vid_id, raw_entry in channel_cache.items():
+        raw_date = (raw_entry.get("upload_date") or "").replace("-", "").strip()
+        if not raw_date:
+            # Se non stiamo filtrando per anno/mese e c'è un video senza data, segnala se rilevante
+            continue
+        raw_month = format_month_from_upload_date(raw_date)
+        if month and raw_month != month:
+            continue
+        if year and not raw_date.startswith(str(year)):
+            continue
+        info = get_video_info_from_cache(vid_id)
+        results.append(info)
+
+    results.sort(key=lambda x: x.get("upload_date", ""))
+    return results
 
 
 def parse_date_from_title(title: str) -> str:
@@ -245,7 +414,7 @@ def parse_date_from_title(title: str) -> str:
     return ""
 
 
-def fetch_channel_videos(channel_url: str, max_videos: int = 50) -> List[dict]:
+def fetch_channel_videos(channel_url: str, max_videos: int = 150) -> List[dict]:
     """
     Recupera la lista delle live dal canale YouTube (/streams).
     Salva le date e i metadati in `channel_videos_cache.json` così i controlli
@@ -297,9 +466,7 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 50) -> List[dict]:
         vid_id = entry["id"]
         title = entry.get("title", f"Sessione D&D ({vid_id})")
 
-        upload_date = entry.get("upload_date") or entry.get("release_date") or ""
-        if not upload_date and entry.get("timestamp"):
-            upload_date = datetime.fromtimestamp(entry["timestamp"]).strftime("%Y%m%d")
+        upload_date = extract_true_stream_date(entry)
 
         # 1. Controlla se è già nella cache del canale o dei video processati
         if not upload_date and vid_id in channel_cache:
@@ -315,7 +482,7 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 50) -> List[dict]:
         # 3. Se ancora non abbiamo la data, interroga YouTube per il singolo video (solo la prima volta!)
         if not upload_date:
             print(f"   ⏳ [{idx}/{total}] Recupero data pubblicazione per: {title[:55]}...")
-            meta = get_video_metadata(vid_id)
+            meta = get_video_metadata(vid_id, ignore_cache=True)
             upload_date = meta.get("upload_date", "")
             title = meta.get("title") or title
 
@@ -325,6 +492,7 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 50) -> List[dict]:
                 "title": title,
                 "upload_date": upload_date,
             }
+            save_channel_cache(channel_cache)
             cache_updated = True
 
         results.append(
@@ -350,6 +518,68 @@ def format_seconds(seconds: float) -> str:
     mins = (total_sec % 3600) // 60
     secs = total_sec % 60
     return f"[{hrs:02d}:{mins:02d}:{secs:02d}]"
+
+
+def detect_transcript_anomalies(
+    transcript: str,
+    video_duration: Optional[int] = None,
+    gap_threshold_sec: int = 45,
+) -> List[str]:
+    """
+    Analizza i timestamp [HH:MM:SS] della trascrizione per individuare:
+    - Salti temporali interni >= gap_threshold_sec (possibili mute copyright o silenzi prolungati)
+    - Tagli iniziali (se la trascrizione inizia dopo [00:01:00])
+    - Troncamenti finali (se la trascrizione termina molto prima della durata del video o dura < 30 min)
+    """
+    parsed = []
+    for line in transcript.splitlines():
+        m = re.match(r"^\[(\d+):(\d+):(\d+)\]\s*(.*)", line)
+        if m:
+            h, mins, s = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            sec = h * 3600 + mins * 60 + s
+            ts_str = f"[{h:02d}:{mins:02d}:{s:02d}]"
+            text = m.group(4).strip()
+            parsed.append((sec, ts_str, text))
+
+    if not parsed:
+        return ["⚠️ Nessun timestamp valido trovato nella trascrizione."]
+
+    anomalies = []
+    first_sec, first_ts, _ = parsed[0]
+    last_sec, last_ts, last_text = parsed[-1]
+
+    # 1. Controllo taglio iniziale
+    if first_sec >= 60:
+        anomalies.append(
+            f"Taglio/assenza audio iniziale: [00:00:00 ➔ {first_ts}] ({first_sec}s senza parlato)"
+        )
+
+    # 2. Controllo buchi interni
+    for i in range(len(parsed) - 1):
+        curr_sec, curr_ts, curr_text = parsed[i]
+        next_sec, next_ts, next_text = parsed[i + 1]
+        gap = next_sec - curr_sec
+        if gap >= gap_threshold_sec:
+            mins_gap = gap / 60.0
+            anomalies.append(
+                f"Buco di {gap}s (~{mins_gap:.1f} min) da {curr_ts} a {next_ts} "
+                f"| Prima: \"{curr_text[:45]}\" ➔ Dopo: \"{next_text[:45]}\""
+            )
+
+    # 3. Controllo troncamento finale
+    if video_duration and (video_duration - last_sec) >= 90:
+        missing = int(video_duration - last_sec)
+        anomalies.append(
+            f"Possibile mute/troncamento finale da {last_ts} a {format_seconds(video_duration)} "
+            f"({missing}s / ~{missing/60:.1f} min mancanti alla fine del video)"
+        )
+    elif last_sec < 1800:
+        anomalies.append(
+            f"Trascrizione insolitamente breve/troncata: termina a {last_ts} "
+            f"(ultima frase: \"{last_text[:50]}\") — probabile mute copyright esteso o live interrotta."
+        )
+
+    return anomalies
 
 
 def fetch_transcript(video_id: str) -> str:
@@ -395,6 +625,7 @@ def fetch_transcript(video_id: str) -> str:
             "outtmpl": os.path.join(tmpdir, "%(id)s.%(ext)s"),
             "quiet": True,
             "no_warnings": True,
+            "nocheckcertificate": True,
         }
         url = f"https://www.youtube.com/watch?v={video_id}"
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -513,14 +744,25 @@ def format_summary_as_markdown(
 ) -> str:
     """Formatta l'output strutturato di Gemini in un documento Markdown."""
     date_formatted = format_date_from_yyyymmdd(video_info.get("upload_date", ""))
+    audio_note = getattr(summary, "nota_audio_copyright", "Nessun taglio rilevato.")
+    raw_title = (video_info.get("title") or "").strip()
+    if not raw_title or raw_title.lower() in ("mia trasmissione", "live streaming di stefano leone"):
+        yt_label = f"Guarda la Live ({date_formatted})"
+    else:
+        yt_label = raw_title
+
     lines = [
         f"# 🐉 {summary.titolo_episodio}",
-        f"📅 **Data Live:** {date_formatted} | 📺 **YouTube:** [{video_info['title']}]({video_info['url']})",
+        f"📅 **Data Live:** {date_formatted} | 📺 **YouTube:** [{yt_label}]({video_info['url']})",
+        f"🔇 **Monitoraggio Audio:** {audio_note}",
         "",
         "## 📜 Sinossi della Puntata",
         summary.sinossi_breve,
         "",
+        "---",
+        "",
         "## ⚔️ Vicende delle Squadre e dei Personaggi",
+        "",
     ]
 
     for char_ev in summary.vicende_per_personaggio:
@@ -529,24 +771,32 @@ def format_summary_as_markdown(
         lines.append("")
 
     if summary.eventi_chiave_e_rivelazioni:
+        lines.append("---")
+        lines.append("")
         lines.append("## 🔍 Eventi Chiave, Indizi e Rivelazioni")
         for ev in summary.eventi_chiave_e_rivelazioni:
             lines.append(f"- {ev}")
         lines.append("")
 
     if summary.loot_e_reliquie:
+        lines.append("---")
+        lines.append("")
         lines.append("## 💎 Reliquie, Oggetti e Ricompense")
         for item in summary.loot_e_reliquie:
             lines.append(f"- {item}")
         lines.append("")
 
     if summary.prossimi_obiettivi:
+        lines.append("---")
+        lines.append("")
         lines.append("## 🧭 Prossimi Obiettivi / In Sospeso")
         for obj in summary.prossimi_obiettivi:
             lines.append(f"- {obj}")
         lines.append("")
 
     if summary.nuove_voci_glossario:
+        lines.append("---")
+        lines.append("")
         lines.append("## 📖 Nuove Voci Rilevate per il Glossario")
         for entry in summary.nuove_voci_glossario:
             varianti = (
@@ -565,20 +815,78 @@ def format_summary_as_markdown(
 def split_message_for_discord(text: str, max_length: int = 1950) -> List[str]:
     """
     Divide un testo lungo in blocchi <= 1950 caratteri (il limite di Discord è 2000),
-    spezzando in modo intelligente sulle righe senza troncare le frasi.
+    mantenendo uniti i riquadri di dialogo (`> ...`) e i paragrafi ed evitando di
+    lasciare titoli (`## ` / `### `) orfani a fine messaggio.
     """
-    chunks = []
-    current_chunk = ""
+    # Raggruppa le righe in blocchi logici (tenendo insieme i blocchi citazione `>` e i titoli col blocco successivo)
+    raw_blocks: List[str] = []
+    current_lines: List[str] = []
+    in_quote = False
 
     for line in text.split("\n"):
-        if len(current_chunk) + len(line) + 1 > max_length:
-            if current_chunk:
+        stripped = line.strip()
+        is_quote_line = stripped.startswith(">")
+
+        if stripped == "":
+            if in_quote:
+                in_quote = False
+            if current_lines:
+                raw_blocks.append("\n".join(current_lines))
+                current_lines = []
+        else:
+            if is_quote_line and not in_quote and current_lines and not current_lines[-1].strip().startswith("#"):
+                raw_blocks.append("\n".join(current_lines))
+                current_lines = [line]
+                in_quote = True
+            else:
+                if is_quote_line:
+                    in_quote = True
+                current_lines.append(line)
+
+    if current_lines:
+        raw_blocks.append("\n".join(current_lines))
+
+    # Se un blocco è solo un titolo (`##` / `###`) o `---`, uniscilo al blocco successivo
+    merged_blocks: List[str] = []
+    i = 0
+    while i < len(raw_blocks):
+        b = raw_blocks[i]
+        b_strip = b.strip()
+        if (b_strip.startswith("#") or b_strip == "---") and "\n" not in b_strip and i + 1 < len(raw_blocks):
+            combined = b + "\n\n" + raw_blocks[i + 1]
+            if len(combined) <= max_length:
+                merged_blocks.append(combined)
+                i += 2
+                continue
+        merged_blocks.append(b)
+        i += 1
+
+    chunks: List[str] = []
+    current_chunk = ""
+
+    for block in merged_blocks:
+        separator = "\n\n" if current_chunk else ""
+        if len(current_chunk) + len(separator) + len(block) <= max_length:
+            current_chunk += separator + block
+        else:
+            if current_chunk.strip():
                 chunks.append(current_chunk.strip())
                 current_chunk = ""
-            while len(line) > max_length:
-                chunks.append(line[:max_length])
-                line = line[max_length:]
-        current_chunk += line + "\n"
+
+            if len(block) <= max_length:
+                current_chunk = block
+            else:
+                # Fallback riga per riga se un singolo blocco supera max_length
+                for line in block.split("\n"):
+                    if len(current_chunk) + len(line) + 1 > max_length:
+                        if current_chunk.strip():
+                            chunks.append(current_chunk.strip())
+                            current_chunk = ""
+                        while len(line) > max_length:
+                            chunks.append(line[:max_length])
+                            line = line[max_length:]
+                    current_chunk += (line + "\n")
+                current_chunk = current_chunk.strip()
 
     if current_chunk.strip():
         chunks.append(current_chunk.strip())
@@ -620,33 +928,301 @@ def send_to_discord(markdown_text: str, webhook_url: Optional[str] = None) -> bo
     return True
 
 
+ITALIAN_MONTH_HEADERS = {
+    "01": "❄️ Gennaio",
+    "02": "🌨️ Febbraio",
+    "03": "🌱 Marzo",
+    "04": "🌸 Aprile",
+    "05": "🌷 Maggio",
+    "06": "☀️ Giugno",
+    "07": "🔥 Luglio",
+    "08": "🦁 Agosto",
+    "09": "🍂 Settembre",
+    "10": "🎃 Ottobre",
+    "11": "🍁 Novembre",
+    "12": "🎄 Dicembre",
+}
+
+
+def parse_summary_markdown(md_path: Path) -> Optional[dict]:
+    """
+    Analizza un file di riassunto Markdown in `riassunti/`:
+    - Estrae il `video_id` e recupera la data certificata (`startTimestamp`) da `channel_videos_cache.json`
+    - Estrae il titolo evocativo dell'episodio
+    - Estrae le voci della sezione `## 📖 Nuove Voci Rilevate per il Glossario`
+    """
+    if "_CON_DIALOGHI" in md_path.name:
+        return None
+
+    text = md_path.read_text(encoding="utf-8")
+
+    # 1. Estrae video_id dal nome file o dall'URL YouTube nell'intestazione
+    vid_id = ""
+    m_name = re.match(r"^\d{4}-\d{2}-\d{2}_([A-Za-z0-9_-]{11})_", md_path.name)
+    if m_name:
+        vid_id = m_name.group(1)
+    else:
+        m_url = re.search(r"watch\?v=([A-Za-z0-9_-]{11})", text)
+        if m_url:
+            vid_id = m_url.group(1)
+
+    if not vid_id:
+        print(f"⚠️ Impossibile estrarre un video_id valido dal file: {md_path}")
+        return None
+
+    # Verifica bloccante su channel_videos_cache.json per avere la data certificata (startTimestamp)
+    video_info = get_video_info_from_cache(vid_id)
+    upload_date = video_info["upload_date"]
+    date_str = format_date_from_yyyymmdd(upload_date)
+
+    # 2. Estrae il titolo dell'episodio dalla prima intestazione #
+    ep_title = video_info["title"]
+    m_title = re.search(r"^#\s+(?:🐉\s*)?(.+)$", text, flags=re.MULTILINE)
+    if m_title:
+        ep_title = m_title.group(1).strip()
+
+    # 3. Estrae la sezione "## 📖 Nuove Voci Rilevate per il Glossario"
+    glossary_lines: List[str] = []
+    parsed_entries: List[dict] = []
+    m_sec = re.search(
+        r"^##\s+📖\s+Nuove Voci Rilevate per il Glossario\s*$([\s\S]*?)(?=^##\s+|\Z)",
+        text,
+        flags=re.MULTILINE,
+    )
+    if m_sec:
+        sec_body = m_sec.group(1).strip()
+        for raw_line in sec_body.splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("_Nessuna nuova voce") or line == "---":
+                continue
+            if not (line.startswith("-") or line.startswith("*")):
+                continue
+
+            # Normalizza formato "- **Nome** [Categoria]: Descrizione" -> "* **Nome** (`Categoria`): Descrizione"
+            m_item = re.match(
+                r"^[\-\*]\s+\*\*(.+?)\*\*\s*(?:\[(.+?)\]|\((?:`?)(.+?)(?:`?)\))\s*:\s*(.+)$",
+                line,
+            )
+            if m_item:
+                nome = m_item.group(1).strip()
+                cat = (m_item.group(2) or m_item.group(3) or "Voce").strip()
+                desc = m_item.group(4).strip()
+                desc = re.sub(r"\*\(trascritto anche come:\s*", "*(varianti fonetiche: ", desc)
+                norm_line = f"* **{nome}** (`{cat}`): {desc}"
+                glossary_lines.append(norm_line)
+                parsed_entries.append({"nome": nome, "categoria": cat, "descrizione": desc, "line": norm_line})
+            else:
+                norm_line = "* " + line.lstrip("-* ").strip()
+                glossary_lines.append(norm_line)
+
+    rel_from_root = md_path.relative_to(BASE_DIR).as_posix()
+    return {
+        "id": vid_id,
+        "upload_date": upload_date,
+        "date_str": date_str,
+        "year": upload_date[:4],
+        "month_num": upload_date[4:6],
+        "episode_title": ep_title,
+        "md_path": md_path,
+        "rel_link": f"../{rel_from_root}",
+        "glossary_lines": glossary_lines,
+        "parsed_entries": parsed_entries,
+    }
+
+
+def rebuild_glossaries_from_summaries(year: Optional[str] = None) -> None:
+    """
+    Ricostruisce/aggiorna i glossari (`glossari/glossario_<YYYY>.md` e `glossari/glossario.md`)
+    partendo dai riassunti Markdown presenti in `riassunti/`, ordinati in RIGOROSO ORDINE CRONOLOGICO
+    crescente secondo la data certificata (`startTimestamp`) in `channel_videos_cache.json`.
+    """
+    if not SUMMARIES_DIR.exists():
+        print(f"⚠️ La cartella '{SUMMARIES_DIR.relative_to(BASE_DIR)}' non esiste.")
+        return
+
+    all_md_files = sorted(SUMMARIES_DIR.rglob("*.md"))
+    parsed_summaries = []
+    for fpath in all_md_files:
+        item = parse_summary_markdown(fpath)
+        if not item:
+            continue
+        if year and item["year"] != str(year).strip():
+            continue
+        parsed_summaries.append(item)
+
+    # Carica la cache degli streaming per recuperare anche le sessioni prive di sottotitoli/riassunto
+    cache_dict = {}
+    if CACHE_PATH.exists():
+        try:
+            cache_dict = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            cache_dict = {}
+
+    known_summary_ids = {item["id"] for item in parsed_summaries}
+    for c_id, c_data in cache_dict.items():
+        c_date = c_data.get("upload_date", "")
+        if not c_date:
+            continue
+        c_year = c_date[:4]
+        if year and c_year != str(year).strip():
+            continue
+        if c_id not in known_summary_ids:
+            d_fmt = f"{c_date[:4]}-{c_date[4:6]}-{c_date[6:8]}" if len(c_date) >= 8 else c_date
+            m_num = c_date[4:6] if len(c_date) >= 6 else "00"
+            parsed_summaries.append({
+                "id": c_id,
+                "upload_date": c_date,
+                "date_str": d_fmt,
+                "year": c_year,
+                "month_num": m_num,
+                "episode_title": c_data.get("title", ""),
+                "rel_link": f"https://www.youtube.com/watch?v={c_id}",
+                "is_missing_subtitles": True,
+                "glossary_lines": [
+                    "* *(Trascrizione non disponibile: la registrazione su YouTube non presenta sottotitoli automatici o manuali; nessun riassunto testuale disponibile).*"
+                ],
+                "parsed_entries": [],
+            })
+
+    if not parsed_summaries:
+        scope = f" per l'anno {year}" if year else ""
+        print(f"ℹ️ Nessun riassunto o video trovato in cache{scope} da cui ricostruire i glossari.")
+        return
+
+    # ORDINAMENTO CRONOLOGICO RIGOROSO (dal più vecchio al più recente)
+    parsed_summaries.sort(key=lambda x: (x["upload_date"], x["id"]))
+
+    GLOSSARIES_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Raggruppa per anno
+    by_year = {}
+    for item in parsed_summaries:
+        by_year.setdefault(item["year"], []).append(item)
+
+    for y_str, y_items in sorted(by_year.items()):
+        yearly_path = get_yearly_glossary_path(y_str)
+
+        # Preserva eventuale quadro introduttivo presente prima di "## 🗓️ Cronologia delle Scoperte"
+        intro_prefix = ""
+        if yearly_path.exists():
+            existing_content = yearly_path.read_text(encoding="utf-8")
+            m_split = re.search(r"^##\s+🗓️\s+Cronologia delle Scoperte.*$", existing_content, flags=re.MULTILINE)
+            if m_split:
+                intro_prefix = existing_content[: m_split.start()].rstrip() + "\n\n"
+
+        if not intro_prefix:
+            intro_prefix = (
+                f"# 📖 Glossario Cronologico {y_str} — Campagna D&D\n\n"
+                f"Questo file raccoglie in **rigoroso ordine cronologico** tutte le nuove voci, i PNG, i luoghi, "
+                f"le reliquie, gli indizi e gli sviluppi emersi durante le sessioni del **{y_str}**.\n"
+                f"Per l'inquadramento generale dei Personaggi Giocanti, dei Fondatori e delle regole di conversione fonetica, "
+                f"consulta anche il file principale [`glossario.md`](./glossario.md).\n\n---\n\n"
+            )
+
+        out_lines = [
+            intro_prefix.rstrip(),
+            "",
+            f"## 🗓️ Cronologia delle Scoperte e Voci del Glossario ({y_str})",
+        ]
+
+        current_month = None
+        for idx_s, s_item in enumerate(y_items):
+            m_num = s_item["month_num"]
+            if m_num != current_month:
+                if current_month is not None:
+                    out_lines.extend(["", "---"])
+                month_label = ITALIAN_MONTH_HEADERS.get(m_num, f"🗓️ Mese {m_num}")
+                out_lines.extend(["", f"### {month_label} {y_str}"])
+                current_month = m_num
+
+            if s_item.get("is_missing_subtitles"):
+                out_lines.extend(
+                    [
+                        "",
+                        f"#### ⚠️ Sessione del {s_item['date_str']} — [Live YouTube]({s_item['rel_link']}) *(Priva di sottotitoli YouTube)*",
+                    ]
+                )
+                out_lines.extend(s_item["glossary_lines"])
+            else:
+                ep_title_part = (
+                    f" — {s_item['episode_title']}"
+                    if s_item["episode_title"].lower() not in ("mia trasmissione", "live streaming di stefano leone")
+                    else ""
+                )
+                out_lines.extend(
+                    [
+                        "",
+                        f"#### 📌 Sessione del {s_item['date_str']}{ep_title_part} ([Riassunto]({s_item['rel_link']}))",
+                    ]
+                )
+                if s_item["glossary_lines"]:
+                    out_lines.extend(s_item["glossary_lines"])
+                else:
+                    out_lines.append("* *(Nessuna nuova voce specifica registrata in calce al riassunto)*")
+
+        yearly_path.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
+        print(
+            f"✅ Ricostruito in ordine cronologico '{yearly_path.relative_to(BASE_DIR)}' "
+            f"({len(y_items)} sessioni dal {y_items[0]['date_str']} al {y_items[-1]['date_str']})."
+        )
+
+    # Aggiorna il glossario generale (glossari/glossario.md) con eventuali PNG/Luoghi/Fazioni mancanti in ordine cronologico
+    if GLOSSARY_PATH.exists():
+        general_text = GLOSSARY_PATH.read_text(encoding="utf-8")
+    else:
+        general_text = "# 🐉 Glossario Generale, Personaggi e Fazioni della Campagna D&D\n"
+
+    added_general = []
+    for s_item in parsed_summaries:
+        for p_entry in s_item["parsed_entries"]:
+            clean_name = re.sub(r"\(.*?\)", "", p_entry["nome"]).strip().lower()
+            clean_base = re.sub(r"^(?:il|la|lo|le|i|gli|l'|un'|un|una)\s+", "", clean_name).strip()
+            already_present = (
+                p_entry["nome"].lower() in general_text.lower()
+                or (len(clean_base) >= 3 and clean_base in general_text.lower())
+            )
+            if not already_present:
+                core_name = re.sub(r"\s+(?:di|del|della|dello|dei|degli|delle)\s+.*$", "", clean_base).strip()
+                core_name = re.sub(r"\s+(?:sotterraneo|sommerso|cittadino)$", "", core_name).strip()
+                if len(core_name) >= 4 and core_name in general_text.lower():
+                    already_present = True
+            if (
+                p_entry["categoria"] in ("PNG", "Luogo", "Fazione/Terminologia")
+                and not already_present
+            ):
+                added_general.append(p_entry["line"])
+                general_text += "\n" + p_entry["line"]
+
+    if added_general:
+        GLOSSARY_PATH.write_text(general_text.rstrip() + "\n", encoding="utf-8")
+        print(
+            f"📝 Integrate {len(added_general)} nuove voci tematiche in '{GLOSSARY_PATH.relative_to(BASE_DIR)}'."
+        )
+    else:
+        print(f"✨ '{GLOSSARY_PATH.relative_to(BASE_DIR)}' è già allineato con tutte le voci tematiche.")
+
+
 def update_glossary_file(
-    new_entries: List[GlossaryEntry], video_title: str, video_date: str = ""
+    new_entries: List[GlossaryEntry],
+    video_title: str,
+    video_date: str = "",
+    summary_path: Optional[Path] = None,
+    video_id: str = "",
 ) -> None:
-    """Aggiunge in coda a glossario.md una sezione con le nuove voci scoperte nella puntata."""
+    """
+    Aggiorna sia il glossario generale (`glossari/glossario.md`) sia il glossario
+    dell'anno in esame (`glossari/glossario_<YYYY>.md`) mantenendo il rigoroso ordine cronologico.
+    """
     if not new_entries:
         return
 
-    date_str = format_date_from_yyyymmdd(video_date) if video_date else datetime.now().strftime("%Y-%m-%d")
-    lines = [
-        "\n\n",
-        f"## Note e Nuove Voci Emerse ({video_title} - {date_str})",
-        "",
-    ]
-    for entry in new_entries:
-        varianti = (
-            f" *(varianti fonetiche: {', '.join(entry.varianti_trascrizione)})*"
-            if entry.varianti_trascrizione
-            else ""
-        )
-        lines.append(
-            f"* **{entry.nome}** ({entry.categoria}): {entry.descrizione}{varianti}"
-        )
-
-    with open(GLOSSARY_PATH, "a", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
-
-    print(f"📝 Glossario aggiornato con {len(new_entries)} nuove voci in {GLOSSARY_PATH.name}!")
+    date_str = (
+        format_date_from_yyyymmdd(video_date)
+        if video_date
+        else datetime.now().strftime("%Y-%m-%d")
+    )
+    year_str = date_str[:4]
+    rebuild_glossaries_from_summaries(year=year_str)
 
 
 # =====================================================================
@@ -658,19 +1234,24 @@ def process_single_video(
     force: bool = False,
     update_glossary: bool = False,
     post_discord: bool = False,
+    fetch_only: bool = False,
 ) -> Optional[Path]:
     """
     Elabora una singola puntata:
     1. Scarica trascrizione
-    2. Genera riassunto con Gemini
-    3. Salva il file Markdown in `riassunti/<YYYY-MM>/<YYYY-MM-DD>_<id>_<titolo>.md`
-    4. Opzionalmente aggiorna il glossario e/o invia a Discord.
+    2. (Se fetch_only=True si ferma qui e mostra i metadati per l'Agente)
+    3. Genera riassunto con Gemini
+    4. Salva il file Markdown in `riassunti/<YYYY-MM>/<YYYY-MM-DD>_<id>_<titolo>.md`
+    5. Opzionalmente aggiorna il glossario generale e annuale e/o invia a Discord.
     """
     video_id = video_info["id"]
     video_title = video_info["title"]
     upload_date = video_info.get("upload_date", "")
     month_folder = format_month_from_upload_date(upload_date)
     date_prefix = format_date_from_yyyymmdd(upload_date)
+    target_dir = SUMMARIES_DIR / month_folder if month_folder != "sconosciuto" else SUMMARIES_DIR
+    safe_title = re.sub(r"[^\w\-_]", "_", video_title)[:50].strip("_")
+    expected_summary_path = target_dir / f"{date_prefix}_{video_id}_{safe_title}.md"
 
     print(f"\n{'='*65}")
     print(f"🎬 Puntata: '{video_title}' ({date_prefix}) - ID: {video_id}")
@@ -689,13 +1270,6 @@ def process_single_video(
                 mark_video_posted(video_id)
         return existing_file
 
-    # Rilegge il glossario a ogni puntata (così se processiamo un mese in ordine cronologico,
-    # ogni puntata beneficia delle voci aggiunte dalla puntata precedente!)
-    if GLOSSARY_PATH.exists():
-        glossary_text = GLOSSARY_PATH.read_text(encoding="utf-8")
-    else:
-        glossary_text = ""
-
     # Scarica o recupera trascrizione dalla cache
     TRANSCRIPTS_DIR.mkdir(exist_ok=True)
     transcript_file = TRANSCRIPTS_DIR / f"{video_id}.txt"
@@ -708,6 +1282,37 @@ def process_single_video(
         transcript_file.write_text(transcript, encoding="utf-8")
         print(f"💾 Trascrizione salvata in: {transcript_file.relative_to(BASE_DIR)}")
 
+    # Analisi automatica buchi di trascrizione / possibili segmenti mutati da YouTube
+    anomalies = detect_transcript_anomalies(
+        transcript=transcript,
+        video_duration=video_info.get("duration"),
+    )
+    if anomalies:
+        print(f"🔇 Monitoraggio Audio / Buchi Trascrizione ({len(anomalies)} rilevati):")
+        for a in anomalies[:10]:
+            print(f"   ⚠️ {a}")
+        if len(anomalies) > 10:
+            print(f"   ... e altri {len(anomalies) - 10} buchi rilevati.")
+    else:
+        print("🔊 Monitoraggio Audio: Nessun buco o taglio significativo rilevato nella trascrizione.")
+
+    yearly_glossary = get_yearly_glossary_path(upload_date)
+    if fetch_only:
+        print("🤖 Modalità --fetch-only (per elaborazione tramite Agente):")
+        print(f"   - Video ID:           {video_id}")
+        print(f"   - Titolo YouTube:     {video_title}")
+        print(f"   - URL:                {video_info.get('url', f'https://www.youtube.com/watch?v={video_id}')}")
+        print(f"   - Upload Date:        {upload_date} ({date_prefix})")
+        print(f"   - Mese:               {month_folder}")
+        print(f"   - Trascrizione:       {transcript_file.relative_to(BASE_DIR)}")
+        print(f"   - Glossario Generale: {GLOSSARY_PATH.relative_to(BASE_DIR)}")
+        print(f"   - Glossario Annuale:  {yearly_glossary.relative_to(BASE_DIR)}")
+        print(f"   - Target Riassunto:   {(target_dir / f'{date_prefix}_{video_id}_<Titolo_Episodio>.md').relative_to(BASE_DIR)}")
+        return transcript_file
+
+    # Rilegge i glossari (generale + annuale) a ogni puntata
+    glossary_text = load_glossary_context(upload_date)
+
     # Genera riassunto con Gemini
     summary_output = generate_summary_with_gemini(
         transcript=transcript,
@@ -717,21 +1322,32 @@ def process_single_video(
 
     # Salva il riassunto Markdown organizzato per sottocartella mensile (es. riassunti/2026-10/...)
     markdown_summary = format_summary_as_markdown(summary_output, video_info)
-    target_dir = SUMMARIES_DIR / month_folder if month_folder != "sconosciuto" else SUMMARIES_DIR
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    safe_title = re.sub(r"[^\w\-_]", "_", video_title)[:50].strip("_")
-    summary_path = target_dir / f"{date_prefix}_{video_id}_{safe_title}.md"
+    title_for_filename = (
+        summary_output.titolo_episodio
+        if not video_title or video_title.strip().lower() in ("mia trasmissione", "live streaming di stefano leone")
+        else video_title
+    )
+    safe_ep_title = re.sub(r"[^\w\-_]", "_", title_for_filename)
+    safe_ep_title = re.sub(r"_+", "_", safe_ep_title)[:50].strip("_")
+    summary_path = target_dir / f"{date_prefix}_{video_id}_{safe_ep_title}.md"
     summary_path.write_text(markdown_summary, encoding="utf-8")
     print(f"✅ Riassunto Markdown salvato in locale: {summary_path.relative_to(BASE_DIR)}")
 
-    # Aggiornamento glossario
+    # Aggiornamento glossario generale e annuale
     if update_glossary and summary_output.nuove_voci_glossario:
-        update_glossary_file(summary_output.nuove_voci_glossario, video_title, upload_date)
+        update_glossary_file(
+            summary_output.nuove_voci_glossario,
+            summary_output.titolo_episodio or video_title,
+            upload_date,
+            summary_path=summary_path,
+            video_id=video_id,
+        )
     elif summary_output.nuove_voci_glossario:
         print(
             f"💡 Trovate {len(summary_output.nuove_voci_glossario)} nuove voci per il glossario "
-            "(incluse in fondo al file Markdown; usa --update-glossary per aggiungerle a glossario.md)."
+            "(incluse in fondo al file Markdown; usa --update-glossary per aggiungerle ai glossari in glossari/)."
         )
 
     # Invio su Discord (SOLO se esplicitamente richiesto)
@@ -749,9 +1365,9 @@ def process_single_video(
 # Comandi di Storico e Pubblicazione Differita su Discord
 # =====================================================================
 
-def list_channel_history(channel_url: str, max_videos: int) -> None:
-    """Mostra tutte le puntate sul canale raggruppate per mese (YYYY-MM) e il loro stato locale/Discord."""
-    videos = fetch_channel_videos(channel_url, max_videos=max_videos)
+def list_channel_history(year: Optional[str] = None, month: Optional[str] = None) -> None:
+    """Mostra tutte le puntate in cache raggruppate per mese (YYYY-MM) e il loro stato locale/Discord."""
+    videos = get_cached_videos(year=year, month=month)
     processed = load_processed_videos()
 
     by_month = {}
@@ -759,19 +1375,25 @@ def list_channel_history(channel_url: str, max_videos: int) -> None:
         m = v["month"]
         by_month.setdefault(m, []).append(v)
 
-    print("\n📚 STORICO PUNTATE SUL CANALE YOUTUBE (divise per mese):")
-    for month in sorted(by_month.keys(), reverse=True):
-        month_vids = sorted(by_month[month], key=lambda x: x.get("upload_date", ""))
-        print(f"\n🗓️  Mese: {month} ({len(month_vids)} puntate)")
+    print("\n📚 STORICO PUNTATE IN CACHE (divise per mese):")
+    for m_key in sorted(by_month.keys(), reverse=True):
+        month_vids = sorted(by_month[m_key], key=lambda x: x.get("upload_date", ""))
+        print(f"\n🗓️  Mese: {m_key} ({len(month_vids)} puntate)")
         for v in month_vids:
             vid_id = v["id"]
             date_str = format_date_from_yyyymmdd(v.get("upload_date", ""))
+            has_transcript = (TRANSCRIPTS_DIR / f"{vid_id}.txt").exists()
+            t_badge = "📄 Trascrizione OK" if has_transcript else "☁️ Trascrizione da scaricare"
+            has_md_on_disk = bool(SUMMARIES_DIR.exists() and list(SUMMARIES_DIR.rglob(f"*_{vid_id}_*.md")))
+
             if vid_id in processed:
                 is_posted = processed[vid_id].get("posted_to_discord", False)
                 status = "✅ Riassunto + Inviato Discord" if is_posted else "📝 Solo Riassunto Locale (da inviare)"
+            elif has_md_on_disk:
+                status = "📝 Riassunto su disco (non in processed_videos.json)"
             else:
                 status = "⏳ Da riassumere"
-            print(f"   - [{date_str}] {v['title']} ({vid_id}) -> {status}")
+            print(f"   - [{date_str}] {v['title']} ({vid_id}) -> {status} | {t_badge}")
 
 
 def post_pending_summaries(target_month: Optional[str] = None) -> None:
@@ -808,6 +1430,118 @@ def post_pending_summaries(target_month: Optional[str] = None) -> None:
             mark_video_posted(item["id"])
 
 
+def reset_summaries(
+    year: Optional[str] = None,
+    month: Optional[str] = None,
+    video_arg: Optional[str] = None,
+) -> None:
+    """
+    Esegue il reset dei riassunti (per un singolo video, un mese YYYY-MM o un intero anno YYYY):
+    1. Verifica obbligatoriamente che le informazioni dello streaming siano presenti in
+       `channel_videos_cache.json` (se mancanti o incomplete, si blocca prima di toccare i file).
+    2. Elimina il file Markdown del riassunto in `riassunti/...`.
+    3. Rimuove il video da `processed_videos.json`.
+    4. Conserva intatta la trascrizione in `trascrizioni/<video_id>.txt` per la futura ricostruzione.
+    """
+    # Se l'utente ha passato un anno a 4 cifre dentro --month (es. --month 2026), trattalo come --year
+    if month and re.fullmatch(r"20\d{2}", month.strip()):
+        year = month.strip()
+        month = None
+
+    if not year and not month and not video_arg:
+        print(
+            "❌ ERRORE BLOCCANTE: Per usare `--reset` devi specificare almeno uno tra:\n"
+            "   - `--year YYYY` (es. `py dnd_summarizer.py --reset --year 2026`)\n"
+            "   - `--month YYYY-MM` (es. `py dnd_summarizer.py --reset --month 2026-10`)\n"
+            "   - `--video <ID_O_URL>` (es. `py dnd_summarizer.py --reset --video lQ6LK700vBY`)"
+        )
+        sys.exit(1)
+
+    # 1. Verifica preliminare su channel_videos_cache.json e raccolta video target
+    if video_arg:
+        vid_id = extract_video_id(video_arg)
+        target_videos = [get_video_info_from_cache(vid_id)]
+        scope_label = f"video {vid_id}"
+    else:
+        target_videos = get_cached_videos(year=year, month=month)
+        scope_label = f"anno {year}" if year else f"mese {month}"
+        if not target_videos:
+            print(
+                f"❌ ERRORE BLOCCANTE: Nessun video trovato in '{CACHE_PATH.name}' per {scope_label}."
+            )
+            sys.exit(1)
+
+    # Controlla anche che eventuali file .md già presenti su disco per quel periodo
+    # abbiano tutti il rispettivo video_id censito in channel_videos_cache.json
+    channel_cache = load_channel_cache()
+    if SUMMARIES_DIR.exists() and not video_arg:
+        for month_dir in sorted(SUMMARIES_DIR.iterdir()):
+            if not month_dir.is_dir():
+                continue
+            if month and month_dir.name != month:
+                continue
+            if year and not month_dir.name.startswith(f"{year}-"):
+                continue
+            for md_file in month_dir.glob("*.md"):
+                m = re.match(r"^\d{4}-\d{2}-\d{2}_([A-Za-z0-9_-]{11})_", md_file.name)
+                if m:
+                    file_vid_id = m.group(1)
+                    # Verifica bloccante: se manca in channel_videos_cache.json, si blocca tutto
+                    _ = get_video_info_from_cache(file_vid_id)
+
+    processed = load_processed_videos()
+    deleted_files: List[Path] = []
+    removed_from_processed: List[str] = []
+    preserved_transcripts: List[Path] = []
+    missing_transcripts: List[str] = []
+
+    print(f"\n🔄 Avvio RESET per {scope_label} ({len(target_videos)} live in cache)...")
+
+    for v in target_videos:
+        vid_id = v["id"]
+        v_month = v["month"]
+        date_str = format_date_from_yyyymmdd(v["upload_date"])
+
+        # A. Cerca ed elimina tutti i file di riassunto associati a questo video_id (anche in altre sottocartelle se la data è stata riallineata)
+        candidate_files = set()
+        if vid_id in processed and processed[vid_id].get("summary_file"):
+            candidate_files.add(BASE_DIR / processed[vid_id]["summary_file"])
+
+        if SUMMARIES_DIR.exists():
+            for match_file in SUMMARIES_DIR.rglob(f"*_{vid_id}_*.md"):
+                candidate_files.add(match_file)
+
+        for fpath in sorted(candidate_files):
+            if fpath.exists() and fpath.is_file():
+                fpath.unlink()
+                deleted_files.append(fpath)
+                print(f"   🗑️ Eliminato riassunto: {fpath.relative_to(BASE_DIR)}")
+
+        # B. Rimuove il video da processed_videos.json
+        if vid_id in processed:
+            del processed[vid_id]
+            removed_from_processed.append(vid_id)
+            print(f"   🧹 Rimosso da processed_videos.json: {vid_id} ({date_str})")
+
+        # C. Verifica conservazione trascrizione
+        t_file = TRANSCRIPTS_DIR / f"{vid_id}.txt"
+        if t_file.exists():
+            preserved_transcripts.append(t_file)
+        else:
+            missing_transcripts.append(f"{vid_id} ({date_str})")
+
+    save_processed_videos(processed)
+
+    print(f"\n{'='*65}")
+    print(f"✅ RESET COMPLETATO ({scope_label})")
+    print(f"   - Riassunti Markdown eliminati:          {len(deleted_files)}")
+    print(f"   - Voci rimosse da processed_videos.json: {len(removed_from_processed)}")
+    print(f"   - Trascrizioni conservate in locale:     {len(preserved_transcripts)} / {len(target_videos)}")
+    if missing_transcripts:
+        print(f"   ℹ️ Video in cache senza trascrizione locale ({len(missing_transcripts)}): {', '.join(missing_transcripts)}")
+    print(f"{'='*65}\n")
+
+
 # =====================================================================
 # Main CLI
 # =====================================================================
@@ -824,16 +1558,32 @@ def main():
         help="Elenca tutte le live presenti sul canale raggruppate per mese (YYYY-MM) e mostra quali sono già riassunte.",
     )
     parser.add_argument(
+        "--year",
+        type=str,
+        default=None,
+        help="Seleziona tutte le puntate di uno specifico anno (formato YYYY, es. '2026') leggendo i metadati da channel_videos_cache.json.",
+    )
+    parser.add_argument(
         "--month",
         type=str,
         default=None,
-        help="Elabora tutte le puntate di uno specifico mese (formato YYYY-MM, es. '2026-09') in ordine cronologico.",
+        help="Elabora tutte le puntate di uno specifico mese (formato YYYY-MM, es. '2026-09') in ordine cronologico leggendo da channel_videos_cache.json.",
     )
     parser.add_argument(
         "--video",
         type=str,
         default=None,
-        help="URL o ID di uno specifico video YouTube (se omesso e non usi --month, prende l'ultima live).",
+        help="URL o ID di uno specifico video YouTube (recupera le info da channel_videos_cache.json).",
+    )
+    parser.add_argument(
+        "--reset",
+        action="store_true",
+        help="Elimina i riassunti Markdown e rimuove i video da processed_videos.json (conservando le trascrizioni in trascrizioni/). Richiede --year, --month o --video e recupera i metadati da channel_videos_cache.json.",
+    )
+    parser.add_argument(
+        "--refresh-cache",
+        action="store_true",
+        help="Aggiorna channel_videos_cache.json interrogando il canale YouTube tramite yt-dlp.",
     )
     parser.add_argument(
         "--transcript-file",
@@ -850,8 +1600,8 @@ def main():
     parser.add_argument(
         "--max-videos",
         type=int,
-        default=50,
-        help="Numero massimo di video da scansionare sul canale per lo storico (default: 50).",
+        default=150,
+        help="Numero massimo di video da scansionare sul canale per lo storico (default: 150).",
     )
     parser.add_argument(
         "--channel",
@@ -862,9 +1612,19 @@ def main():
 
     # Opzioni di elaborazione e Glossario
     parser.add_argument(
+        "--fetch-only",
+        action="store_true",
+        help="Scarica/verifica solo la trascrizione e mostra i metadati senza chiamare le API Gemini (ideale quando il riassunto viene generato dall'Agente).",
+    )
+    parser.add_argument(
         "--update-glossary",
         action="store_true",
-        help="Aggiorna automaticamente glossario.md con le nuove voci scoperte.",
+        help="Aggiorna automaticamente i glossari in glossari/ con le nuove voci scoperte.",
+    )
+    parser.add_argument(
+        "--rebuild-glossary",
+        action="store_true",
+        help="Ricostruisce/aggiorna i glossari (glossario_<YYYY>.md e glossario.md) partendo dai riassunti presenti in riassunti/, in rigoroso ordine cronologico secondo startTimestamp in channel_videos_cache.json (combinabile con --year YYYY).",
     )
     parser.add_argument(
         "--force",
@@ -892,9 +1652,26 @@ def main():
 
     args = parser.parse_args()
 
+    # Opzionale: aggiornamento esplicito di channel_videos_cache.json da YouTube
+    if args.refresh_cache:
+        fetch_channel_videos(args.channel, max_videos=args.max_videos)
+        if not (args.list_months or args.reset or args.year or args.month or args.video):
+            print("✅ Cache del canale (`channel_videos_cache.json`) aggiornata con successo!")
+            return
+
+    # Caso 0: Modalità RESET (elimina riassunto e voce in processed_videos.json, conserva trascrizione)
+    if args.reset:
+        reset_summaries(year=args.year, month=args.month, video_arg=args.video)
+        return
+
+    # Caso 0b: Ricostruzione / Refresh dei Glossari a partire dai riassunti in riassunti/ (in ordine cronologico)
+    if args.rebuild_glossary:
+        rebuild_glossaries_from_summaries(year=args.year)
+        return
+
     # Caso A: Mostra il catalogo storico diviso per mesi
     if args.list_months:
-        list_channel_history(args.channel, max_videos=args.max_videos)
+        list_channel_history(year=args.year, month=args.month)
         return
 
     # Caso B: Pubblica su Discord un singolo file Markdown locale
@@ -935,7 +1712,7 @@ def main():
             "month": format_month_from_upload_date(date_From_title),
         }
 
-        glossary_text = GLOSSARY_PATH.read_text(encoding="utf-8") if GLOSSARY_PATH.exists() else ""
+        glossary_text = load_glossary_context(date_From_title)
         summary_output = generate_summary_with_gemini(
             transcript=transcript_text,
             glossary_text=glossary_text,
@@ -952,7 +1729,12 @@ def main():
         print(f"✅ Riassunto Markdown salvato in locale: {summary_path.relative_to(BASE_DIR)}")
 
         if args.update_glossary and summary_output.nuove_voci_glossario:
-            update_glossary_file(summary_output.nuove_voci_glossario, session_title, date_From_title)
+            update_glossary_file(
+                summary_output.nuove_voci_glossario,
+                summary_output.titolo_episodio or session_title,
+                date_From_title,
+                summary_path=summary_path,
+            )
 
         posted = False
         if args.discord:
@@ -961,49 +1743,60 @@ def main():
         record_video_summary(video_info, summary_path, posted_to_discord=posted)
         return
 
-    # Caso D: Elaborazione storico di un intero mese (--month YYYY-MM)
-    if args.month:
-        videos = fetch_channel_videos(args.channel, max_videos=args.max_videos)
-        month_videos = [v for v in videos if v["month"] == args.month]
-        if not month_videos:
-            print(
-                f"⚠️ Nessuna puntata trovata per il mese '{args.month}'. "
-                "Usa `python dnd_summarizer.py --list-months` per vedere i mesi disponibili."
-            )
-            return
+    # Caso D: Elaborazione storico di un intero anno (--year YYYY) o mese (--month YYYY-MM)
+    # Le informazioni dello streaming vengono recuperate da channel_videos_cache.json (e se mancanti si blocca)
+    if args.year or args.month:
+        target_year = args.year
+        target_month = args.month
+        if target_month and re.fullmatch(r"20\d{2}", target_month.strip()):
+            target_year = target_month.strip()
+            target_month = None
 
-        # Ordina dal più vecchio al più recente così la storia e il glossario progrediscono in ordine!
-        month_videos.sort(key=lambda x: x.get("upload_date", ""))
+        period_videos = get_cached_videos(year=target_year, month=target_month)
+        label = f"anno {target_year}" if target_year else f"mese {target_month}"
+        if not period_videos:
+            print(
+                f"❌ ERRORE BLOCCANTE: Nessuna puntata trovata in '{CACHE_PATH.name}' per {label}. "
+                "Usa `py dnd_summarizer.py --list-months` o `--refresh-cache` per aggiornare la cache."
+            )
+            sys.exit(1)
+
         print(
-            f"🗓️ Trovate {len(month_videos)} puntate per il mese {args.month}. "
+            f"🗓️ Trovate {len(period_videos)} puntate in cache per {label}. "
             "Avvio elaborazione in ordine cronologico..."
         )
-        for v in month_videos:
+        for v in period_videos:
             try:
                 process_single_video(
                     video_info=v,
                     force=args.force,
                     update_glossary=args.update_glossary,
                     post_discord=args.discord,
+                    fetch_only=args.fetch_only,
                 )
             except Exception as e:
                 print(f"❌ Errore durante l'elaborazione di '{v['title']}' ({v['id']}): {e}")
-        print(f"\n🎉 Elaborazione del mese {args.month} completata! Trovi i file in riassunti/{args.month}/")
+        if args.fetch_only:
+            print(f"\n📥 Verifica/scaricamento trascrizioni per {label} completato! Ora l'Agente può generare i riassunti.")
+        else:
+            print(f"\n🎉 Elaborazione per {label} completata!")
         return
 
-    # Caso E: Elaborazione di un singolo video specifico (--video) o dell'ultima live sul canale
+    # Caso E: Elaborazione di un singolo video specifico (--video) o dell'ultima live in cache
+    # Recupera obbligatoriamente le informazioni dello streaming da channel_videos_cache.json
     if args.video:
         vid_id = extract_video_id(args.video)
-        video_info = get_video_metadata(vid_id)
+        video_info = get_video_info_from_cache(vid_id)
     else:
-        videos = fetch_channel_videos(args.channel, max_videos=5)
-        video_info = videos[0]
+        cached_all = get_cached_videos()
+        video_info = cached_all[-1]
 
     process_single_video(
         video_info=video_info,
         force=args.force,
         update_glossary=args.update_glossary,
         post_discord=args.discord,
+        fetch_only=args.fetch_only,
     )
 
 
