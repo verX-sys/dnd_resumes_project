@@ -8,6 +8,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 import tempfile
 import time
@@ -61,6 +62,10 @@ GLOSSARY_PATH = GLOSSARIES_DIR / "glossario.md"
 PROCESSED_PATH = BASE_DIR / "processed_videos.json"
 SUMMARIES_DIR = BASE_DIR / "riassunti"
 TRANSCRIPTS_DIR = BASE_DIR / "trascrizioni"
+DOCS_DIR = BASE_DIR / "docs"
+DOCS_DATA_DIR = DOCS_DIR / "data"
+DOCS_SUMMARIES_DIR = DOCS_DIR / "riassunti"
+DOCS_GLOSSARIES_DIR = DOCS_DIR / "glossari"
 
 
 def get_yearly_glossary_path(date_or_year: str = "") -> Path:
@@ -1512,6 +1517,189 @@ def reset_summaries(
     print(f"{'='*65}\n")
 
 
+def clean_search_text(text: str) -> str:
+    """Rimuove la sintassi markdown pesante per ottimizzare la ricerca full-text."""
+    text = re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", text)
+    text = re.sub(r"^[#>\*\-\+]\s*", "", text, flags=re.M)
+    text = re.sub(r"[*_~`]", "", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def build_web_data(verbose: bool = True) -> dict:
+    """Scansiona tutti i riassunti in `riassunti/` e i glossari in `glossari/`,
+    sincronizza i file Markdown in `docs/` e genera `docs/data/manifest.json` e `docs/data/search_index.json`
+    per il frontend Vanilla SPA su GitHub Pages."""
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_SUMMARIES_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_GLOSSARIES_DIR.mkdir(parents=True, exist_ok=True)
+
+    summary_files = sorted(list(SUMMARIES_DIR.rglob("*.md")))
+    sessions_meta = []
+    search_docs = []
+
+    CANONICAL_CHARACTERS = {
+        "aerial": "Aerial Aldebaran",
+        "lucio": "Lucio Malaver",
+        "rey": "Rey Sekigan",
+        "rogus": "Rogus Harndrekker",
+        "prometheus": "Prometheus",
+        "quarion": "Quarion",
+    }
+
+    for sf in summary_files:
+        rel_subpath = sf.relative_to(SUMMARIES_DIR)
+        dest_file = DOCS_SUMMARIES_DIR / rel_subpath
+        dest_file.parent.mkdir(parents=True, exist_ok=True)
+        if not dest_file.exists() or dest_file.stat().st_mtime < sf.stat().st_mtime:
+            shutil.copy2(sf, dest_file)
+
+        raw_text = sf.read_text(encoding="utf-8")
+        title_m = re.search(r"^#\s*🐉?\s*(.+)$", raw_text, re.M)
+        title = title_m.group(1).strip() if title_m else sf.stem
+
+        date_m = re.search(r"📅\s*\*\*Data Live:\*\*\s*([\d\-]+)", raw_text)
+        date_str = date_m.group(1).strip() if date_m else ""
+        if not date_str:
+            fn_date = re.match(r"^(\d{4}-\d{2}-\d{2})", sf.name)
+            date_str = fn_date.group(1) if fn_date else "Sconosciuta"
+
+        yt_m = re.search(r"📺\s*\*\*YouTube:\*\*\s*\[.*?\]\((https?://[^\)]+)\)", raw_text)
+        youtube_url = yt_m.group(1).strip() if yt_m else ""
+
+        audio_m = re.search(r"🔇\s*\*\*Monitoraggio Audio:\*\*\s*(.+)$", raw_text, re.M)
+        audio_status = audio_m.group(1).strip() if audio_m else "Nessun taglio rilevato"
+
+        raw_pgs = re.findall(r"###\s*🛡️\s*([^\n\(]+)", raw_text)
+        found_chars = set()
+        for p in raw_pgs:
+            p_clean = p.strip()
+            p_lower = p_clean.lower()
+            matched = False
+            for c_key, c_name in CANONICAL_CHARACTERS.items():
+                if c_key in p_lower:
+                    found_chars.add(c_name)
+                    matched = True
+            if not matched and p_clean and "party" not in p_lower and "personaggi" not in p_lower:
+                found_chars.add(p_clean)
+
+        syn_m = re.search(r"##\s*📜\s*Sinossi.*?$\n+([\s\S]*?)(?=\n##\s*)", raw_text, re.M)
+        synopsis = syn_m.group(1).strip() if syn_m else ""
+
+        dialogues = re.findall(r">\s*💬\s*\*\*\[\[([\d\:]+\s*-\s*[\d\:]+)\]\]\(([^\)]+)\)\s*—\s*([^\*]+)\*\*", raw_text)
+
+        year = date_str[:4] if len(date_str) >= 4 and date_str[:4].isdigit() else "Varie"
+        month = date_str[:7] if len(date_str) >= 7 and "-" in date_str else "Varie"
+
+        session_id = sf.stem
+
+        session_entry = {
+            "id": session_id,
+            "title": title,
+            "date": date_str,
+            "year": year,
+            "month": month,
+            "youtube_url": youtube_url,
+            "audio_status": audio_status,
+            "characters": sorted(list(found_chars)),
+            "synopsis": synopsis,
+            "dialogue_count": len(dialogues),
+            "filename": sf.name,
+            "path": f"riassunti/{rel_subpath.as_posix()}",
+            "word_count": len(raw_text.split()),
+        }
+        sessions_meta.append(session_entry)
+
+        clean_content = clean_search_text(raw_text)
+        search_docs.append({
+            "id": session_id,
+            "type": "sessione",
+            "title": title,
+            "date": date_str,
+            "year": year,
+            "month": month,
+            "characters": sorted(list(found_chars)),
+            "path": f"riassunti/{rel_subpath.as_posix()}",
+            "content": clean_content,
+            "snippet": clean_content[:260] + ("..." if len(clean_content) > 260 else ""),
+        })
+
+    sessions_meta.sort(key=lambda s: s["date"], reverse=True)
+
+    glossary_files = sorted(list(GLOSSARIES_DIR.glob("*.md")))
+    glossaries_meta = []
+    for gf in glossary_files:
+        dest_g = DOCS_GLOSSARIES_DIR / gf.name
+        if not dest_g.exists() or dest_g.stat().st_mtime < gf.stat().st_mtime:
+            shutil.copy2(gf, dest_g)
+
+        raw_g = gf.read_text(encoding="utf-8")
+        clean_g = clean_search_text(raw_g)
+        is_general = gf.name == "glossario.md"
+        suffix = gf.stem.replace("glossario_", "")
+        g_title = "Glossario Generale della Campagna" if is_general else f"Diario Cronologico {suffix}"
+
+        glossaries_meta.append({
+            "id": gf.stem,
+            "filename": gf.name,
+            "title": g_title,
+            "is_general": is_general,
+            "path": f"glossari/{gf.name}",
+            "line_count": len(raw_g.splitlines()),
+        })
+
+        search_docs.append({
+            "id": gf.stem,
+            "type": "glossario",
+            "title": g_title,
+            "date": "Compendio",
+            "year": "Tutti",
+            "month": "Tutti",
+            "characters": [],
+            "path": f"glossari/{gf.name}",
+            "content": clean_g,
+            "snippet": clean_g[:260] + ("..." if len(clean_g) > 260 else ""),
+        })
+
+    years_map = {}
+    for s in sessions_meta:
+        y = s["year"]
+        m = s["month"]
+        if y not in years_map:
+            years_map[y] = {}
+        if m not in years_map[y]:
+            years_map[y][m] = []
+        years_map[y][m].append(s["id"])
+
+    manifest = {
+        "generated_at": datetime.now().isoformat(),
+        "total_sessions": len(sessions_meta),
+        "total_glossaries": len(glossaries_meta),
+        "years": sorted(list(years_map.keys()), reverse=True),
+        "tree": years_map,
+        "sessions": sessions_meta,
+        "glossaries": glossaries_meta,
+    }
+
+    manifest_path = DOCS_DATA_DIR / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    search_index_path = DOCS_DATA_DIR / "search_index.json"
+    search_index_path.write_text(json.dumps(search_docs, ensure_ascii=False), encoding="utf-8")
+
+    if verbose:
+        print(f"\n{'='*65}")
+        print("✅ BUILD FRONTEND WEB COMPLETATA:")
+        print(f"   📁 Cartella di output:              {DOCS_DIR.relative_to(BASE_DIR)}")
+        print(f"   📜 Sessioni sincronizzate/indicizzate: {len(sessions_meta)}")
+        print(f"   📖 Glossari sincronizzati/indicizzati: {len(glossaries_meta)}")
+        print(f"   📄 Manifest generato:               {manifest_path.relative_to(BASE_DIR)} ({round(manifest_path.stat().st_size / 1024, 1)} KB)")
+        print(f"   🔍 Search Index generato:           {search_index_path.relative_to(BASE_DIR)} ({round(search_index_path.stat().st_size / 1024, 1)} KB)")
+        print(f"{'='*65}\n")
+
+    return manifest
+
+
 # =====================================================================
 # Main CLI
 # =====================================================================
@@ -1597,6 +1785,12 @@ def main():
         help="Ricostruisce/aggiorna i glossari (glossario_<YYYY>.md e glossario.md) partendo dai riassunti presenti in riassunti/, in rigoroso ordine cronologico secondo startTimestamp in channel_videos_cache.json (combinabile con --year YYYY).",
     )
     parser.add_argument(
+        "--build-web",
+        "--export-web",
+        action="store_true",
+        help="Sincronizza i file Markdown in docs/ e genera manifest.json e search_index.json per il frontend GitHub Pages.",
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help="Rigenera il riassunto anche se il video risulta già elaborato in locale.",
@@ -1637,6 +1831,11 @@ def main():
     # Caso 0b: Ricostruzione / Refresh dei Glossari a partire dai riassunti in riassunti/ (in ordine cronologico)
     if args.rebuild_glossary:
         rebuild_glossaries_from_summaries(year=args.year)
+        return
+
+    # Caso 0c: Esportazione / Build del frontend web per GitHub Pages (manifest.json, search_index.json e sync file)
+    if args.build_web:
+        build_web_data()
         return
 
     # Caso A: Mostra il catalogo storico diviso per mesi

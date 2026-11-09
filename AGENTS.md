@@ -157,6 +157,19 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 
 ---
 
+### 8️⃣ "Aggiorna / Esporta il sito web per GitHub Pages" (`--build-web`)
+1. Quando l'utente chiede di aggiornare il frontend web, sincronizzare le nuove sessioni o aggiornare l'indice di ricerca:
+   ```powershell
+   py dnd_summarizer.py --build-web
+   ```
+   - **Cosa fa `--build-web`**:
+     1. Sincronizza tutti i file `.md` di `riassunti/` e `glossari/` nella cartella `docs/`.
+     2. Genera `docs/data/manifest.json` (indice leggero con titoli, date, link YouTube, audio status e PG).
+     3. Genera `docs/data/search_index.json` (indice full-text con snippet e testo pulito per il motore MiniSearch).
+     4. Il sito è pronto per essere visualizzato o pubblicato su GitHub Pages (impostando Source: `/docs`).
+
+---
+
 ## 🧠 Regole Fondamentali del Cronista (Analisi Trascrizione)
 
 1. **Conversione Giocatori ➔ Personaggi Giocanti (PG)**:

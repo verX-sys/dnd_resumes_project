@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="it" class="dark h-full overflow-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D&D Chronicles — Cronache di Stefano Leone</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              450: '#f59e0b',
+              550: '#d97706',
+            },
+            fantasy: {
+              gold: '#d4af37',
+              dark: '#0f1117',
+              card: '#181b26',
+              border: '#282d3f',
+              ivoryBg: '#f7f4ed',
+              ivoryCard: '#ffffff',
+              ivoryBorder: '#e6dfd1',
+              ivoryText: '#1f1b16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Local vendor scripts with CDN fallbacks -->
+  <script src="./vendor/marked.min.js"></script>
+  <script>
+    if (typeof marked === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"><\/script>');
+    }
+  </script>
+  <script src="./vendor/minisearch.min.js"></script>
+  <script>
+    if (typeof MiniSearch === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.1/dist/umd/index.min.js"><\/script>');
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.25); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(150, 150, 150, 0.45); }
+
+    /* Theme Styles */
+    html.dark {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --card-border: #30363d;
+      --text-main: #e6edf3;
+      --text-muted: #8b949e;
+      --code-bg: #090d13;
+    }
+    html.light {
+      --bg: #f7f4ed; /* Caldo e raffinato Avorio */
+      --card-bg: #ffffff;
+      --card-border: #e6dfd1;
+      --text-main: #1f1b16; /* Antracite caldo scuro ad altissimo contrasto */
+      --text-muted: #5c5245; /* Contrasto eccellente su sfondo avorio */
+      --code-bg: #efe9dc;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+    }
+
+    .theme-card {
+      background-color: var(--card-bg);
+      border-color: var(--card-border);
+    }
+
+    /* Regole di alto contrasto e leggibilità per la modalità Chiara Avorio */
+    html.light body {
+      background-color: var(--bg);
+      color: var(--text-main);
+    }
+    html.light .text-gray-400,
+    html.light .text-gray-500 {
+      color: #5c5245 !important;
+    }
+    html.light .text-gray-300 {
+      color: #3d352b !important;
+    }
+    html.light .text-gray-200,
+    html.light .text-gray-100 {
+      color: #1f1b16 !important;
+    }
+    html.light .theme-card {
+      background-color: var(--card-bg);
+      border-color: var(--card-border);
+      color: var(--text-main);
+    }
+    html.light .fantasy-gradient {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.09) 0%, rgba(180, 83, 9, 0.02) 100%);
+    }
+    html.light .prose-dnd {
+      color: #1f1b16;
+    }
+    html.light .prose-dnd p,
+    html.light .prose-dnd li {
+      color: #1f1b16;
+    }
+    html.light .prose-dnd h1,
+    html.light .prose-dnd h2 {
+      color: #b45309;
+    }
+    html.light .prose-dnd h3 {
+      color: #1f1b16;
+    }
+    html.light .prose-dnd blockquote {
+      border-left-color: #d97706;
+      background-color: rgba(217, 119, 6, 0.08);
+      color: #1f1b16;
+    }
+    html.light .dnd-quote-card {
+      background: #ffffff;
+      border: 1px solid #e6dfd1;
+      border-left: 4px solid #d97706;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      color: #1f1b16;
+    }
+    html.light .dnd-quote-header {
+      color: #b45309;
+    }
+    html.light .dnd-dice-badge {
+      background: rgba(217, 119, 6, 0.12);
+      color: #92400e;
+      border-color: rgba(217, 119, 6, 0.35);
+    }
+    html.light .dnd-spell-badge {
+      background: rgba(147, 51, 234, 0.12);
+      color: #7e22ce;
+      border-color: rgba(147, 51, 234, 0.35);
+    }
+    html.light input {
+      color: #1f1b16 !important;
+      background-color: #ffffff !important;
+      border-color: #e6dfd1 !important;
+    }
+    html.light input::placeholder {
+      color: #8c8070 !important;
+    }
+
+    .fantasy-gradient {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(180, 83, 9, 0.04) 100%);
+    }
+
+    mark.search-highlight {
+      background-color: rgba(245, 158, 11, 0.35);
+      color: inherit;
+      padding: 0 4px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    /* Markdown Rendering Enhancements */
+    .prose-dnd {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .prose-dnd pre, .prose-dnd table {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    .prose-dnd h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.75rem; color: #d97706; }
+    .prose-dnd h2 { font-size: 1.25rem; font-weight: 700; margin-top: 1.75rem; margin-bottom: 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--card-border); color: #f59e0b; display: flex; align-items: center; gap: 0.5rem; }
+    .prose-dnd h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: var(--text-main); }
+    .prose-dnd p { margin-bottom: 0.85rem; line-height: 1.65; }
+    .prose-dnd ul { list-style-type: disc; padding-left: 1.3rem; margin-bottom: 0.85rem; space-y: 0.25rem; }
+    .prose-dnd li { margin-bottom: 0.35rem; line-height: 1.6; }
+    .prose-dnd blockquote { margin: 1rem 0; padding: 0.75rem 1rem; border-left: 3px solid #f59e0b; background-color: rgba(245, 158, 11, 0.06); border-radius: 0 0.5rem 0.5rem 0; }
+    .prose-dnd strong { font-weight: 700; color: inherit; }
+    .prose-dnd code { background-color: var(--code-bg); padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.85em; }
+
+    /* Theatrical dialogue box */
+    .dnd-quote-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid #d97706;
+      border-radius: 0.5rem;
+      padding: 0.85rem 1.1rem;
+      margin: 1rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+    .dnd-quote-header {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #d97706;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dnd-dice-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.18);
+      color: #d97706;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .dnd-spell-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(168, 85, 247, 0.18);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans select-none antialiased overflow-hidden">
+
+  <!-- ==================== HEADER BAR ==================== -->
+  <header class="h-14 border-b theme-card px-3 md:px-4 flex items-center justify-between shrink-0 z-40 shadow-xs gap-2 min-w-0">
+    
+    <!-- Left: Brand & Title -->
+    <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
+      <button onclick="toggleSidebar()" class="lg:hidden p-1.5 rounded-lg border theme-card hover:border-amber-500 text-sm shrink-0" title="Apri/Chiudi Menu">
+        ☰
+      </button>
+      <div onclick="navigateTo('session', latestSessionId)" class="cursor-pointer flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500 text-base font-bold shadow-xs shrink-0">
+          🐉
+        </div>
+        <div class="shrink-0">
+          <div class="text-xs md:text-sm font-bold tracking-tight flex items-center gap-1.5 whitespace-nowrap">
+            <span>Cronache di D&D</span>
+            <span class="hidden 2xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono font-medium border border-amber-500/25">
+              Live Archive
+            </span>
+          </div>
+          <p class="text-[11px] text-gray-400 hidden 2xl:block whitespace-nowrap">Campagna di Stefano Leone • Compagnia del Tarallo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center: Main Navigation Tabs -->
+    <nav class="hidden md:flex items-center gap-0.5 xl:gap-1 p-1 rounded-lg border theme-card shrink-0">
+      <button onclick="setActiveTab('reader')" id="nav-reader" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors bg-amber-500/20 text-amber-500 font-bold shrink-0">
+        📜 Sessioni
+      </button>
+      <button onclick="setActiveTab('search')" id="nav-search" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 flex items-center gap-1 shrink-0">
+        <span>🔍</span> Ricerca
+        <span id="search-count-badge" class="hidden xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono">110</span>
+      </button>
+      <button onclick="setActiveTab('glossary')" id="nav-glossary" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
+        📖 Glossari
+      </button>
+      <button onclick="setActiveTab('characters')" id="nav-characters" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
+        🛡️ <span class="hidden xl:inline">Compagnia & </span>PG
+      </button>
+      <button onclick="setActiveTab('info')" id="nav-info" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
+        ℹ️ Info<span class="hidden xl:inline"> & Stats</span>
+      </button>
+    </nav>
+
+    <!-- Right: Quick Search, Theme & External Links -->
+    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <!-- Quick search launcher button -->
+      <button onclick="setActiveTab('search'); focusSearch();" class="flex items-center gap-1.5 text-xs px-2 sm:px-2.5 py-1.5 rounded-lg border theme-card text-gray-400 hover:border-amber-500 hover:text-amber-500 transition-colors whitespace-nowrap shrink-0" title="Cerca nel testo (Ctrl+K)">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <span class="hidden 2xl:inline">Cerca nel testo...</span>
+        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[10px] bg-black/20 border theme-card rounded font-mono">Ctrl+K</kbd>
+      </button>
+
+      <!-- Theme Switcher (1-Click Toggle: Scuro 🌙 / Chiaro Avorio ☀️) -->
+      <button onclick="toggleTheme()" id="theme-toggle-btn" class="p-1.5 rounded-lg border theme-card hover:border-amber-500 text-xs flex items-center justify-center shrink-0 w-8 h-8 transition-colors" title="Passa alla modalità Chiara (Avorio)">
+        <span id="theme-icon">🌙</span>
+      </button>
+
+      <!-- YouTube Channel Stream -->
+      <a href="https://www.youtube.com/@stefanoleone4578/streams" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-xs font-semibold px-2 sm:px-2.5 py-1.5 rounded-lg bg-red-600/15 text-red-500 border border-red-600/25 hover:bg-red-600 hover:text-white transition-all shadow-xs whitespace-nowrap shrink-0" title="Canale Live YouTube">
+        <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        <span class="hidden sm:inline">Live</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== LOCAL / FILE PROTOCOL NOTICE (IF NEEDED) ==================== -->
+  <div id="local-file-notice" class="hidden shrink-0 bg-amber-500/10 border-b border-amber-500/30 px-4 py-2.5 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span>⚠️</span>
+      <span><strong>Nota per l'apertura locale:</strong> I browser bloccano le chiamate <code>fetch()</code> se il file è aperto con il protocollo <code>file:///</code>. Avvia un piccolo web server locale (es. con il comando <code>py -m http.server</code> nella cartella <code>docs/</code> o tramite Live Server in VS Code) oppure pubblicalo su GitHub Pages.</span>
+    </div>
+    <button onclick="document.getElementById('local-file-notice').remove()" class="text-xs font-bold px-2 py-0.5 rounded hover:bg-amber-500/20">✕</button>
+  </div>
+
+  <!-- ==================== MAIN WORKSPACE ==================== -->
+  <div class="flex-1 flex overflow-hidden min-h-0 w-full relative">
+    
+    <!-- Mobile Drawer Backdrop -->
+    <div id="sidebar-backdrop" onclick="closeMobileSidebar()" class="hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-xs lg:hidden transition-opacity"></div>
+
+    <!-- LEFT SIDEBAR: Session Archive Tree & PG Filters (Drawer on <lg, static on >=lg) -->
+    <aside id="sidebar" class="hidden lg:flex fixed lg:relative inset-y-0 left-0 z-50 lg:z-30 w-80 max-w-[85vw] border-r theme-card flex-col transition-all duration-200 shrink-0 h-full overflow-hidden shadow-2xl lg:shadow-none bg-inherit">
+      
+      <!-- Quick Filter Input inside sidebar -->
+      <div class="p-3 border-b theme-card shrink-0 flex items-center justify-between gap-2">
+        <div class="relative flex-1">
+          <input type="text" id="sidebar-filter-input" oninput="filterSidebar(this.value)" placeholder="Filtra titoli o date..." class="w-full text-xs pl-8 pr-3 py-2 rounded-lg border theme-card focus:border-amber-500 focus:outline-none transition-colors">
+          <svg class="w-4 h-4 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <button onclick="closeMobileSidebar()" class="lg:hidden p-2 rounded-lg border theme-card hover:border-amber-500 text-xs shrink-0" title="Chiudi Menu">✕</button>
+      </div>
+
+      <!-- Quick Character Filters -->
+      <div class="px-3 py-2 border-b theme-card flex items-center gap-1.5 overflow-x-auto text-xs scrollbar-none shrink-0">
+        <span class="text-gray-400 text-[11px] uppercase tracking-wider shrink-0 font-semibold">PG:</span>
+        <button onclick="setCharFilter('all')" class="char-pill active px-2 py-0.5 rounded-full text-xs bg-amber-500 text-white font-medium shrink-0">Tutti</button>
+        <button onclick="setCharFilter('Aerial')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Aerial</button>
+        <button onclick="setCharFilter('Lucio')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Lucio</button>
+        <button onclick="setCharFilter('Rey')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rey</button>
+        <button onclick="setCharFilter('Rogus')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rogus</button>
+        <button onclick="setCharFilter('Prometheus')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Prometheus</button>
+      </div>
+
+      <!-- Tree Session Archive List -->
+      <div class="flex-1 overflow-y-auto p-2 space-y-1 min-h-0" id="sidebar-tree">
+        <div class="p-4 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
+          <svg class="animate-spin h-4 w-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          Caricamento sessioni...
+        </div>
+      </div>
+
+      <!-- Bottom Session Counter Status -->
+      <div class="p-2.5 border-t theme-card text-[11px] text-gray-400 flex items-center justify-between shrink-0">
+        <span id="sidebar-stats">104 sessioni indicizzate</span>
+        <button onclick="setActiveTab('search')" class="text-amber-500 hover:underline">Ricerca Globale ➔</button>
+      </div>
+    </aside>
+
+    <!-- CENTER & RIGHT: Content Views -->
+    <main class="flex-1 flex overflow-hidden min-h-0 h-full w-full min-w-0">
+      
+      <!-- Center Content Pane -->
+      <div id="content-pane" class="flex-1 overflow-y-auto overflow-x-hidden px-4 py-5 sm:px-6 sm:py-6 md:px-8 lg:px-10 w-full h-full min-w-0">
+        
+        <!-- ==================== TAB 1: SESSION READER ==================== -->
+        <section id="tab-content-reader" class="space-y-6 w-full">
+          
+          <!-- Session Header Card -->
+          <div id="session-header-card" class="rounded-xl border theme-card p-4 sm:p-5 fantasy-gradient shadow-xs max-w-full overflow-hidden break-words">
+            <div class="flex flex-wrap items-center justify-between gap-2.5 mb-2.5 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 min-w-0 max-w-full">
+                <span id="session-badge-date" class="text-xs px-2.5 py-1 rounded-md font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono whitespace-nowrap shrink-0">
+                  📅 2026-11-02
+                </span>
+                <span id="session-badge-audio" title="Audio integro" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/20 flex items-center gap-1.5 min-w-0 max-w-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                  <span class="truncate max-w-[180px] sm:max-w-xs">Audio Integro</span>
+                </span>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a id="session-yt-btn" href="#" target="_blank" rel="noopener noreferrer" class="text-xs px-2.5 sm:px-3 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium flex items-center gap-1.5 transition-colors shadow-xs whitespace-nowrap shrink-0">
+                  <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  <span class="hidden sm:inline">Guarda la Live su </span>YouTube
+                </a>
+              </div>
+            </div>
+
+            <h1 id="session-title" class="text-xl md:text-2xl font-bold tracking-tight text-amber-500 break-words leading-snug">
+              Caricamento sessione in corso...
+            </h1>
+
+            <!-- Session Metadata Box (Personaggi & Statistiche perfettamente centrati) -->
+            <div class="mt-4 p-2.5 px-3 rounded-lg border theme-card flex flex-wrap items-center justify-between gap-2 text-xs text-stone-600 dark:text-gray-400 leading-relaxed">
+              <div id="session-characters-list" class="min-w-0 flex items-center flex-wrap gap-1">
+                👥 <strong>Personaggi:</strong> In caricamento...
+              </div>
+              <div id="session-word-stats" class="whitespace-nowrap flex items-center gap-1 text-stone-500 dark:text-gray-400 font-medium">
+                📖 Conteggio parole: ~
+              </div>
+            </div>
+          </div>
+
+          <!-- Markdown Content Render Container -->
+          <article id="session-markdown-body" class="prose-dnd text-sm leading-relaxed">
+            <!-- Dynamic parsed HTML injected here -->
+          </article>
+
+        </section>
+
+        <!-- ==================== TAB 2: ADVANCED FULL-TEXT SEARCH ==================== -->
+        <section id="tab-content-search" class="hidden space-y-6 w-full">
+          
+          <div class="rounded-xl border theme-card p-6 fantasy-gradient shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-xl font-bold flex items-center gap-2 text-amber-500">
+                  <span>🔍</span> Ricerca Avanzata nel Testo
+                </h2>
+                <p class="text-xs text-gray-400 mt-0.5">
+                  Cerca qualsiasi parola o frase in oltre 104 sessioni trascritte e nei 6 glossari della campagna.
+                </p>
+              </div>
+              <span class="hidden sm:inline-block text-xs px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-500 font-mono font-bold border border-amber-500/25">
+                MiniSearch Inverted Index
+              </span>
+            </div>
+
+            <!-- Big Search Input -->
+            <div class="relative">
+              <input type="text" id="fulltext-search-input" oninput="handleFullTextSearch(this.value)" placeholder="Scrivi una parola o frase (es: galline, Atashkarev, morbo, persiana, Errick, leoni, Ava)..." class="w-full text-sm pl-11 pr-4 py-3 rounded-xl border-2 border-amber-500/40 focus:border-amber-500 theme-card focus:outline-none transition-colors shadow-inner">
+              <svg class="w-5 h-5 text-amber-500 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+
+            <!-- Filter Categories -->
+            <div class="pt-1">
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="text-gray-400 font-semibold text-[11px] uppercase tracking-wider">Filtra per:</span>
+                <button onclick="setSearchCategory('all')" class="search-cat-pill active px-2.5 py-1 rounded-full bg-amber-500 text-white font-medium">Tutti i Documenti</button>
+                <button onclick="setSearchCategory('sessione')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📜 Solo Riassunti Sessioni</button>
+                <button onclick="setSearchCategory('glossario')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📖 Solo Glossari & Regole</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Status Bar -->
+          <div class="flex items-center justify-between text-xs px-2 text-gray-400">
+            <span id="search-status-text">Digita almeno 2 caratteri per effettuare la ricerca full-text.</span>
+            <span id="search-index-stats" class="font-mono text-[11px]">110 documenti in memoria</span>
+          </div>
+
+          <!-- Results List Container -->
+          <div id="search-results-container" class="space-y-3">
+            <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-gray-400 space-y-2">
+              <span class="text-3xl">📖</span>
+              <p>Trova istantaneamente qualsiasi avvenimento, battuta o PNG citato nella campagna.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================== TAB 3: GLOSSARI ENCICLOPEDICI ==================== -->
+        <section id="tab-content-glossary" class="hidden space-y-6 w-full">
+          <div class="rounded-xl border theme-card p-5 fantasy-gradient space-y-3">
+            <h2 class="text-xl font-bold text-amber-500 flex items-center gap-2">
+              <span>📖</span> Compendio Enciclopedico & Diari Annuali
+            </h2>
+            <p class="text-xs text-gray-400">
+              Esplora l'enciclopedia tematica della campagna (PNG, Fazioni, Luoghi, Reliquie) o i diari cronologici sessione per sessione.
+            </p>
+            
+            <!-- Glossary file switcher buttons -->
+            <div class="flex flex-wrap items-center gap-2 pt-2" id="glossary-switcher-buttons">
+              <!-- Dynamically populated from manifest -->
+            </div>
+          </div>
+
+          <!-- Glossary Markdown Body -->
+          <article id="glossary-markdown-body" class="prose-dnd text-sm leading-relaxed rounded-xl border theme-card p-6">
+            <div class="p-6 text-center text-xs text-gray-400">Seleziona un glossario per visualizzarlo.</div>
+          </article>
+        </section>
+
+        <!-- ==================== TAB 4: COMPAGNIA DEL TARALLO & PG ==================== -->
+        <section id="tab-content-characters" class="hidden space-y-6 w-full">
+          <div class="rounded-xl border theme-card p-5 fantasy-gradient">
+            <h2 class="text-xl font-bold text-amber-500">🛡️ La Compagnia del Tarallo (Personaggi Giocanti)</h2>
+            <p class="text-xs text-gray-400 mt-1">Stato dei protagonisti, allineamenti, classi e squadre attive nel Torneo dei Saggi</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="characters-cards-grid">
+            <!-- Populated via script -->
+          </div>
+        </section>
+
+        <!-- ==================== TAB 5: INFO & STATISTICHE ==================== -->
+        <section id="tab-content-info" class="hidden space-y-6 w-full">
+          <div class="rounded-xl border theme-card p-5 fantasy-gradient">
+            <h2 class="text-xl font-bold text-amber-500">ℹ️ Informazioni & Statistiche del Progetto</h2>
+            <p class="text-xs text-gray-400 mt-1">Archivio storico digitale automatizzato della campagna D&D di Stefano Leone</p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="p-4 rounded-xl border theme-card">
+              <div class="text-2xl font-bold text-amber-500 font-mono" id="stat-total-sessions">104</div>
+              <div class="text-xs text-gray-400 mt-1">Sessioni Trascritte</div>
+            </div>
+            <div class="p-4 rounded-xl border theme-card">
+              <div class="text-2xl font-bold text-emerald-500 font-mono" id="stat-total-years">5</div>
+              <div class="text-xs text-gray-400 mt-1">Anni di Campagna (2022-2026)</div>
+            </div>
+            <div class="p-4 rounded-xl border theme-card">
+              <div class="text-2xl font-bold text-purple-500 font-mono" id="stat-total-glossaries">6</div>
+              <div class="text-xs text-gray-400 mt-1">Glossari & Compendi</div>
+            </div>
+            <div class="p-4 rounded-xl border theme-card">
+              <div class="text-2xl font-bold text-blue-500 font-mono" id="stat-audio-health">100%</div>
+              <div class="text-xs text-gray-400 mt-1">Monitoraggio Audio Live</div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl border theme-card space-y-3">
+            <h3 class="text-sm font-bold text-amber-500 flex items-center gap-2">
+              <span>🚀</span> Come sincronizzare e pubblicare su GitHub Pages
+            </h3>
+            <p class="text-xs text-gray-400 leading-relaxed">
+              Questo sito è una <strong>Vanilla SPA Zero-Build</strong>: non richiede Node.js, Webpack o processi di compilazione.
+              Ogni volta che viene riassunta una nuova live con l'agente o con lo script, basta eseguire:
+            </p>
+            <div class="bg-black/20 p-3 rounded-lg border theme-card font-mono text-xs text-amber-400">
+              py dnd_summarizer.py --build-web<br>
+              git add docs/<br>
+              git commit -m "Aggiornato archivio sessioni"<br>
+              git push
+            </div>
+            <p class="text-xs text-gray-400 leading-relaxed">
+              GitHub Pages è configurato per pubblicare direttamente dalla cartella <code>/docs</code> del branch principale.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT SIDEBAR: Table of Contents for Current Document (Desktop) -->
+      <aside id="toc-sidebar" class="hidden xl:flex w-64 border-l theme-card p-4 flex-col text-xs shrink-0 h-full overflow-hidden">
+        <h4 class="font-bold text-gray-400 uppercase tracking-wider text-[11px] mb-3 shrink-0">In questa pagina</h4>
+        <nav id="toc-nav" class="space-y-1.5 overflow-y-auto flex-1 min-h-0">
+          <span class="text-gray-400">Caricamento indice...</span>
+        </nav>
+        <div class="mt-auto pt-4 border-t theme-card text-[11px] text-gray-400 space-y-1 shrink-0">
+          <div>Scorciatoia Ricerca: <kbd class="px-1 py-0.2 bg-black/20 border theme-card rounded font-mono">Ctrl+K</kbd></div>
+          <div class="text-emerald-500 font-medium">✓ Client-Side SPA</div>
+        </div>
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- ==================== CORE JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // Global App State
+    let manifestData = null;
+    let searchIndexData = null;
+    let miniSearchInstance = null;
+    let currentSession = null;
+    let latestSessionId = null;
+    let currentActiveTab = 'reader';
+    let currentCharacterFilter = 'all';
+    let currentSearchCategory = 'all';
+
+    // Character definitions
+    const CHARACTERS_INFO = [
+      {
+        name: 'Aerial Aldebaran',
+        player: 'Michele (Mike)',
+        icon: '🌿',
+        classRole: 'Druido &bull; Circolo delle Forme',
+        team: 'Squadra del Saggio Gideon',
+        allies: 'Caret, Velura, Sera Rinvale',
+        accent: 'emerald',
+        desc: 'Portatore dei tatuaggi alchemici primordiali innestati da Julius e legato al mistero di sua madre Ymeris.'
+      },
+      {
+        name: 'Lucio Malaver',
+        player: 'Nicola (Niky)',
+        icon: '🪓',
+        classRole: 'Barbaro &bull; Combattente Primordiale',
+        team: 'Squadra della Forgia / Yokul',
+        allies: 'Errick (in rottura), Runa, Velendoran',
+        accent: 'red',
+        desc: 'Tempra d\'acciaio, legato al destino degli Smart e alle rivelazioni sui cristalli primordiali.'
+      },
+      {
+        name: 'Rey Sekigan',
+        player: 'Raffaele (Raffa)',
+        icon: '👁️',
+        classRole: 'Occultista &bull; Investigatore Arcano',
+        team: 'Squadra Indipendente',
+        allies: 'Liora, Mirena, Darin',
+        accent: 'purple',
+        desc: 'Mente analitica e strategica, protagonista degli interrogatori chiave sulle cripte dei Saggi.'
+      },
+      {
+        name: 'Rogus Harndrekker',
+        player: 'Giuseppe (Cici)',
+        icon: '🛡️',
+        classRole: 'Guerriero Nanico &bull; Leader Diplomatico',
+        team: 'Squadra del Saggio Osiro',
+        allies: 'Cassian, Fendrel, Liren',
+        accent: 'amber',
+        desc: 'Custode del tomo Le Mille Forme dopo il riscatto coi leoni Rud e Zallen, combatte la minaccia di Bane.'
+      },
+      {
+        name: 'Prometheus',
+        player: 'Carlo (Carle)',
+        icon: '🔮',
+        classRole: 'Mago Necromante &bull; Filosofo dell\'Oltremondo',
+        team: 'Squadra del Saggio Baltasar',
+        allies: 'Cassius Orland, Sivra, Tarnel',
+        accent: 'blue',
+        desc: 'Discepolo di Baltasar, indaga sul ciclo della vita e sul risveglio del Custode delle Otto Pupille.'
+      }
+    ];
+
+    // Theme Management
+    // Theme Management (Dark 🌙 / Light Avorio ☀️)
+    function initTheme() {
+      let savedTheme = localStorage.getItem('dnd_theme');
+      if (savedTheme === 'sepia') savedTheme = 'light'; // Migrazione automatica via dalla modalità pergamena
+      if (savedTheme !== 'light' && savedTheme !== 'dark') {
+        savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      setTheme(savedTheme, false);
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      const nextTheme = isLight ? 'dark' : 'light';
+      setTheme(nextTheme, true);
+    }
+
+    function setTheme(theme, save = true) {
+      if (theme !== 'light' && theme !== 'dark') theme = 'dark';
+      document.documentElement.classList.remove('dark', 'light', 'sepia');
+      document.documentElement.classList.add(theme);
+      
+      const iconEl = document.getElementById('theme-icon');
+      if (iconEl) iconEl.innerText = theme === 'dark' ? '🌙' : '☀️';
+      
+      const btn = document.getElementById('theme-toggle-btn');
+      if (btn) btn.setAttribute('title', theme === 'dark' ? 'Passa alla modalità Chiara (Avorio)' : 'Passa alla modalità Scura');
+      
+      if (save) localStorage.setItem('dnd_theme', theme);
+    }
+
+    // Toggle Mobile Sidebar Drawer
+    function toggleSidebar() {
+      const sb = document.getElementById('sidebar');
+      if (sb.classList.contains('hidden')) {
+        openMobileSidebar();
+      } else {
+        closeMobileSidebar();
+      }
+    }
+
+    function openMobileSidebar() {
+      const sb = document.getElementById('sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      sb.classList.remove('hidden');
+      sb.classList.add('flex');
+      if (bd) bd.classList.remove('hidden');
+    }
+
+    function closeMobileSidebar() {
+      if (window.innerWidth < 1024) {
+        const sb = document.getElementById('sidebar');
+        const bd = document.getElementById('sidebar-backdrop');
+        if (sb) {
+          sb.classList.add('hidden');
+          sb.classList.remove('flex');
+        }
+        if (bd) bd.classList.add('hidden');
+      }
+    }
+
+    // Auto-adjust sidebar on window resize
+    window.addEventListener('resize', () => {
+      const sb = document.getElementById('sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      if (window.innerWidth >= 1024) {
+        if (sb) {
+          sb.classList.remove('hidden');
+          sb.classList.add('flex');
+        }
+        if (bd) bd.classList.add('hidden');
+      } else {
+        if (bd && bd.classList.contains('hidden')) {
+          sb.classList.add('hidden');
+          sb.classList.remove('flex');
+        }
+      }
+    });
+
+    // Tab Navigation
+    function setActiveTab(tab) {
+      currentActiveTab = tab;
+      closeMobileSidebar();
+      
+      // Update Tab Buttons
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500/20', 'text-amber-500', 'font-bold');
+        btn.classList.add('text-gray-400');
+      });
+      const activeNav = document.getElementById('nav-' + tab);
+      if (activeNav) {
+        activeNav.classList.add('bg-amber-500/20', 'text-amber-500', 'font-bold');
+        activeNav.classList.remove('text-gray-400');
+      }
+
+      // Hide all tabs
+      ['reader', 'search', 'glossary', 'characters', 'info'].forEach(t => {
+        const sec = document.getElementById('tab-content-' + t);
+        if (sec) sec.classList.add('hidden');
+      });
+
+      // Show current tab
+      const targetSec = document.getElementById('tab-content-' + tab);
+      if (targetSec) targetSec.classList.remove('hidden');
+
+      // TOC visibility (only on reader & glossary)
+      const toc = document.getElementById('toc-sidebar');
+      if (tab === 'reader' || tab === 'glossary') {
+        toc.classList.remove('xl:hidden');
+      } else {
+        toc.classList.add('xl:hidden');
+      }
+
+      document.getElementById('content-pane').scrollTop = 0;
+    }
+
+    // Focus Search
+    function focusSearch() {
+      setTimeout(() => {
+        const input = document.getElementById('fulltext-search-input');
+        if (input) input.focus();
+      }, 50);
+    }
+
+    // Application Initialization
+    async function initApp() {
+      initTheme();
+      renderCharacterCards();
+
+      // Check protocol
+      if (window.location.protocol === 'file:') {
+        document.getElementById('local-file-notice').classList.remove('hidden');
+      }
+
+      // Load Manifest
+      try {
+        const res = await fetch('./data/manifest.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        manifestData = await res.json();
+        onManifestLoaded(manifestData);
+      } catch (err) {
+        console.warn('Errore caricamento manifest.json:', err);
+        showFallbackState();
+      }
+
+      // Routing via hash
+      window.addEventListener('hashchange', handleRoute);
+      handleRoute();
+    }
+
+    // Render Character View Cards
+    function renderCharacterCards() {
+      const container = document.getElementById('characters-cards-grid');
+      container.innerHTML = CHARACTERS_INFO.map(c => `
+        <div class="p-5 rounded-xl border theme-card space-y-3 shadow-2xs hover:border-amber-500/50 transition-all">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl">${c.icon}</span>
+              <div>
+                <h3 class="font-bold text-sm md:text-base text-stone-900 dark:text-gray-100">${c.name}</h3>
+                <p class="text-xs text-stone-600 dark:text-gray-400">Giocatore: <strong class="text-stone-900 dark:text-gray-200">${c.player}</strong></p>
+              </div>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-500 font-mono font-medium">${c.team.split(' ')[2] || 'Party'}</span>
+          </div>
+          <p class="text-xs leading-relaxed text-stone-700 dark:text-gray-300">${c.desc}</p>
+          <div class="pt-2 border-t theme-card text-xs space-y-1 text-stone-600 dark:text-gray-400">
+            <div><strong>Ruolo:</strong> ${c.classRole}</div>
+            <div><strong>Squadra:</strong> ${c.team}</div>
+            <div><strong>Compagni PNG:</strong> ${c.allies}</div>
+          </div>
+          <button onclick="filterByCharacterAndJump('${c.name.split(' ')[0]}')" class="w-full text-center py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium text-xs transition-colors">
+            Vedi tutte le sessioni con ${c.name.split(' ')[0]} ➔
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function filterByCharacterAndJump(charKeyword) {
+      setCharFilter(charKeyword);
+      setActiveTab('reader');
+    }
+
+    // Manifest Loaded Handler
+    function onManifestLoaded(data) {
+      document.getElementById('stat-total-sessions').innerText = data.total_sessions || '104';
+      document.getElementById('stat-total-years').innerText = (data.years || []).length || '5';
+      document.getElementById('stat-total-glossaries').innerText = data.total_glossaries || '6';
+      document.getElementById('sidebar-stats').innerText = `${data.total_sessions} sessioni censite`;
+      document.getElementById('search-count-badge').innerText = `${data.total_sessions + data.total_glossaries} doc`;
+
+      if (data.sessions && data.sessions.length > 0) {
+        latestSessionId = data.sessions[0].id;
+      }
+
+      renderSidebarTree(data);
+      renderGlossarySwitcher(data);
+
+      // Lazy load search index in background
+      setTimeout(loadSearchIndex, 600);
+    }
+
+    // Render Sidebar Tree
+    function renderSidebarTree(data) {
+      const treeContainer = document.getElementById('sidebar-tree');
+      const sessions = data.sessions || [];
+      const years = data.years || [];
+
+      let html = '';
+
+      years.forEach((yr, idx) => {
+        const yrSessions = sessions.filter(s => s.year === yr);
+        const isOpen = idx === 0; // Latest year open by default
+
+        html += `
+          <div class="year-group mb-1">
+            <button onclick="toggleGroup('grp-${yr}')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold theme-card hover:border-amber-500/40">
+              <span class="flex items-center gap-2">
+                <span id="grp-${yr}-icon" class="text-[10px] text-amber-500">${isOpen ? '▼' : '▶'}</span>
+                <span>📅 Anno ${yr}</span>
+              </span>
+              <span class="text-[11px] font-mono text-gray-400">${yrSessions.length} puntate</span>
+            </button>
+            
+            <div id="grp-${yr}" class="${isOpen ? '' : 'hidden'} pl-2 pr-1 py-1 space-y-1">
+        `;
+
+        yrSessions.forEach(s => {
+          const isLatest = s.id === latestSessionId;
+          const isAudioOk = s.audio_status && s.audio_status.toLowerCase().includes('nessun taglio');
+
+          html += `
+            <div onclick="navigateTo('session', '${s.id}')" id="side-item-${s.id}" class="session-card-item cursor-pointer p-2 rounded-lg border theme-card hover:border-amber-500/50 transition-all text-xs" data-title="${escapeHtml(s.title)}" data-chars="${(s.characters || []).join(' ')}" data-date="${s.date}">
+              <div class="flex items-center justify-between gap-1 mb-1">
+                <span class="font-bold truncate text-stone-900 dark:text-gray-100">${escapeHtml(s.title)}</span>
+                <span class="text-[10px] font-mono text-amber-600 dark:text-amber-500 shrink-0 font-medium">${s.date.slice(5)}</span>
+              </div>
+              <p class="text-[11px] text-stone-600 dark:text-gray-400 line-clamp-1">${escapeHtml(s.synopsis || '')}</p>
+              <div class="flex items-center gap-1.5 mt-1.5 text-[10px]">
+                <span class="px-1.5 py-0.2 rounded ${isAudioOk ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'} font-medium">
+                  ${isAudioOk ? 'Audio Integro' : 'Audio Segnalato'}
+                </span>
+                <span class="text-stone-500 dark:text-gray-400">&bull; ${(s.characters || []).length} PG</span>
+              </div>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      treeContainer.innerHTML = html;
+    }
+
+    // Render Glossary Tab Switcher Buttons
+    function renderGlossarySwitcher(data) {
+      const container = document.getElementById('glossary-switcher-buttons');
+      const glossaries = data.glossaries || [];
+      container.innerHTML = glossaries.map((g, idx) => `
+        <button onclick="loadGlossaryDoc('${g.path}', '${g.id}')" id="g-btn-${g.id}" class="g-switch-btn text-xs px-3 py-1.5 rounded-lg border theme-card hover:border-amber-500 transition-colors ${idx === 0 ? 'bg-amber-500 text-white font-bold' : 'text-gray-300'}">
+          ${g.title}
+        </button>
+      `).join('');
+
+      // Auto-load first glossary in tab
+      if (glossaries.length > 0) {
+        loadGlossaryDoc(glossaries[0].path, glossaries[0].id, false);
+      }
+    }
+
+    // Toggle Year Accordions
+    function toggleGroup(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById(id + '-icon');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        if (icon) icon.innerText = '▼';
+      } else {
+        el.classList.add('hidden');
+        if (icon) icon.innerText = '▶';
+      }
+    }
+
+    // Filter sidebar list by character
+    function setCharFilter(charName) {
+      currentCharacterFilter = charName;
+      document.querySelectorAll('.char-pill').forEach(pill => {
+        pill.classList.remove('active', 'bg-amber-500', 'text-white');
+        pill.classList.add('theme-card');
+      });
+      event?.target?.classList?.add('active', 'bg-amber-500', 'text-white');
+
+      applySidebarFilters();
+    }
+
+    function filterSidebar(query) {
+      applySidebarFilters(query);
+    }
+
+    function applySidebarFilters(textQuery = null) {
+      if (textQuery === null) {
+        textQuery = document.getElementById('sidebar-filter-input').value;
+      }
+      textQuery = textQuery.toLowerCase().trim();
+
+      const items = document.querySelectorAll('.session-card-item');
+      items.forEach(item => {
+        const title = (item.getAttribute('data-title') || '').toLowerCase();
+        const date = (item.getAttribute('data-date') || '').toLowerCase();
+        const chars = (item.getAttribute('data-chars') || '').toLowerCase();
+
+        const matchText = !textQuery || title.includes(textQuery) || date.includes(textQuery);
+        const matchChar = currentCharacterFilter === 'all' || chars.includes(currentCharacterFilter.toLowerCase());
+
+        if (matchText && matchChar) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Routing Logic
+    function navigateTo(route, param = '') {
+      if (route === 'session') {
+        window.location.hash = `#session/${param}`;
+      } else if (route === 'search') {
+        window.location.hash = param ? `#search?q=${encodeURIComponent(param)}` : '#search';
+      } else {
+        window.location.hash = `#${route}`;
+      }
+    }
+
+    function handleRoute() {
+      const hash = window.location.hash.slice(1);
+      if (!hash) {
+        if (latestSessionId) {
+          loadSessionDoc(latestSessionId);
+        }
+        return;
+      }
+
+      if (hash.startsWith('session/')) {
+        const id = hash.replace('session/', '');
+        setActiveTab('reader');
+        loadSessionDoc(id);
+      } else if (hash.startsWith('search')) {
+        setActiveTab('search');
+        if (hash.includes('?q=')) {
+          const q = decodeURIComponent(hash.split('?q=')[1] || '');
+          setSearchQuery(q);
+        }
+      } else if (hash.startsWith('glossary')) {
+        setActiveTab('glossary');
+      } else if (hash === 'characters') {
+        setActiveTab('characters');
+      } else if (hash === 'info') {
+        setActiveTab('info');
+      }
+    }
+
+    // Load and Render Markdown Session
+    async function loadSessionDoc(sessionId) {
+      if (!manifestData || !manifestData.sessions) return;
+      const session = manifestData.sessions.find(s => s.id === sessionId) || manifestData.sessions[0];
+      if (!session) return;
+
+      currentSession = session;
+      closeMobileSidebar();
+
+      // Update Active Item in Sidebar
+      document.querySelectorAll('.session-card-item').forEach(it => {
+        it.classList.remove('border-amber-500', 'bg-amber-500/10');
+      });
+      const activeEl = document.getElementById('side-item-' + session.id);
+      if (activeEl) {
+        activeEl.classList.add('border-amber-500', 'bg-amber-500/10');
+        // Ensure parent group is open
+        const parentGrp = activeEl.closest('.year-group')?.querySelector('[id^="grp-"]');
+        if (parentGrp && parentGrp.classList.contains('hidden')) {
+          parentGrp.classList.remove('hidden');
+        }
+      }
+
+      // Update Session Header Card
+      document.getElementById('session-title').innerText = session.title;
+      document.getElementById('session-badge-date').innerText = `📅 ${session.date}`;
+      
+      const isAudioOk = session.audio_status && session.audio_status.toLowerCase().includes('nessun taglio');
+      const audioBadge = document.getElementById('session-badge-audio');
+      const audioText = isAudioOk ? 'Audio Integro' : (session.audio_status ? session.audio_status.replace(/^[⚠️🔇\s*]+/, '').split('(')[0].trim() : 'Audio Segnalato');
+      audioBadge.title = session.audio_status || '';
+      audioBadge.className = `text-xs px-2.5 py-1 rounded-full font-medium border flex items-center gap-1.5 min-w-0 max-w-full ${
+        isAudioOk ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20'
+      }`;
+      audioBadge.innerHTML = `
+        <span class="w-1.5 h-1.5 rounded-full ${isAudioOk ? 'bg-emerald-500' : 'bg-amber-500'} shrink-0"></span>
+        <span class="truncate max-w-[180px] sm:max-w-xs md:max-w-md">${escapeHtml(audioText)}</span>
+      `;
+
+      const ytBtn = document.getElementById('session-yt-btn');
+      if (session.youtube_url && session.youtube_url.startsWith('http')) {
+        ytBtn.href = session.youtube_url;
+        ytBtn.classList.remove('hidden');
+      } else {
+        ytBtn.classList.add('hidden');
+      }
+
+      document.getElementById('session-characters-list').innerHTML = `
+        <span class="font-bold text-stone-800 dark:text-gray-200 shrink-0">👥 Personaggi:</span>
+        <span class="inline-flex flex-wrap items-center gap-1">
+          ${(session.characters || []).map(c => `
+            <span class="cursor-pointer hover:text-amber-500 font-medium transition-colors" onclick="scrollToSection('${c.split(' ')[0]}')">${c}</span>
+          `).join(', ')}
+        </span>
+      `;
+
+      document.getElementById('session-word-stats').innerText = `📖 ~${session.word_count || 1200} parole • ${session.dialogue_count || 3} citazioni`;
+
+      // Fetch and Parse Markdown
+      const bodyContainer = document.getElementById('session-markdown-body');
+      bodyContainer.innerHTML = `
+        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          Caricamento documento markdown...
+        </div>
+      `;
+
+      try {
+        const mdRes = await fetch(`./${session.path}`);
+        if (!mdRes.ok) throw new Error('HTTP ' + mdRes.status);
+        const mdText = await mdRes.text();
+        
+        // Custom Markdown Post-Processing
+        const html = renderEnhancedMarkdown(mdText);
+        bodyContainer.innerHTML = html;
+
+        // Build Table of Contents
+        buildTableOfContents(bodyContainer);
+
+      } catch (err) {
+        bodyContainer.innerHTML = `
+          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-400 space-y-2">
+            <p class="font-bold">Impossibile caricare il file Markdown: ${session.path}</p>
+            <p>${err.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    // Enhance Markdown with D&D Cards, Dice Badges & Dialogues
+    function renderEnhancedMarkdown(mdText) {
+      if (typeof marked === 'undefined') return '<pre>' + escapeHtml(mdText) + '</pre>';
+
+      // Strip top H1 since it is in header
+      mdText = mdText.replace(/^#\s*.+$/m, '');
+      // Strip metadata lines already shown in header
+      mdText = mdText.replace(/^📅\s*\*\*Data Live:\*\*.*$/m, '');
+      mdText = mdText.replace(/^🔇\s*\*\*Monitoraggio Audio:\*\*.*$/m, '');
+
+      let html = marked.parse(mdText);
+
+      // Enhance dice rolls: (🎲 TS ...)
+      html = html.replace(/\(\s*🎲\s*([^)]+)\)/g, '<span class="dnd-dice-badge">🎲 $1</span>');
+      // Enhance spells: (🪄 ...)
+      html = html.replace(/\(\s*🪄\s*([^)]+)\)/g, '<span class="dnd-spell-badge">🪄 $1</span>');
+
+      // Enhance theatrical dialogue blockquotes:
+      // Search for blockquotes containing [[HH:MM:SS]](url)
+      html = html.replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, function(match, content) {
+        if (content.includes('href="https://www.youtube.com') || content.includes('💬')) {
+          return `
+            <div class="dnd-quote-card">
+              <div class="dnd-quote-header">
+                <span class="flex items-center gap-1.5">🎬 Citazione & Dialogo Saliente</span>
+                <span class="text-[10px] font-mono opacity-75">YouTube Timestamp</span>
+              </div>
+              <div class="space-y-1 text-xs">
+                ${content}
+              </div>
+            </div>
+          `;
+        }
+        return match;
+      });
+
+      return html;
+    }
+
+    // Build Table of Contents dynamically from headings
+    function buildTableOfContents(container) {
+      const tocNav = document.getElementById('toc-nav');
+      const headings = container.querySelectorAll('h2, h3');
+      if (headings.length === 0) {
+        tocNav.innerHTML = '<span class="text-gray-400">Nessuna sezione</span>';
+        return;
+      }
+
+      let tocHtml = '';
+      headings.forEach((h, i) => {
+        const id = 'heading-sec-' + i;
+        h.id = id;
+        const isH3 = h.tagName.toLowerCase() === 'h3';
+        tocHtml += `
+          <a href="#${id}" class="block py-0.5 truncate transition-colors hover:text-amber-500 text-gray-400 ${isH3 ? 'pl-3 text-[11px]' : 'font-medium'}">
+            ${h.innerText}
+          </a>
+        `;
+      });
+
+      tocNav.innerHTML = tocHtml;
+    }
+
+    function scrollToSection(keyword) {
+      const headings = document.getElementById('session-markdown-body').querySelectorAll('h3');
+      for (const h of headings) {
+        if (h.innerText.toLowerCase().includes(keyword.toLowerCase())) {
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          h.classList.add('text-amber-500');
+          setTimeout(() => h.classList.remove('text-amber-500'), 2000);
+          break;
+        }
+      }
+    }
+
+    // Load and Render Glossary Documents
+    async function loadGlossaryDoc(path, id, switchTab = true) {
+      if (switchTab) setActiveTab('glossary');
+
+      document.querySelectorAll('.g-switch-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-white', 'font-bold');
+        btn.classList.add('text-gray-300');
+      });
+      const activeBtn = document.getElementById('g-btn-' + id);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-amber-500', 'text-white', 'font-bold');
+        activeBtn.classList.remove('text-gray-300');
+      }
+
+      const body = document.getElementById('glossary-markdown-body');
+      body.innerHTML = `
+        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          Caricamento glossario...
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`./${path}`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const mdText = await res.text();
+        body.innerHTML = marked.parse(mdText);
+        buildTableOfContents(body);
+      } catch (err) {
+        body.innerHTML = `<div class="text-xs text-red-400">Errore: ${err.message}</div>`;
+      }
+    }
+
+    // Full-Text Search Engine
+    async function loadSearchIndex() {
+      if (searchIndexData) return;
+      try {
+        const res = await fetch('./data/search_index.json');
+        if (!res.ok) return;
+        searchIndexData = await res.json();
+
+        // Initialize MiniSearch if available
+        if (typeof MiniSearch !== 'undefined') {
+          miniSearchInstance = new MiniSearch({
+            fields: ['title', 'content', 'characters', 'date'],
+            storeFields: ['id', 'type', 'title', 'date', 'path', 'snippet', 'characters', 'year'],
+            searchOptions: {
+              prefix: true,
+              fuzzy: 0.2,
+              boost: { title: 3, characters: 2 }
+            }
+          });
+          miniSearchInstance.addAll(searchIndexData);
+        }
+      } catch (err) {
+        console.warn('Indice di ricerca non caricato:', err);
+      }
+    }
+
+    function setSearchCategory(cat) {
+      currentSearchCategory = cat;
+      document.querySelectorAll('.search-cat-pill').forEach(pill => {
+        pill.classList.remove('active', 'bg-amber-500', 'text-white');
+        pill.classList.add('theme-card');
+      });
+      event?.target?.classList?.add('active', 'bg-amber-500', 'text-white');
+
+      const q = document.getElementById('fulltext-search-input').value;
+      if (q) handleFullTextSearch(q);
+    }
+
+    function setSearchQuery(term) {
+      setActiveTab('search');
+      const input = document.getElementById('fulltext-search-input');
+      input.value = term;
+      handleFullTextSearch(term);
+    }
+
+    let searchDebounce = null;
+    function handleFullTextSearch(query) {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => executeSearch(query), 120);
+    }
+
+    async function executeSearch(query) {
+      query = query.trim();
+      const container = document.getElementById('search-results-container');
+      const statusEl = document.getElementById('search-status-text');
+
+      if (!query || query.length < 2) {
+        statusEl.innerText = 'Digita almeno 2 caratteri per effettuare la ricerca full-text.';
+        container.innerHTML = `
+          <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-gray-400 space-y-2">
+            <span class="text-3xl">📖</span>
+            <p>Esplora il testo completo delle 104 sessioni trascritte e dei glossari.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!searchIndexData) {
+        await loadSearchIndex();
+      }
+
+      const t0 = performance.now();
+      let results = [];
+      const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+
+      if (miniSearchInstance) {
+        // Use MiniSearch
+        const searchRes = miniSearchInstance.search(query);
+        results = searchRes.filter(r => currentSearchCategory === 'all' || r.type === currentSearchCategory);
+      } else if (searchIndexData) {
+        // Pure-JS fallback
+        results = searchIndexData.filter(item => {
+          if (currentSearchCategory !== 'all' && item.type !== currentSearchCategory) return false;
+          const combined = (item.title + ' ' + item.content + ' ' + (item.characters || []).join(' ')).toLowerCase();
+          return terms.every(t => combined.includes(t));
+        });
+      }
+
+      const elapsed = (performance.now() - t0).toFixed(1);
+      statusEl.innerHTML = `Trovati <strong>${results.length}</strong> documenti per "<em>${escapeHtml(query)}</em>" in <strong>${elapsed} ms</strong>.`;
+
+      if (results.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center rounded-xl border theme-card text-xs space-y-2">
+            <span class="text-2xl">🔎</span>
+            <p class="font-bold">Nessun risultato trovato per "${escapeHtml(query)}"</p>
+            <p class="text-gray-400">Verifica l'ortografia oppure prova con un sinonimo o variante fonetica.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = results.slice(0, 35).map(item => {
+        const titleHighlight = highlightMatch(item.title, terms);
+        const snippetHighlight = createSnippet(item.content || item.snippet || '', terms);
+        const isSession = item.type === 'sessione';
+
+        return `
+          <div class="p-4 rounded-xl border theme-card hover:border-amber-500/50 transition-all space-y-2 shadow-2xs">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] px-2 py-0.5 rounded font-medium ${isSession ? 'bg-blue-500/15 text-blue-700 dark:text-blue-400' : 'bg-purple-500/15 text-purple-700 dark:text-purple-400'}">
+                  ${isSession ? '📜 Sessione' : '📖 Glossario'}
+                </span>
+                <span class="text-xs font-mono text-stone-500 dark:text-gray-400">${item.date || ''}</span>
+              </div>
+              <button onclick="jumpFromSearch('${item.id}', '${item.type}', '${item.path}')" class="text-xs px-2.5 py-1 rounded bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium transition-colors flex items-center gap-1">
+                Apri nel testo ➔
+              </button>
+            </div>
+
+            <h4 class="font-bold text-sm text-stone-900 dark:text-gray-100">${titleHighlight}</h4>
+
+            <p class="text-xs leading-relaxed text-stone-700 dark:text-gray-300 p-2.5 rounded-lg border theme-card">
+              ${snippetHighlight}
+            </p>
+
+            ${item.characters && item.characters.length > 0 ? `
+              <div class="text-[11px] text-stone-500 dark:text-gray-400 pt-1">
+                Personaggi: <span class="text-stone-900 dark:text-gray-200 font-medium">${item.characters.join(', ')}</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function jumpFromSearch(id, type, path) {
+      if (type === 'glossario') {
+        loadGlossaryDoc(path, id, true);
+      } else {
+        navigateTo('session', id);
+      }
+    }
+
+    function highlightMatch(text, terms) {
+      if (!text) return '';
+      const regex = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi');
+      return escapeHtml(text).replace(regex, '<mark class="search-highlight">$1</mark>');
+    }
+
+    function createSnippet(text, terms) {
+      if (!text) return '';
+      const lower = text.toLowerCase();
+      let firstIndex = -1;
+      for (const t of terms) {
+        const idx = lower.indexOf(t);
+        if (idx !== -1 && (firstIndex === -1 || idx < firstIndex)) {
+          firstIndex = idx;
+        }
+      }
+
+      if (firstIndex === -1) {
+        return highlightMatch(text.slice(0, 200) + '...', terms);
+      }
+
+      const start = Math.max(0, firstIndex - 60);
+      const end = Math.min(text.length, firstIndex + 160);
+      const snippet = (start > 0 ? '...' : '') + text.slice(start, end) + (end < text.length ? '...' : '');
+      return highlightMatch(snippet, terms);
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function escapeHtml(text) {
+      return (text || '').replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+
+    function showFallbackState() {
+      document.getElementById('sidebar-tree').innerHTML = `
+        <div class="p-4 rounded-lg border theme-card text-xs text-amber-500 space-y-2">
+          <p class="font-bold">⚠️ Impossibile caricare manifest.json</p>
+          <p class="text-gray-400">Assicurati che i file in <code>docs/data/</code> siano stati generati tramite <code>py dnd_summarizer.py --build-web</code>.</p>
+        </div>
+      `;
+    }
+
+    // Global Keyboard Shortcut: Ctrl+K or Cmd+K
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setActiveTab('search');
+        focusSearch();
+      }
+    });
+
+    // Start App on Load
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

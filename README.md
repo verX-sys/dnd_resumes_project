@@ -99,3 +99,42 @@ py dnd_summarizer.py --update-glossary
 # Storico di un mese in locale + aggiornamento glossario:
 py dnd_summarizer.py --month 2026-09 --update-glossary
 ```
+
+---
+
+## 🌐 Frontend Web & GitHub Pages (`docs/`)
+
+Il progetto include una **Vanilla SPA Zero-Build** per esplorare e leggere comodamente tutti i documenti Markdown della campagna via web o su **GitHub Pages**:
+
+* 📜 **Albero delle Sessioni**: 104 puntate raggruppate per anno (`2022-2026`) e mese, con stato audio e link alla live YouTube.
+* 🔍 **Ricerca Full-Text Globale**: motore client-side basato su **MiniSearch** che cerca istantaneamente qualsiasi parola nel testo di tutte le sessioni e dei glossari con evidenziazione e snippet.
+* 🛡️ **Filtro per Personaggio (PG)**: visualizzazione isolata delle gesta di Aerial, Lucio, Rey, Rogus o Prometheus.
+* 📖 **Glossari & Compendio Integrati**: consultazione dell'enciclopedia della campagna e dei diari annuali.
+* 🎨 **Temi Multipli**: Scuro (Dark Fantasy), Chiaro e Pergamena Sepia (RPG).
+
+### 🛠️ Sincronizzazione e Build del Frontend
+Ogni volta che aggiungi nuovi riassunti o aggiorni i glossari, esegui:
+```powershell
+py dnd_summarizer.py --build-web
+```
+Questo comando:
+1. Sincronizza i file Markdown in `docs/riassunti/` e `docs/glossari/`.
+2. Genera `docs/data/manifest.json` (indice metadati).
+3. Genera `docs/data/search_index.json` (indice full-text per la ricerca rapida).
+
+### 🚀 Pubblicazione su GitHub Pages
+1. Vai nelle **Settings** del tuo repository GitHub.
+2. Nella sezione **Pages** ➔ **Build and deployment**:
+   - **Source**: `Deploy from a branch`
+   - **Branch**: `main` (o il tuo branch predefinito)
+   - **Folder**: `/docs`
+3. Clicca **Save**: il sito sarà accessibile all'indirizzo `https://<username>.github.io/<repo>/`.
+
+### 💻 Anteprima Locale
+Per visualizzare il sito in locale (aggirando i vincoli CORS del protocollo `file://`):
+```powershell
+cd docs
+py -m http.server 8000
+# Apri nel browser: http://localhost:8000
+```
+
