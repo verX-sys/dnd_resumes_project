@@ -44,16 +44,19 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    - **Naming del file**: se il titolo originale YouTube è generico (`"Mia trasmissione"`), **non** usare `_Mia_trasmissione.md`, ma usa il titolo evocativo dell'episodio sanitizzato (solo lettere/numeri/underscore, max 45 caratteri):
      `riassunti/<YYYY-MM>/<YYYY-MM-DD>_<video_id>_<Titolo_Episodio_Sanitizzato>.md`
    - Crea il file usando `write_file` e seguendo **rigorosamente** le *Regole Fondamentali del Cronista* e il *Template Obbligatorio* riportati più sotto.
-4. **Aggiorna Entrambi i Glossari (`glossari/glossario.md` e `glossari/glossario_<YYYY>.md`) rispettando SEMPRE l'ordine cronologico**:
-   - Una volta processato un nuovo riassunto, **aggiorna SEMPRE sia il glossario generale sia quello dell'anno in esame** secondo i rispettivi ruoli:
-     1. **`glossari/glossario.md` (Glossario Generale — Quadro Tematico)**:
-        Non contiene la cronologia puntata per puntata, ma le sezioni tematiche permanenti (`🛡️ Membri del Party`, `🏛️ Saggi e PNG`, `🗺️ Luoghi`). Aggiornalo integrando nelle sezioni appropriate i nuovi PNG rilevanti, i nuovi luoghi scoperti, le nuove varianti fonetiche e lo stato/reliquie delle squadre dei PG (aggiornando lo stato squadra solo se la sessione è più recente di quella attualmente indicata!).
-     2. **`glossari/glossario_<YYYY>.md` (Glossario Annuale — Cronologia Sessioni)**:
-        Contiene la cronologia dettagliata sessione per sessione dell'anno in esame. **ATTENZIONE ALL'ORDINE CRONOLOGICO**: le sessioni devono essere **sempre** ordinate dalla data più vecchia alla più recente (raggruppate per mese `### ❄️ Gennaio <YYYY>`, `### 🌨️ Febbraio <YYYY>`, ecc.). Se riassumi una puntata meno recente dopo una più recente, inseriscila nella posizione cronologica corretta (oppure lancia `py dnd_summarizer.py --rebuild-glossary --year <YYYY>`) con il link relativo `../riassunti/<YYYY-MM>/<nome_file>.md`:
+4. **Aggiorna i Glossari (`glossari/glossario_<YYYY>.md` e `glossari/glossario.md`) rispettando l'ordine cronologico e le regole anti-duplicazione**:
+   - **Distinzione fondamentale dei ruoli**:
+     1. **`glossari/glossario_<YYYY>.md` (Glossario Annuale — Diario Cronologico Sessione per Sessione)**:
+        Contiene la cronologia dettagliata sessione per sessione dell'anno in esame, inclusi gli eventi specifici della serata, gli indizi e tutti gli elementi scoperti. **ATTENZIONE ALL'ORDINE CRONOLOGICO**: le sessioni devono essere **sempre** ordinate dalla data più vecchia alla più recente (raggruppate per mese `### ❄️ Gennaio <YYYY>`, `### 🌨️ Febbraio <YYYY>`, ecc.). Se riassumi una puntata meno recente dopo una più recente, inseriscila nella posizione cronologica corretta (oppure lancia `py dnd_summarizer.py --rebuild-glossary --year <YYYY>`) con il link relativo `../riassunti/<YYYY-MM>/<nome_file>.md`:
         ```markdown
         #### 📌 Sessione del <YYYY-MM-DD> — <Titolo Episodio> ([Riassunto](../riassunti/<YYYY-MM>/<YYYY-MM-DD>_<video_id>_<Titolo_Episodio_Sanitizzato>.md))
         * **<Nome>** (`<Categoria>`): <Descrizione> *(varianti fonetiche: <v1, v2>)*
         ```
+     2. **`glossari/glossario.md` (Glossario Generale — Enciclopedia Tematica della Campagna)**:
+        È un documento enciclopedico organizzato per **sezioni e sotto-sezioni geografiche/tematiche** (`🛡️ Membri del Party`, `👥 PNG Rilevanti`, `🗺️ Luoghi Rilevanti`, `💎 Reliquie`, `⚔️ Fazioni, Dottrine e Terminologia Chiave`). Per evitare errori e ripetizioni segui **rigorosamente** queste 3 regole:
+        - **Filtro di Rilevanza Enciclopedica**: inserisci in `glossario.md` **SOLO entità permanenti e ricorrenti della campagna** (PNG importanti, Luoghi stabili, Reliquie/Artefatti chiave, Grandi Fazioni o meccaniche persistenti). **NON inserire mai** micro-eventi tattici di una singola sessione, cibi/oggetti di scena minori o fasi di un combattimento (quelli vanno solo in `glossario_<YYYY>.md`).
+        - **Upsert / Merge Semantico (Aggiorna > Crea)**: prima di inserire una voce in `glossario.md`, controlla se l'entità esiste già (anche con un nome parziale, un soprannome o una variante fonetica). Se esiste già, **modifica e arricchisci la voce esistente** (aggiungendo le nuove varianti fonetiche e integrando gli sviluppi di trama) senza **mai** creare un secondo bullet point duplicato.
+        - **Collocazione nella Sotto-Sezione Esatta**: non appendere mai voci alla cieca in fondo al file; inseriscile sempre nella sotto-sezione geografica o tematica pertinente (`Hillsfar`, `Simbar`, `Caderish`, ecc.).
 5. **Aggiorna `processed_videos.json`**:
    - Leggi `processed_videos.json` (o crealo se non esiste) e aggiungi/aggiorna la chiave `<video_id>`:
      ```json
@@ -80,8 +83,10 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    py dnd_summarizer.py --year <YYYY> --fetch-only
    ```
 2. Elabora le puntate **una alla volta in rigoroso ordine cronologico** (dalla data più vecchia alla più recente):
-   - Per ogni puntata esegui i passaggi **2, 3, 4 e 5** del flusso singolo.
-   - **Importante:** Aggiorna sia `glossari/glossario.md` sia `glossari/glossario_<YYYY>.md` dopo *ogni* puntata prima di passare alla successiva, così le nuove scoperte sono già disponibili per la puntata seguente.
+   - Per ogni puntata esegui i passaggi **2, 3 e 5** del flusso singolo.
+   - **Strategia Anti-Duplicazione sui Glossari durante i Batch Mensili/Annuali:**
+     - **Dopo *ogni* singola puntata**: aggiorna **solo** il glossario cronologico annuale `glossari/glossario_<YYYY>.md` (così le nuove scoperte e varianti fonetiche sono immediatamente disponibili per la puntata successiva dello stesso mese).
+     - **Alla fine dell'intero mese (Consolidamento Unico)**: aggiorna `glossari/glossario.md` **una sola volta** al termine del mese (o di ciascun mese se riassumi un anno), eseguendo un'unica passata di **Upsert Semantico** nelle sotto-sezioni regionali/tematiche pertinenti e applicando il *Filtro di Rilevanza Enciclopedica* descritto al punto 4 del flusso singolo. In questo modo si evitano stati intermedi contraddittori, doppioni e micro-eventi tattici.
    - **Gestione Puntate Senza Sottotitoli YouTube:** Se una puntata presente in `channel_videos_cache.json` non ha sottotitoli disponibili (trascrizione non estraibile), **non ignorarla**: inseriscila sempre nel glossario annuale `glossari/glossario_<YYYY>.md` nella sua esatta collocazione cronologica:
      ```markdown
      #### ⚠️ Sessione del <YYYY-MM-DD> — [Live YouTube](https://www.youtube.com/watch?v=<VIDEO_ID>) *(Priva di sottotitoli YouTube)*
@@ -147,8 +152,8 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
      1. Scansiona tutti i file `.md` in `riassunti/`, estrae il `video_id` e verifica obbligatoriamente la data certificata (`startTimestamp`) in `channel_videos_cache.json` (bloccandosi se manca).
      2. Ordina tutti i riassunti in **rigoroso ordine cronologico crescente** (dalla sessione più antica alla più recente).
      3. Ricostruisce la cronologia di `glossari/glossario_<YYYY>.md` divisa per mese e sessione con le voci di `## 📖 Nuove Voci Rilevate per il Glossario`, i link relativi `../riassunti/...` e inserendo le sessioni prive di sottotitoli YouTube censite in `channel_videos_cache.json` nell'esatta collocazione temporale (`#### ⚠️ Sessione del <YYYY-MM-DD>`).
-     4. Integra in ordine cronologico le nuove voci tematiche (`PNG`, `Luogo`, `Fazione/Terminologia`) in `glossari/glossario.md`.
-   - **Rifinitura dell'Agente**: dopo aver eseguito `--rebuild-glossary`, leggi i riassunti in ordine cronologico (dal più vecchio al più recente) per aggiornare anche i paragrafi discorsivi di sintesi (come `🛡️ Membri del Party` in `glossari/glossario.md` e `🏆 Quadro Riepilogativo delle Squadre` in `glossari/glossario_<YYYY>.md`) in modo che riflettano fedelmente lo stato della campagna fino all'ultima sessione riassunta.
+     4. **Non** effettua mai accodamenti ciechi in `glossari/glossario.md` per evitare duplicati e voci fuori sezione.
+   - **Consolidamento Semantico dell'Agente**: dopo aver eseguito `--rebuild-glossary`, leggi i riassunti in ordine cronologico (dal più vecchio al più recente) per aggiornare `glossari/glossario.md` tramite **Upsert Semantico** nelle sotto-sezioni regionali/tematiche pertinenti (applicando il *Filtro di Rilevanza Enciclopedica*) e per allineare i paragrafi discorsivi di sintesi (`🛡️ Membri del Party` in `glossari/glossario.md` e `🏆 Quadro Riepilogativo delle Squadre` in `glossari/glossario_<YYYY>.md`) fino all'ultima sessione riassunta.
 
 ---
 

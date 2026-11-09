@@ -1166,40 +1166,10 @@ def rebuild_glossaries_from_summaries(year: Optional[str] = None) -> None:
             f"({len(y_items)} sessioni dal {y_items[0]['date_str']} al {y_items[-1]['date_str']})."
         )
 
-    # Aggiorna il glossario generale (glossari/glossario.md) con eventuali PNG/Luoghi/Fazioni mancanti in ordine cronologico
-    if GLOSSARY_PATH.exists():
-        general_text = GLOSSARY_PATH.read_text(encoding="utf-8")
-    else:
-        general_text = "# 🐉 Glossario Generale, Personaggi e Fazioni della Campagna D&D\n"
-
-    added_general = []
-    for s_item in parsed_summaries:
-        for p_entry in s_item["parsed_entries"]:
-            clean_name = re.sub(r"\(.*?\)", "", p_entry["nome"]).strip().lower()
-            clean_base = re.sub(r"^(?:il|la|lo|le|i|gli|l'|un'|un|una)\s+", "", clean_name).strip()
-            already_present = (
-                p_entry["nome"].lower() in general_text.lower()
-                or (len(clean_base) >= 3 and clean_base in general_text.lower())
-            )
-            if not already_present:
-                core_name = re.sub(r"\s+(?:di|del|della|dello|dei|degli|delle)\s+.*$", "", clean_base).strip()
-                core_name = re.sub(r"\s+(?:sotterraneo|sommerso|cittadino)$", "", core_name).strip()
-                if len(core_name) >= 4 and core_name in general_text.lower():
-                    already_present = True
-            if (
-                p_entry["categoria"] in ("PNG", "Luogo", "Fazione/Terminologia")
-                and not already_present
-            ):
-                added_general.append(p_entry["line"])
-                general_text += "\n" + p_entry["line"]
-
-    if added_general:
-        GLOSSARY_PATH.write_text(general_text.rstrip() + "\n", encoding="utf-8")
-        print(
-            f"📝 Integrate {len(added_general)} nuove voci tematiche in '{GLOSSARY_PATH.relative_to(BASE_DIR)}'."
-        )
-    else:
-        print(f"✨ '{GLOSSARY_PATH.relative_to(BASE_DIR)}' è già allineato con tutte le voci tematiche.")
+    print(
+        f"ℹ️ Nota: '{GLOSSARY_PATH.relative_to(BASE_DIR)}' non viene modificato con append automatici dallo script "
+        "per evitare duplicazioni o voci fuori sezione; il consolidamento tematico/semantico è affidato all'Agente."
+    )
 
 
 def update_glossary_file(
