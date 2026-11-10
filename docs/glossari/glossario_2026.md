@@ -11,15 +11,15 @@ Per il quadro tematico d'insieme dei Personaggi Giocanti, delle fazioni storiche
 All'alba del 2026, la Compagnia si trova all'Accademia Superiore di Caderish (Kadris). Gli avventurieri sono stati suddivisi nelle squadre guidate dai Saggi dell'Accademia per affrontare prove, lezioni accademiche e compiti di ricerca:
 
 1. **Aerial Aldebaran** (Druido) — Interpretato da **Michele (Mike)**
-   * Squadra legata al Saggio Gideon Lans (Abiurazione) e alla divisione Zamin/Tala con Caret, Velura e Sera Rinvale. Entrato in possesso dello *Scudo di Remus Enea* nella Cripta degli Abeti Rossi e custode del terzo indizio (*"Anche il silenzio possiede una voce"*).
+   * Squadra legata al Saggio Gideon Lans (Abiurazione) e alla divisione Zamin/Tala con Caret, Velura e Sera Rinvale. Entrato in possesso dello *Scudo di Remus Enea* nella Cripta degli Abeti Rossi e custode del terzo indizio (*"Anche il silenzio possiede una voce"*); si confronta con l'automa Ava sulla diffidenza accademica e sul sabotaggio del condotto planare del Nexus con Simbar.
 2. **Prometheus** (Mago/Necromante) — Interpretato da **Carlo (Carle)**
-   * Squadra legata al Saggio Baltasar Veritas (Necromanzia) con Cassius Orland, Sivra e Tarnel. Ha sbloccato il *Fiore dei Ricordi* nel Giardino dei Cicli Autunnali e il sesto indizio (*"La nuova vita nasce dai ricordi dell'era passata..."*), a conoscenza della cospirazione interna per risvegliare il Custode delle Otto Pupille.
+   * Squadra legata al Saggio Baltasar Veritas (Necromanzia) con Cassius Orland, Sivra e Tarnel. Ha decifrato con Sivra il sesto indizio collegando la "fucina della vita" alla creazione dei costrutti e rinvenendo in biblioteca il misterioso volume *Il piacere di cucinare un Balor*, protetto da potenti sigilli di occultamento.
 3. **Lucio Malaver** (Barbaro) — Interpretato da **Nicola (Niky)**
-   * Squadra legata alla Forgia e alla divisione Yokul con Errick Watson, Runa Keldir e Velendoran. Ha conquistato la *Brace Primordiale* distruggendo il cristallo di teletrasporto al settimo piano, ma è entrato in rottura totale con Errick dopo essersi rifiutato di abbattere e bandire il Saggio Atashkarev.
+   * Squadra legata alla Forgia e alla divisione Yokul con Errick Watson, Runa Keldir e Velendoran. Ha conquistato la *Brace Primordiale*, respinge il piano omicida di Errick e le lusinghe manipolatorie di Darin Volcar, ricevendo da Atashkarev un cupo monito a non fidarsi di nessuno.
 4. **Rogus Harndrekker** (Chierico) — Interpretato da **Giuseppe (Cici)**
-   * Squadra legata al Saggio Osiro e alla divisione Liennea con Cassian Dorello, Fendrel e Liren. Ha riscattato con successo il tomo proibito *Le Mille Forme* dai leoni Rud e Zallen ed esplora le gole ghiacciate dell'Akanamer.
+   * Squadra legata al Saggio Osiro e alla divisione Liennea con Cassian Dorello, Fendrel e Liren. Ha riscattato il tomo *Le Mille Forme*, eccelle nella prova delle ombre con Tulamesh e pianifica con Liren l'uso delle erbe febbricitanti del Tormir come alibi per la spedizione sul ghiacciaio dell'Akanamer.
 5. **Rey Sekigan** (Warlock / Spadaccino Arcano) — Interpretato da **Raffaele (Raffa)**
-   * Squadra con Liora Vassenti, Mirena e Darin Volcar. Ha carpito a Liren (sotto incanto della succube) i segreti degli *8 Cristalli dei Saggi* e dell'automa dinosauro *Ava* di Gideon, eccellendo nella prova di incanalazione dell'energia primordiale con un 20 naturale.
+   * Squadra con Liora Vassenti, Mirena e Darin Volcar. Scopre la falsificazione della bacchetta esposta da Gideon ed entra in durissimo scontro verbale con Ava per la mancanza di trasparenza dei saggi, proseguendo le ricerche al terzo piano della biblioteca.
 
 ---
 
@@ -196,5 +196,13 @@ All'alba del 2026, la Compagnia si trova all'Accademia Superiore di Caderish (Ka
 * **Ava** (`PNG / Costrutto`): Dinosauro costrutto senziente creato dal Saggio Gideon Lans; custodisce nel proprio petto il Cristallo Personale di Gideon collegato telepaticamente alla mente del saggio *(varianti fonetiche: Awa, Ava il dinosauro)*.
 * **Cristalli dei Saggi** (`Oggetto/Reliquia`): Otto gemme personali possedute dai Saggi di Caderish, collegate al sigillo del Custode delle Otto Pupille e indispensabili per accedere alle cripte supreme del sesto piano *(varianti fonetiche: Gemme dei Saggi, Cristalli dell'Accademia)*.
 * **Piano B di Errick** (`Fazione/Terminologia`): Strategia alternativa e segreta concepita da Errick Watson per neutralizzare i saggi e acquisire i cristalli personali dopo il categorico rifiuto di Lucio Malaver di attaccare Atashkarev.
+
+#### 📌 Sessione del 2026-11-09 — La Falsa Bacchetta, il Blocco del Nexus e l'Avvertimento di Atashkarev ([Riassunto](../riassunti/2026-11/2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus.md))
+* **Fazio** (`PNG`): Giovane bibliotecario e novizio studioso delle arti arcane a Caderish; accoglie Rogus al secondo piano della biblioteca *(varianti fonetiche: Fazio)*.
+* **Il piacere di cucinare un Balor** (`Oggetto/Reliquia`): Manoscritto esoterico apparentemente gastronomico rinvenuto da Prometheus al terzo piano della biblioteca di Caderish; descrive la macellazione di un Balor ma cela pagine invisibili schermate da un'interdizione magica di divinazione/abiura superiore al 7° livello *(varianti fonetiche: come cucinare un balor, cucinare il balor)*.
+* **Incipit al Manuale dei Golem** (`Oggetto/Reliquia`): Trattato accademico di Caderish contenente cronache, report e memorie sui ritrovamenti di golem e costrutti animati da potenti arcimaghi storici.
+* **Ricordo di Morte** (`Oggetto/Reliquia`): Tomo liturgico ed enciclopedico sui riti commemorativi dei maghi defunti e sulle celebrazioni della memoria ancestrale a Caderish.
+* **Blocco del Canale del Nexus** (`Fazione/Terminologia`): Sabotaggio arcano del condotto planare al sesto piano dell'Accademia tra Caderish e Simbar; ha impedito l'arrivo notturno dell'Araldo Cael Veridian, isolando la scuola dall'esterno.
+* **Erbe Febbricitanti del Tormir** (`Oggetto/Reliquia`): Erbe botaniche medicinali originarie del Tormir individuate da Liren Veltorn; se assunte inducono sintomi febbrili transitori per trenta minuti senza arrecare danni permanenti, ideali come alibi per assentarsi dalle lezioni.
 
 

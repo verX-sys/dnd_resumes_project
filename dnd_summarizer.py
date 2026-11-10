@@ -270,7 +270,12 @@ def get_video_metadata(video_id: str, ignore_cache: bool = False) -> dict:
             "live_status": None,
         }
 
-    ydl_opts = {"quiet": True, "no_warnings": True, "skip_download": True}
+    ydl_opts = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "extractor_args": {"youtube": {"player_client": ["ios", "mweb", "android", "web_creator"]}},
+    }
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
@@ -631,6 +636,7 @@ def fetch_transcript(video_id: str) -> str:
             "quiet": True,
             "no_warnings": True,
             "nocheckcertificate": True,
+            "extractor_args": {"youtube": {"player_client": ["ios", "mweb", "android", "web_creator"]}},
         }
         url = f"https://www.youtube.com/watch?v={video_id}"
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:

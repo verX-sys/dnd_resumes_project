@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-09T23:21:18.761426",
-  "total_sessions": 104,
+  "generated_at": "2026-11-11T00:35:00.112773",
+  "total_sessions": 105,
   "total_glossaries": 6,
   "years": [
     "2026",
@@ -12,6 +12,7 @@
   "tree": {
     "2026": {
       "2026-11": [
+        "2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus",
         "2026-11-02_DkkO0eeqbAo_La_Riconquista_del_Libro_i_Segreti_dei_Cristalli_e_la_Cospirazione_dei_Saggi"
       ],
       "2026-10": [
@@ -214,6 +215,27 @@
     }
   },
   "sessions": [
+    {
+      "id": "2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus",
+      "title": "La Falsa Bacchetta, il Blocco del Nexus e l'Avvertimento di Atashkarev",
+      "date": "2026-11-09",
+      "year": "2026",
+      "month": "2026-11",
+      "youtube_url": "https://www.youtube.com/watch?v=Xlh0tMNw6AY",
+      "audio_status": "Nessun taglio rilevato (flusso audio integro e continuo per l'intera durata della sessione, ~2h 55m).",
+      "characters": [
+        "Aerial Aldebaran",
+        "Lucio Malaver",
+        "Prometheus",
+        "Rey Sekigan",
+        "Rogus Harndrekker"
+      ],
+      "synopsis": "Mentre le tensioni a Caderish raggiungono livelli critici all'indomani dell'aggressione a Victoria Zamart e della sparizione del cristallo, i membri della Compagnia del Tarallo si muovono tra lezioni accademiche, corridoi sorvegliati e i segreti della monumentale biblioteca. Rogus orchestra con Liren un ingegnoso stratagemma a base di erbe febbricitanti per eludere la sorveglianza e tornare a indagare sulle tracce anomale scoperte sul ghiacciaio dell'Akanamer; Sivra e Prometheus decifrano il sesto indizio collegando la \"fucina della vita\" alla genesi dei costrutti, conducendo il negromante al ritrovamento di un misterioso grimorio — *Il piacere di cucinare un Balor* — protetto da interdizioni magiche impenetrabili. Nel frattempo, l'udienza di Rey e Aerial al cospetto di Ava scoperchia verità allarmanti: la bacchetta esposta nella bacheca di Gideon è soltanto un falso simulacro, e il condotto del Nexus con Simbar è stato sabotato impedendo l'arrivo di Cael Veridian. Infine, mentre Darin tenta subdolamente di saggiare la fedeltà di Lucio proponendogli un cambio di fazione, Atashkarev ammonisce il barbaro con un cupo e perentorio avvertimento: con i saggi che cadono uno dopo l'altro, il pericolo incombe e nessuno all'infuori di lui merita cieca fiducia.",
+      "dialogue_count": 4,
+      "filename": "2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus.md",
+      "path": "riassunti/2026-11/2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus.md",
+      "word_count": 2457
+    },
     {
       "id": "2026-11-02_DkkO0eeqbAo_La_Riconquista_del_Libro_i_Segreti_dei_Cristalli_e_la_Cospirazione_dei_Saggi",
       "title": "La Riconquista del Libro, i Segreti dei Cristalli e la Cospirazione dei Saggi",
@@ -2367,7 +2389,7 @@
       "title": "Glossario Generale della Campagna",
       "is_general": true,
       "path": "glossari/glossario.md",
-      "line_count": 432
+      "line_count": 433
     },
     {
       "id": "glossario_2022",
@@ -2407,7 +2429,7 @@
       "title": "Diario Cronologico 2026",
       "is_general": false,
       "path": "glossari/glossario_2026.md",
-      "line_count": 200
+      "line_count": 208
     }
   ]
 }
