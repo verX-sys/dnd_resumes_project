@@ -17,6 +17,8 @@ Your goal is to create **memorable, high-craft interfaces** that:
 
 This skill prioritizes **intentional design systems**, not default frameworks.
 
+> **Project Stack Constraint:** This repository's web UI lives in a single-file SPA (`docs/index.html`) built with **HTML5 + Vanilla JS + Tailwind CSS v3 via CDN** (`cdn.tailwindcss.com` with inline `tailwind.config` and `darkMode: 'class'`) plus local `marked` & `minisearch` in `docs/vendor/`. Do not introduce a bundler, npm, React, TypeScript, CVA, or external UI/animation libraries. Always preserve `dnd-web-sync-check` DOM and parser invariants (`CHARACTERS_INFO`, `.char-pill` / `data-char`, `setCharFilter`, `renderEnhancedMarkdown`, `buildTableOfContents`, `#character-diary-view`, `#toc-sidebar`, and static fallback counters).
+
 ---
 
 ## 1. Core Design Mandate
@@ -179,12 +181,11 @@ Use when appropriate:
 
 ### Framework Guidance
 
-* **HTML/CSS**: Prefer native features, modern CSS
-* **React**: Functional components, composable styles
+* **HTML/CSS**: Prefer native semantic elements (`<dialog>`, `<details>`, `<nav>`, `<article>`), CSS custom properties, and Tailwind v3 utility classes via inline `tailwind.config`
+* **Vanilla JS**: Small pure DOM helper functions (`createElement` / template rendering, `classList`, `dataset`, event delegation) with zero build step
 * **Animation**:
-
-  * CSS-first
-  * Framer Motion only when justified
+  * CSS-first (`@keyframes`, transitions, `prefers-reduced-motion: reduce`)
+  * `requestAnimationFrame` or Web Animations API only when CSS cannot express the motion
 
 ### Complexity Matching
 
@@ -240,11 +241,9 @@ If the design could be mistaken for a template → restart.
 
 ## 8. Integration With Other Skills
 
-* **page-cro** → Layout hierarchy & conversion flow
-* **copywriting** → Typography & message rhythm
-* **marketing-psychology** → Visual persuasion & bias alignment
-* **branding** → Visual identity consistency
-* **ab-test-setup** → Variant-safe design systems
+* **tailwind-design-system** → Token hierarchy, inline `tailwind.config` (`fantasy.*` palette), `html.dark` / ivory theming, and Vanilla JS variant helpers
+* **web-design-guidelines** → Accessibility, keyboard/focus, semantics, and UX compliance audit on `docs/index.html`
+* **dnd-web-sync-check** → Mandatory verification of `CHARACTERS_INFO`, `.char-pill`, Markdown badges/quotes, TOC hooks, and `docs/data/` sync after edits
 
 ---
 

@@ -8,6 +8,12 @@ argument-hint: <file-or-pattern>
 
 Review files for compliance with Web Interface Guidelines.
 
+## Project Scope
+
+- **Primary target**: `docs/index.html` (single-file SPA using HTML5 + Vanilla JS + Tailwind CSS v3 via CDN with inline `tailwind.config`, `darkMode: 'class'`, dark & ivory themes, and local `marked`/`minisearch` in `docs/vendor/`).
+- **Zero-build constraint**: Flag or avoid suggestions that assume npm, bundlers, React, or Tailwind v4.
+- **Sync contract**: When recommending fixes in `docs/index.html`, preserve `dnd-web-sync-check` DOM/parser contracts (`CHARACTERS_INFO`, `.char-pill` / `data-char`, `setCharFilter`, `renderEnhancedMarkdown`, `buildTableOfContents`, `#character-diary-view`, `#toc-sidebar`, and static fallback counters).
+
 ## How It Works
 
 1. Fetch the latest guidelines from the source URL below
