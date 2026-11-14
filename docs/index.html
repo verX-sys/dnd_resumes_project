@@ -1220,7 +1220,7 @@ git push</pre>
         const tocBtn = e.target.closest('[data-toc-target]');
         if (!tocBtn) return;
         const targetId = tocBtn.dataset.tocTarget;
-        const targetEl = document.getElementById(targetId);
+        const targetEl = tocHeadings.find(h => h.id === targetId) || document.getElementById(targetId);
         const contentPane = document.getElementById('content-pane');
         if (targetEl && contentPane) {
           const offset = targetEl.getBoundingClientRect().top - contentPane.getBoundingClientRect().top + contentPane.scrollTop - 16;
@@ -1773,8 +1773,9 @@ git push</pre>
         return;
       }
 
+      const prefix = (container.id || 'heading') + '-sec-';
       tocNav.innerHTML = headings.map((h, i) => {
-        const id = 'heading-sec-' + i;
+        const id = prefix + i;
         h.id = id;
         const isH3 = h.tagName.toLowerCase() === 'h3';
         const stateCls = i === 0 ? VARIANT_CLASSES.tocItemActive : VARIANT_CLASSES.tocItemIdle;
