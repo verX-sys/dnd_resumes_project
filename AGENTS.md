@@ -163,7 +163,7 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
    py dnd_summarizer.py --build-web
    ```
    - **Cosa fa `--build-web`**:
-     1. Sincronizza tutti i file `.md` di `docs/riassunti/` e `docs/glossari/` nella cartella `docs/`.
+     1. Scansiona tutti i file `.md` in `docs/riassunti/` e `docs/glossari/`.
      2. Genera `docs/data/manifest.json` (indice leggero con titoli, date, link YouTube, audio status e PG).
      3. Genera `docs/data/search_index.json` (indice full-text con snippet e testo pulito per il motore MiniSearch).
      4. Il sito è pronto per essere visualizzato o pubblicato su GitHub Pages (impostando Source: `/docs`).
@@ -175,11 +175,12 @@ In base a ciò che l'utente chiede in chat, segui il flusso corrispondente:
 1. **Conversione Giocatori ➔ Personaggi Giocanti (PG)**:
    Nelle trascrizioni sentirai i giocatori chiamarsi per nome reale o soprannome. Nel riassunto usa **SEMPRE** il nome del PG (indicando il giocatore tra parentesi nelle intestazioni):
    - **Stefano** ➔ Dungeon Master
-   - **Michele (Mike)** ➔ **Aerial Aldebaran** (Druido — Squadra del Saggio Gideon con Caret, Velura, Serah)
-   - **Carlo (Carle)** ➔ **Prometheus** (Mago/Necromante — Squadra del Saggio Baltasar con Cassius Orland, Sivra, Tarnel)
-   - **Nicola (Niky)** ➔ **Lucio Malaver** (Barbaro — Squadra legata alla Forgia/Yokul con Errick, Runa, Velendoran)
-   - **Giuseppe (Cici)** ➔ **Rogus Harndrekker** (Squadra del Saggio Osiro con Cassian, Fendrel, Liren)
-   - **Raffaele (Raffa)** ➔ **Rey Sekigan** (Squadra con Liora, Mirena, Darin)
+   - **Michele (Mike)** ➔ **Aerial Aldebaran** (Druido — Casata Zamin / *La Tempesta Silente*, Squadra del Saggio Gideon con Kareth El Mora [var. *Caret*], Velura, Sera Ninvil [var. *Serah*])
+   - **Carlo (Carle)** ➔ **Prometheus** (Mago/Necromante — Casata Enea / *I Custodi del Tramonto*, Squadra del Saggio Baltasar con Cassius Orland, Sivra, Tarnel)
+   - **Nicola (Niky)** ➔ **Lucio Malaver** (Barbaro — Casata Jokul [var. *Yokul*] / *Il Fuoco Ascendente*, Squadra del Saggio Atashkarev con Errick, Runa, Velendoran)
+   - **Giuseppe (Cici)** ➔ **Rogus Harndrekker** (Nano Chierico — *Le Forme Incompiute*, Squadra del Saggio Osiro con Cassian, Fendrel, Liren)
+   - **Raffaele (Raffa)** ➔ **Rey Sekigan** (Warlock / Spadaccino Arcano — *La Quinta Verità*, Squadra del Saggio Tulamesh Marakbi con Liora, Mirena, Darin)
+   - **Francesco** ➔ **Quarion** (Paladino / Barbaro — Compagnia Originaria per le sessioni 2022–2025; deceduto a settembre 2025)
 2. **Correzione Storpiature Fonetiche**:
    I sottotitoli automatici di YouTube storpiano i nomi fantasy (es. *"Caret"*, *"Velendoran"*, *"Osiro"*, *"Baltasar"*, *"Gideon"*, *"Yokul"*, *"Atasharev"*). Usa `docs/glossari/glossario.md`, `docs/glossari/glossario_<YYYY>.md` e il contesto per scrivere sempre i nomi corretti, annotando le nuove storpiature tra le varianti fonetiche del glossario.
 3. **Filtro Off-Game vs Recap Iniziale / Retcon / Giocate in Privato**:

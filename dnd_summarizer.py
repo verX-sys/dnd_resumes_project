@@ -473,13 +473,20 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 150) -> List[dict]:
     for idx, entry in enumerate(raw_entries, start=1):
         vid_id = entry["id"]
         title = entry.get("title", f"Sessione D&D ({vid_id})")
+        duration = entry.get("duration")
+        live_status = entry.get("live_status")
 
         upload_date = extract_true_stream_date(entry)
 
         # 1. Controlla se è già nella cache del canale o dei video processati
-        if not upload_date and vid_id in channel_cache:
-            upload_date = channel_cache[vid_id].get("upload_date", "")
-            title = channel_cache[vid_id].get("title", title)
+        if vid_id in channel_cache:
+            if not upload_date:
+                upload_date = channel_cache[vid_id].get("upload_date", "")
+                title = channel_cache[vid_id].get("title", title)
+            if duration is None:
+                duration = channel_cache[vid_id].get("duration")
+            if live_status is None:
+                live_status = channel_cache[vid_id].get("live_status")
         if not upload_date and vid_id in processed_cache:
             upload_date = processed_cache[vid_id].get("upload_date", "").replace("-", "")
 
@@ -493,13 +500,28 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 150) -> List[dict]:
             meta = get_video_metadata(vid_id, ignore_cache=True)
             upload_date = meta.get("upload_date", "")
             title = meta.get("title") or title
+            if meta.get("duration") is not None:
+                duration = meta.get("duration")
+            if meta.get("live_status") is not None:
+                live_status = meta.get("live_status")
 
-        if vid_id not in channel_cache or channel_cache[vid_id].get("upload_date") != upload_date:
+        needs_cache_update = (
+            vid_id not in channel_cache
+            or channel_cache[vid_id].get("upload_date") != upload_date
+            or "duration" not in channel_cache[vid_id]
+            or "live_status" not in channel_cache[vid_id]
+            or (duration is not None and channel_cache[vid_id].get("duration") is None)
+            or (live_status is not None and channel_cache[vid_id].get("live_status") is None)
+        )
+        if needs_cache_update:
             channel_cache[vid_id] = {
                 "id": vid_id,
                 "title": title,
                 "upload_date": upload_date,
+                "duration": duration,
+                "live_status": live_status,
             }
+            assert "duration" in channel_cache[vid_id]
             save_channel_cache(channel_cache)
             cache_updated = True
 
@@ -510,6 +532,8 @@ def fetch_channel_videos(channel_url: str, max_videos: int = 150) -> List[dict]:
                 "url": f"https://www.youtube.com/watch?v={vid_id}",
                 "upload_date": upload_date,
                 "month": format_month_from_upload_date(upload_date),
+                "duration": duration,
+                "live_status": live_status,
             }
         )
 
@@ -770,7 +794,7 @@ def format_summary_as_markdown(
         "",
         "---",
         "",
-        "## ⚔️ Vicende delle Squadre e dei Personaggi",
+        "## ⚔️ Vicende dei Personaggi",
         "",
     ]
 
@@ -1530,7 +1554,7 @@ def clean_search_text(text: str) -> str:
 
 
 def build_web_data(verbose: bool = True) -> dict:
-    """Scansiona tutti i riassunti in `docs/riassunti/` e i glossari in `docs/glossari/`,
+    """Scansiona direttamente tutti i riassunti in `docs/riassunti/` e i glossari in `docs/glossari/`,
     e genera `docs/data/manifest.json` e `docs/data/search_index.json`
     per il frontend Vanilla SPA su GitHub Pages."""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
@@ -1784,7 +1808,7 @@ def main():
         "--build-web",
         "--export-web",
         action="store_true",
-        help="Sincronizza i file Markdown in docs/ e genera manifest.json e search_index.json per il frontend GitHub Pages.",
+        help="Scansiona direttamente i file Markdown in docs/riassunti/ e docs/glossari/ per generare docs/data/manifest.json e docs/data/search_index.json per il frontend GitHub Pages.",
     )
     parser.add_argument(
         "--force",
