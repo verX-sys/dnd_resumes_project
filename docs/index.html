@@ -3,15 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D&D Chronicles — Cronache di Stefano Leone</title>
-  
-  <!-- Tailwind CSS via CDN -->
+  <title>D&amp;D Chronicles — Cronache di Stefano Leone</title>
+
+  <!-- Expressive Display Serif + Crisp Sans + Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS v3 via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            display: ['"Cinzel"', '"Palatino Linotype"', '"Book Antiqua"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '"Segoe UI"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
           colors: {
             amber: {
               450: '#f59e0b',
@@ -19,18 +29,27 @@
             },
             fantasy: {
               gold: '#d4af37',
-              dark: '#0f1117',
-              card: '#181b26',
-              border: '#282d3f',
-              ivoryBg: '#f7f4ed',
-              ivoryCard: '#ffffff',
-              ivoryBorder: '#e6dfd1',
-              ivoryText: '#1f1b16',
-            }
-          }
+              dark: '#0b0e14',
+              card: '#131822',
+              border: '#262e3f',
+              ivoryBg: '#f6f2e9',
+              ivoryCard: '#fffdf8',
+              ivoryBorder: '#dfd6c5',
+              ivoryText: '#1e1914',
+            },
+            canvas: 'var(--bg-canvas)',
+            surface: 'var(--bg-surface)',
+            elevated: 'var(--bg-elevated)',
+            ink: 'var(--text-primary)',
+            muted: 'var(--text-muted)',
+            line: 'var(--border-subtle)',
+          },
+          borderRadius: {
+            card: 'var(--radius-card)',
+          },
         }
       }
-    }
+    };
   </script>
 
   <!-- Local vendor scripts with CDN fallbacks -->
@@ -48,118 +67,87 @@
   </script>
 
   <style>
+    /* Consolidated Theme Design Tokens */
+    :root,
+    html.light {
+      --bg-canvas: #f6f2e9;
+      --bg-surface: #fffdf8;
+      --bg-elevated: #efe8da;
+      --bg-code: #ebe3d3;
+      --text-primary: #1e1914;
+      --text-secondary: #3a3128;
+      --text-muted: #574d42;
+      --border-subtle: #dfd6c5;
+      --border-strong: #c9bca5;
+      --accent-primary: #9a4606;
+      --accent-soft: rgba(180, 83, 9, 0.11);
+      --accent-border: rgba(154, 70, 6, 0.32);
+      --spell-ink: #6b21a8;
+      --spell-soft: rgba(126, 34, 206, 0.11);
+      --spell-border: rgba(126, 34, 206, 0.32);
+      --radius-card: 0.75rem;
+    }
+
+    html.dark {
+      --bg-canvas: #0b0e14;
+      --bg-surface: #131822;
+      --bg-elevated: #1a2130;
+      --bg-code: #080b10;
+      --text-primary: #e8ecf3;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-subtle: #262e3f;
+      --border-strong: #364158;
+      --accent-primary: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.14);
+      --accent-border: rgba(245, 158, 11, 0.32);
+      --spell-ink: #c084fc;
+      --spell-soft: rgba(168, 85, 247, 0.16);
+      --spell-border: rgba(168, 85, 247, 0.35);
+      --radius-card: 0.75rem;
+    }
+
     /* Custom scrollbars */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.25); border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(150, 150, 150, 0.45); }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.28); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.48); }
 
-    /* Theme Styles */
-    html.dark {
-      --bg: #0d1117;
-      --card-bg: #161b22;
-      --card-border: #30363d;
-      --text-main: #e6edf3;
-      --text-muted: #8b949e;
-      --code-bg: #090d13;
+    .no-scrollbar {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
-    html.light {
-      --bg: #f7f4ed; /* Caldo e raffinato Avorio */
-      --card-bg: #ffffff;
-      --card-border: #e6dfd1;
-      --text-main: #1f1b16; /* Antracite caldo scuro ad altissimo contrasto */
-      --text-muted: #5c5245; /* Contrasto eccellente su sfondo avorio */
-      --code-bg: #efe9dc;
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
     }
 
     .theme-card {
-      background-color: var(--card-bg);
-      border-color: var(--card-border);
+      background-color: var(--bg-surface);
+      border-color: var(--border-subtle);
+      color: var(--text-primary);
     }
 
-    /* Regole di alto contrasto e leggibilità per la modalità Chiara Avorio */
-    html.light body {
-      background-color: var(--bg);
-      color: var(--text-main);
-    }
-    html.light .text-gray-400,
-    html.light .text-gray-500 {
-      color: #5c5245 !important;
-    }
-    html.light .text-gray-300 {
-      color: #3d352b !important;
-    }
-    html.light .text-gray-200,
-    html.light .text-gray-100 {
-      color: #1f1b16 !important;
-    }
-    html.light .theme-card {
-      background-color: var(--card-bg);
-      border-color: var(--card-border);
-      color: var(--text-main);
-    }
-    html.light .fantasy-gradient {
-      background: linear-gradient(135deg, rgba(217, 119, 6, 0.09) 0%, rgba(180, 83, 9, 0.02) 100%);
-    }
-    html.light .prose-dnd {
-      color: #1f1b16;
-    }
-    html.light .prose-dnd p,
-    html.light .prose-dnd li {
-      color: #1f1b16;
-    }
-    html.light .prose-dnd h1,
-    html.light .prose-dnd h2 {
-      color: #b45309;
-    }
-    html.light .prose-dnd h3 {
-      color: #1f1b16;
-    }
-    html.light .prose-dnd blockquote {
-      border-left-color: #d97706;
-      background-color: rgba(217, 119, 6, 0.08);
-      color: #1f1b16;
-    }
-    html.light .dnd-quote-card {
-      background: #ffffff;
-      border: 1px solid #e6dfd1;
-      border-left: 4px solid #d97706;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-      color: #1f1b16;
-    }
-    html.light .dnd-quote-header {
-      color: #b45309;
-    }
-    html.light .dnd-dice-badge {
-      background: rgba(217, 119, 6, 0.12);
-      color: #92400e;
-      border-color: rgba(217, 119, 6, 0.35);
-    }
-    html.light .dnd-spell-badge {
-      background: rgba(147, 51, 234, 0.12);
-      color: #7e22ce;
-      border-color: rgba(147, 51, 234, 0.35);
-    }
-    html.light input {
-      color: #1f1b16 !important;
-      background-color: #ffffff !important;
-      border-color: #e6dfd1 !important;
-    }
-    html.light input::placeholder {
-      color: #8c8070 !important;
+    .theme-surface-muted {
+      background-color: var(--bg-elevated);
+      border-color: var(--border-subtle);
     }
 
     .fantasy-gradient {
-      background: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(180, 83, 9, 0.04) 100%);
+      background: linear-gradient(135deg, var(--accent-soft) 0%, transparent 72%), var(--bg-surface);
+    }
+
+    .manuscript-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent-border) 20%, var(--accent-border) 80%, transparent 100%);
     }
 
     mark.search-highlight {
-      background-color: rgba(245, 158, 11, 0.35);
+      background-color: rgba(245, 158, 11, 0.32);
       color: inherit;
       padding: 0 4px;
       border-radius: 3px;
@@ -168,290 +156,473 @@
 
     /* Markdown Rendering Enhancements */
     .prose-dnd {
+      color: var(--text-primary);
       word-break: break-word;
       overflow-wrap: break-word;
     }
-    .prose-dnd pre, .prose-dnd table {
+    .prose-dnd pre,
+    .prose-dnd table {
       max-width: 100%;
       overflow-x: auto;
     }
-    .prose-dnd h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.75rem; color: #d97706; }
-    .prose-dnd h2 { font-size: 1.25rem; font-weight: 700; margin-top: 1.75rem; margin-bottom: 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--card-border); color: #f59e0b; display: flex; align-items: center; gap: 0.5rem; }
-    .prose-dnd h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: var(--text-main); }
-    .prose-dnd p { margin-bottom: 0.85rem; line-height: 1.65; }
-    .prose-dnd ul { list-style-type: disc; padding-left: 1.3rem; margin-bottom: 0.85rem; space-y: 0.25rem; }
-    .prose-dnd li { margin-bottom: 0.35rem; line-height: 1.6; }
-    .prose-dnd blockquote { margin: 1rem 0; padding: 0.75rem 1rem; border-left: 3px solid #f59e0b; background-color: rgba(245, 158, 11, 0.06); border-radius: 0 0.5rem 0.5rem 0; }
-    .prose-dnd strong { font-weight: 700; color: inherit; }
-    .prose-dnd code { background-color: var(--code-bg); padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.85em; }
+    .prose-dnd h1 {
+      font-family: 'Cinzel', 'Palatino Linotype', Georgia, serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      color: var(--accent-primary);
+    }
+    .prose-dnd h2 {
+      font-family: 'Cinzel', 'Palatino Linotype', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-top: 2rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      scroll-margin-top: 1rem;
+    }
+    .prose-dnd h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 1.35rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      scroll-margin-top: 1rem;
+    }
+    .prose-dnd p {
+      margin-bottom: 0.9rem;
+      line-height: 1.72;
+      color: var(--text-primary);
+    }
+    .prose-dnd ul {
+      list-style-type: disc;
+      padding-left: 1.35rem;
+      margin-bottom: 0.9rem;
+    }
+    .prose-dnd ul > li + li {
+      margin-top: 0.25rem;
+    }
+    .prose-dnd ol {
+      list-style-type: decimal;
+      padding-left: 1.35rem;
+      margin-bottom: 0.9rem;
+    }
+    .prose-dnd li {
+      margin-bottom: 0.35rem;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+    .prose-dnd a {
+      color: var(--accent-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .prose-dnd blockquote {
+      margin: 1rem 0;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid var(--accent-primary);
+      background-color: var(--accent-soft);
+      border-radius: 0 0.5rem 0.5rem 0;
+      color: var(--text-primary);
+    }
+    .prose-dnd strong {
+      font-weight: 700;
+      color: inherit;
+    }
+    .prose-dnd code {
+      background-color: var(--bg-code);
+      color: var(--text-primary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.85em;
+    }
 
     /* Theatrical dialogue box */
     .dnd-quote-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-left: 4px solid #d97706;
-      border-radius: 0.5rem;
-      padding: 0.85rem 1.1rem;
-      margin: 1rem 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0.625rem;
+      padding: 0.9rem 1.15rem;
+      margin: 1.1rem 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
       word-break: break-word;
       overflow-wrap: break-word;
       max-width: 100%;
     }
     .dnd-quote-header {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #d97706;
+      color: var(--accent-primary);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.5rem;
     }
     .dnd-dice-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      padding: 0.1rem 0.45rem;
+      padding: 0.12rem 0.45rem;
       border-radius: 0.375rem;
       font-size: 0.75rem;
       font-weight: 700;
-      background: rgba(245, 158, 11, 0.18);
-      color: #d97706;
-      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: var(--accent-soft);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-border);
     }
     .dnd-spell-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      padding: 0.1rem 0.45rem;
+      padding: 0.12rem 0.45rem;
       border-radius: 0.375rem;
       font-size: 0.75rem;
       font-weight: 700;
-      background: rgba(168, 85, 247, 0.18);
-      color: #a855f7;
-      border: 1px solid rgba(168, 85, 247, 0.35);
+      background: var(--spell-soft);
+      color: var(--spell-ink);
+      border: 1px solid var(--spell-border);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-reveal {
+      animation: fadeSlideUp 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
-<body class="h-full flex flex-col font-sans select-none antialiased overflow-hidden">
+<body class="h-full flex flex-col font-sans antialiased overflow-hidden bg-canvas text-ink">
 
   <!-- ==================== HEADER BAR ==================== -->
-  <header class="h-14 border-b theme-card px-3 md:px-4 flex items-center justify-between shrink-0 z-40 shadow-xs gap-2 min-w-0">
-    
-    <!-- Left: Brand & Title -->
+  <header class="h-14 border-b theme-card px-3 md:px-4 flex items-center justify-between shrink-0 z-40 shadow-sm gap-2 min-w-0">
+
+    <!-- Left: Sidebar Toggle & Brand Home Button -->
     <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
-      <button onclick="toggleSidebar()" class="lg:hidden p-1.5 rounded-lg border theme-card hover:border-amber-500 text-sm shrink-0" title="Apri/Chiudi Menu">
+      <button
+        type="button"
+        id="sidebar-toggle-btn"
+        aria-label="Apri o chiudi archivio sessioni"
+        aria-expanded="false"
+        aria-controls="sidebar"
+        class="lg:hidden p-1.5 rounded-lg border theme-card hover:border-amber-600 dark:hover:border-amber-400 text-sm shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+        title="Apri/Chiudi Menu"
+      >
         ☰
       </button>
-      <div onclick="navigateTo('session', latestSessionId)" class="cursor-pointer flex items-center gap-2 shrink-0">
-        <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500 text-base font-bold shadow-xs shrink-0">
+
+      <button
+        type="button"
+        id="brand-home-btn"
+        aria-label="Vai all'ultima sessione delle Cronache"
+        class="text-left cursor-pointer flex items-center gap-2 shrink-0 rounded-lg px-1 py-0.5 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+      >
+        <span class="w-8 h-8 rounded-lg bg-amber-600/15 dark:bg-amber-500/15 border border-amber-700/30 dark:border-amber-500/30 flex items-center justify-center text-amber-800 dark:text-amber-400 text-base font-bold shadow-sm shrink-0">
           🐉
-        </div>
-        <div class="shrink-0">
-          <div class="text-xs md:text-sm font-bold tracking-tight flex items-center gap-1.5 whitespace-nowrap">
-            <span>Cronache di D&D</span>
-            <span class="hidden 2xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono font-medium border border-amber-500/25">
+        </span>
+        <span class="shrink-0 block">
+          <span class="font-display text-xs md:text-sm font-bold tracking-tight flex items-center gap-1.5 whitespace-nowrap text-ink">
+            <span>Cronache di D&amp;D</span>
+            <span class="hidden 2xl:inline-block font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-medium border border-amber-700/25 dark:border-amber-500/25">
               Live Archive
             </span>
-          </div>
-          <p class="text-[11px] text-gray-400 hidden 2xl:block whitespace-nowrap">Campagna di Stefano Leone • Compagnia del Tarallo</p>
-        </div>
-      </div>
+          </span>
+          <span class="text-[11px] text-muted hidden 2xl:block whitespace-nowrap">Campagna di Stefano Leone • Compagnia del Tarallo</span>
+        </span>
+      </button>
     </div>
 
-    <!-- Center: Main Navigation Tabs -->
-    <nav class="hidden md:flex items-center gap-0.5 xl:gap-1 p-1 rounded-lg border theme-card shrink-0">
-      <button onclick="setActiveTab('reader')" id="nav-reader" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors bg-amber-500/20 text-amber-500 font-bold shrink-0">
-        📜 Sessioni
+    <!-- Center: Main Navigation Tabs (Desktop & Tablet >= md) -->
+    <nav aria-label="Navigazione principale" class="hidden md:flex items-center gap-0.5 xl:gap-1 p-1 rounded-lg border theme-card shrink-0">
+      <button type="button" data-tab-target="reader" id="nav-reader" aria-current="page" class="nav-btn whitespace-nowrap text-xs px-2.5 xl:px-3 py-1.5 rounded-md transition-colors bg-amber-700/15 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 font-bold shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+        📜 Cronache
       </button>
-      <button onclick="setActiveTab('search')" id="nav-search" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 flex items-center gap-1 shrink-0">
+      <button type="button" data-tab-target="search" id="nav-search" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-muted hover:text-amber-800 dark:hover:text-amber-300 flex items-center gap-1 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
         <span>🔍</span> Ricerca
-        <span id="search-count-badge" class="hidden xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono">111</span>
+        <span id="search-count-badge" class="hidden xl:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono">117</span>
       </button>
-      <button onclick="setActiveTab('glossary')" id="nav-glossary" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
+      <button type="button" data-tab-target="glossary" id="nav-glossary" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-muted hover:text-amber-800 dark:hover:text-amber-300 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
         📖 Glossari
       </button>
-      <button onclick="setActiveTab('characters')" id="nav-characters" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
-        🛡️ <span class="hidden xl:inline">Compagnia & </span>PG
+      <button type="button" data-tab-target="characters" id="nav-characters" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-muted hover:text-amber-800 dark:hover:text-amber-300 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+        🛡️ <span class="hidden xl:inline">Compagnia &amp; </span>PG
       </button>
-      <button onclick="setActiveTab('info')" id="nav-info" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
-        ℹ️ Info<span class="hidden xl:inline"> & Stats</span>
+      <button type="button" data-tab-target="info" id="nav-info" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-muted hover:text-amber-800 dark:hover:text-amber-300 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+        ℹ️ Info<span class="hidden xl:inline"> &amp; Stats</span>
       </button>
     </nav>
 
-    <!-- Right: Quick Search, Theme & External Links -->
+    <!-- Right: Mobile TOC Drawer Toggle, Quick Search, Theme & External Links -->
     <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-      <!-- Quick search launcher button -->
-      <button onclick="setActiveTab('search'); focusSearch();" class="flex items-center gap-1.5 text-xs px-2 sm:px-2.5 py-1.5 rounded-lg border theme-card text-gray-400 hover:border-amber-500 hover:text-amber-500 transition-colors whitespace-nowrap shrink-0" title="Cerca nel testo (Ctrl+K)">
-        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <span class="hidden 2xl:inline">Cerca nel testo...</span>
-        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[10px] bg-black/20 border theme-card rounded font-mono">Ctrl+K</kbd>
+      <button
+        type="button"
+        id="toc-toggle-btn"
+        aria-label="Apri indice della pagina"
+        aria-expanded="false"
+        aria-controls="toc-sidebar"
+        class="xl:hidden flex items-center gap-1 text-xs px-2 sm:px-2.5 py-1.5 rounded-lg border theme-card text-muted hover:border-amber-600 dark:hover:border-amber-400 hover:text-amber-800 dark:hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+        title="Indice sezioni"
+      >
+        <span>📑</span>
+        <span class="hidden sm:inline">Indice</span>
       </button>
 
-      <!-- Theme Switcher (1-Click Toggle: Scuro 🌙 / Chiaro Avorio ☀️) -->
-      <button onclick="toggleTheme()" id="theme-toggle-btn" class="p-1.5 rounded-lg border theme-card hover:border-amber-500 text-xs flex items-center justify-center shrink-0 w-8 h-8 transition-colors" title="Passa alla modalità Chiara (Avorio)">
-        <span id="theme-icon">🌙</span>
+      <!-- Quick search launcher button -->
+      <button
+        type="button"
+        id="header-search-btn"
+        aria-label="Apri ricerca testuale (Ctrl+K)"
+        class="flex items-center gap-1.5 text-xs px-2 sm:px-2.5 py-1.5 rounded-lg border theme-card text-muted hover:border-amber-600 dark:hover:border-amber-400 hover:text-amber-800 dark:hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+        title="Cerca nel testo (Ctrl+K)"
+      >
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <span class="hidden 2xl:inline">Cerca nel testo...</span>
+        <kbd class="hidden xl:inline-block px-1.5 py-0.5 text-[10px] bg-stone-200/80 text-stone-800 border border-stone-300 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 rounded font-mono">Ctrl+K</kbd>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button
+        type="button"
+        id="theme-toggle-btn"
+        aria-label="Passa alla modalità Chiara (Avorio)"
+        aria-pressed="false"
+        class="p-1.5 rounded-lg border theme-card hover:border-amber-600 dark:hover:border-amber-400 text-xs flex items-center justify-center shrink-0 w-8 h-8 transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+        title="Passa alla modalità Chiara (Avorio)"
+      >
+        <span id="theme-icon" aria-hidden="true">🌙</span>
       </button>
 
       <!-- YouTube Channel Stream -->
-      <a href="https://www.youtube.com/@stefanoleone4578/streams" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-xs font-semibold px-2 sm:px-2.5 py-1.5 rounded-lg bg-red-600/15 text-red-500 border border-red-600/25 hover:bg-red-600 hover:text-white transition-all shadow-xs whitespace-nowrap shrink-0" title="Canale Live YouTube">
-        <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <a
+        href="https://www.youtube.com/@stefanoleone4578/streams"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-1 text-xs font-semibold px-2 sm:px-2.5 py-1.5 rounded-lg bg-red-600/15 text-red-700 dark:text-red-400 border border-red-600/30 hover:bg-red-600 hover:text-white transition-colors shadow-sm whitespace-nowrap shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+        title="Canale Live YouTube"
+      >
+        <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         <span class="hidden sm:inline">Live</span>
       </a>
     </div>
   </header>
 
-  <!-- ==================== LOCAL / FILE PROTOCOL NOTICE (IF NEEDED) ==================== -->
-  <div id="local-file-notice" class="hidden shrink-0 bg-amber-500/10 border-b border-amber-500/30 px-4 py-2.5 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between">
+  <!-- ==================== LOCAL / FILE PROTOCOL NOTICE ==================== -->
+  <div id="local-file-notice" class="hidden shrink-0 bg-amber-500/10 border-b border-amber-600/30 px-4 py-2.5 text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between gap-3">
     <div class="flex items-center gap-2">
-      <span>⚠️</span>
-      <span><strong>Nota per l'apertura locale:</strong> I browser bloccano le chiamate <code>fetch()</code> se il file è aperto con il protocollo <code>file:///</code>. Avvia un piccolo web server locale (es. con il comando <code>py -m http.server</code> nella cartella <code>docs/</code> o tramite Live Server in VS Code) oppure pubblicalo su GitHub Pages.</span>
+      <span aria-hidden="true">⚠️</span>
+      <span><strong>Nota per l'apertura locale:</strong> I browser bloccano le chiamate <code>fetch()</code> se il file è aperto con il protocollo <code>file:///</code>. Avvia un piccolo web server locale (es. con <code>py -m http.server -d docs</code>) oppure pubblicalo su GitHub Pages.</span>
     </div>
-    <button onclick="document.getElementById('local-file-notice').remove()" class="text-xs font-bold px-2 py-0.5 rounded hover:bg-amber-500/20">✕</button>
+    <button type="button" id="dismiss-file-notice-btn" aria-label="Chiudi avviso file locale" class="text-xs font-bold px-2 py-0.5 rounded hover:bg-amber-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600">✕</button>
   </div>
 
   <!-- ==================== MAIN WORKSPACE ==================== -->
   <div class="flex-1 flex overflow-hidden min-h-0 w-full relative">
-    
-    <!-- Mobile Drawer Backdrop -->
-    <div id="sidebar-backdrop" onclick="closeMobileSidebar()" class="hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-xs lg:hidden transition-opacity"></div>
 
-    <!-- LEFT SIDEBAR: Session Archive Tree & PG Filters (Drawer on <lg, static on >=lg) -->
-    <aside id="sidebar" class="hidden lg:flex fixed lg:relative inset-y-0 left-0 z-50 lg:z-30 w-80 max-w-[85vw] border-r theme-card flex-col transition-all duration-200 shrink-0 h-full overflow-hidden shadow-2xl lg:shadow-none bg-inherit">
-      
+    <!-- Mobile Left Sidebar Backdrop -->
+    <div id="sidebar-backdrop" aria-hidden="true" class="hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm lg:hidden transition-opacity"></div>
+
+    <!-- Mobile/Tablet Right TOC Backdrop -->
+    <div id="toc-backdrop" aria-hidden="true" class="hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm xl:hidden transition-opacity"></div>
+
+    <!-- LEFT SIDEBAR: Session Archive Tree & PG Filters -->
+    <aside id="sidebar" aria-label="Archivio delle sessioni" class="hidden lg:flex fixed lg:relative inset-y-0 left-0 z-50 lg:z-30 w-80 max-w-[85vw] border-r theme-card flex-col transition-all duration-200 shrink-0 h-full overflow-hidden shadow-2xl lg:shadow-none">
+
       <!-- Quick Filter Input inside sidebar -->
       <div class="p-3 border-b theme-card shrink-0 flex items-center justify-between gap-2">
         <div class="relative flex-1">
-          <input type="text" id="sidebar-filter-input" oninput="filterSidebar(this.value)" placeholder="Filtra titoli o date..." class="w-full text-xs pl-8 pr-3 py-2 rounded-lg border theme-card focus:border-amber-500 focus:outline-none transition-colors">
-          <svg class="w-4 h-4 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <label for="sidebar-filter-input" class="sr-only">Filtra titoli o date delle sessioni</label>
+          <input
+            type="text"
+            id="sidebar-filter-input"
+            placeholder="Filtra titoli o date..."
+            class="w-full text-xs pl-8 pr-3 py-2 rounded-lg border theme-card bg-surface text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400 transition-colors"
+          >
+          <svg class="w-4 h-4 text-muted absolute left-2.5 top-2.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
-        <button onclick="closeMobileSidebar()" class="lg:hidden p-2 rounded-lg border theme-card hover:border-amber-500 text-xs shrink-0" title="Chiudi Menu">✕</button>
+        <button type="button" id="sidebar-close-btn" aria-label="Chiudi menu archivio" class="lg:hidden p-2 rounded-lg border theme-card hover:border-amber-600 dark:hover:border-amber-400 text-xs shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400" title="Chiudi Menu">✕</button>
       </div>
 
       <!-- Quick Character Filters -->
-      <div class="px-3 py-2 border-b theme-card flex items-center gap-1.5 overflow-x-auto text-xs scrollbar-none shrink-0">
-        <span class="text-gray-400 text-[11px] uppercase tracking-wider shrink-0 font-semibold">PG:</span>
-        <button onclick="setCharFilter('all')" data-char="all" class="char-pill active px-2 py-0.5 rounded-full text-xs bg-amber-500 text-white font-medium shrink-0">Tutti</button>
-        <button onclick="setCharFilter('Aerial')" data-char="Aerial" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Aerial</button>
-        <button onclick="setCharFilter('Lucio')" data-char="Lucio" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Lucio</button>
-        <button onclick="setCharFilter('Rey')" data-char="Rey" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rey</button>
-        <button onclick="setCharFilter('Rogus')" data-char="Rogus" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rogus</button>
-        <button onclick="setCharFilter('Prometheus')" data-char="Prometheus" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Prometheus</button>
-        <button onclick="setCharFilter('Quarion')" data-char="Quarion" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Quarion</button>
+      <div id="sidebar-char-filters" class="px-3 py-2 border-b theme-card flex flex-wrap items-center gap-1.5 text-xs shrink-0" role="group" aria-label="Filtra per personaggio">
+        <span class="text-muted text-[11px] uppercase tracking-wider shrink-0 font-semibold select-none">PG:</span>
+        <button type="button" data-char="all" aria-pressed="true" class="char-pill active px-2.5 py-0.5 rounded-full text-xs bg-amber-700 text-white dark:bg-amber-500 dark:text-slate-950 font-semibold shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Tutti</button>
+        <button type="button" data-char="Aerial" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Aerial</button>
+        <button type="button" data-char="Lucio" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Lucio</button>
+        <button type="button" data-char="Rey" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Rey</button>
+        <button type="button" data-char="Rogus" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Rogus</button>
+        <button type="button" data-char="Prometheus" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Prometheus</button>
+        <button type="button" data-char="Quarion" aria-pressed="false" class="char-pill px-2.5 py-0.5 rounded-full text-xs border theme-card hover:border-amber-600 dark:hover:border-amber-400 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Quarion</button>
       </div>
 
       <!-- Tree Session Archive List -->
       <div class="flex-1 overflow-y-auto p-2 space-y-1 min-h-0" id="sidebar-tree">
-        <div class="p-4 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
-          <svg class="animate-spin h-4 w-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+        <div class="p-4 text-center text-xs text-muted flex items-center justify-center gap-2">
+          <svg class="animate-spin h-4 w-4 text-amber-600 dark:text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
           Caricamento sessioni...
         </div>
       </div>
 
       <!-- Bottom Session Counter Status -->
-      <div class="p-2.5 border-t theme-card text-[11px] text-gray-400 flex items-center justify-between shrink-0">
+      <div class="p-2.5 border-t theme-card text-[11px] text-muted flex items-center justify-between shrink-0">
         <span id="sidebar-stats">105 sessioni indicizzate</span>
-        <button onclick="setActiveTab('search')" class="text-amber-500 hover:underline">Ricerca Globale ➔</button>
+        <button type="button" id="sidebar-global-search-btn" class="text-amber-800 dark:text-amber-400 font-semibold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400 rounded px-1">Ricerca Globale ➔</button>
       </div>
     </aside>
 
     <!-- CENTER & RIGHT: Content Views -->
     <main class="flex-1 flex overflow-hidden min-h-0 h-full w-full min-w-0">
-      
+
       <!-- Center Content Pane -->
       <div id="content-pane" class="flex-1 overflow-y-auto overflow-x-hidden px-4 py-5 sm:px-6 sm:py-6 md:px-8 lg:px-10 w-full h-full min-w-0">
-        
+
         <!-- ==================== TAB 1: SESSION READER ==================== -->
-        <section id="tab-content-reader" class="space-y-6 w-full">
-          
+        <section id="tab-content-reader" class="space-y-6 w-full max-w-4xl mx-auto">
+
           <!-- Session Header Card -->
-          <div id="session-header-card" class="rounded-xl border theme-card p-4 sm:p-5 fantasy-gradient shadow-xs max-w-full overflow-hidden break-words">
-            <div class="flex flex-wrap items-center justify-between gap-2.5 mb-2.5 min-w-0">
+          <div id="session-header-card" class="rounded-xl border theme-card p-4 sm:p-6 fantasy-gradient shadow-sm max-w-full overflow-hidden break-words">
+            <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3 min-w-0">
               <div class="flex flex-wrap items-center gap-2 min-w-0 max-w-full">
-                <span id="session-badge-date" class="text-xs px-2.5 py-1 rounded-md font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono whitespace-nowrap shrink-0">
-                  📅 2026-11-02
+                <span id="session-badge-date" class="text-xs px-2.5 py-1 rounded-md font-bold bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-700/25 dark:border-amber-500/25 font-mono whitespace-nowrap shrink-0">
+                  📅 2026-11-09
                 </span>
-                <span id="session-badge-audio" title="Audio integro" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/20 flex items-center gap-1.5 min-w-0 max-w-full">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                <span id="session-badge-audio" title="Audio integro" class="text-xs px-2.5 py-1 rounded-full bg-emerald-600/15 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 font-medium border border-emerald-700/25 dark:border-emerald-500/25 flex items-center gap-1.5 min-w-0 max-w-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" aria-hidden="true"></span>
                   <span class="truncate max-w-[180px] sm:max-w-xs">Audio Integro</span>
                 </span>
               </div>
               <div class="flex items-center gap-2 shrink-0">
-                <a id="session-yt-btn" href="#" target="_blank" rel="noopener noreferrer" class="text-xs px-2.5 sm:px-3 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium flex items-center gap-1.5 transition-colors shadow-xs whitespace-nowrap shrink-0">
-                  <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <a id="session-yt-btn" href="#" target="_blank" rel="noopener noreferrer" class="text-xs px-2.5 sm:px-3 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white font-medium flex items-center gap-1.5 transition-colors shadow-sm whitespace-nowrap shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500">
+                  <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                   <span class="hidden sm:inline">Guarda la Live su </span>YouTube
                 </a>
               </div>
             </div>
 
-            <h1 id="session-title" class="text-xl md:text-2xl font-bold tracking-tight text-amber-500 break-words leading-snug">
+            <h1 id="session-title" class="font-display text-xl sm:text-2xl font-bold tracking-tight text-amber-800 dark:text-amber-400 break-words leading-snug">
               Caricamento sessione in corso...
             </h1>
 
-            <!-- Session Metadata Box (Personaggi & Statistiche perfettamente centrati) -->
-            <div class="mt-4 p-2.5 px-3 rounded-lg border theme-card flex flex-wrap items-center justify-between gap-2 text-xs text-stone-600 dark:text-gray-400 leading-relaxed">
-              <div id="session-characters-list" class="min-w-0 flex items-center flex-wrap gap-1">
-                👥 <strong>Personaggi:</strong> In caricamento...
+            <div class="manuscript-rule my-3.5" aria-hidden="true"></div>
+
+            <!-- Session Metadata Box -->
+            <div class="p-2.5 px-3 rounded-lg border theme-card flex flex-wrap items-center justify-between gap-2 text-xs text-muted leading-relaxed">
+              <div id="session-characters-list" class="min-w-0 flex items-center flex-wrap gap-1.5">
+                👥 <strong class="text-ink">Personaggi:</strong> In caricamento...
               </div>
-              <div id="session-word-stats" class="whitespace-nowrap flex items-center gap-1 text-stone-500 dark:text-gray-400 font-medium">
+              <div id="session-word-stats" class="whitespace-nowrap flex items-center gap-1 text-muted font-medium">
                 📖 Conteggio parole: ~
               </div>
             </div>
           </div>
 
           <!-- Markdown Content Render Container -->
-          <article id="session-markdown-body" class="prose-dnd text-sm leading-relaxed">
+          <article id="session-markdown-body" class="prose-dnd text-[15px] leading-relaxed max-w-prose mx-auto">
             <!-- Dynamic parsed HTML injected here -->
           </article>
+
+          <!-- Chronological Previous / Next Session Navigation -->
+          <nav id="session-pager" aria-label="Navigazione cronologica tra sessioni" class="max-w-prose mx-auto pt-4 border-t border-line grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="button"
+              id="session-prev-btn"
+              disabled
+              class="p-3.5 rounded-xl border theme-card text-left transition-colors hover:border-amber-600 dark:hover:border-amber-400 disabled:opacity-45 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+            >
+              <span class="block text-[11px] font-mono uppercase tracking-wider text-muted">← Sessione Precedente</span>
+              <span id="session-prev-label" class="block mt-1 text-xs font-semibold text-ink truncate">Nessuna sessione precedente</span>
+            </button>
+            <button
+              type="button"
+              id="session-next-btn"
+              disabled
+              class="p-3.5 rounded-xl border theme-card text-right transition-colors hover:border-amber-600 dark:hover:border-amber-400 disabled:opacity-45 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+            >
+              <span class="block text-[11px] font-mono uppercase tracking-wider text-muted">Sessione Successiva →</span>
+              <span id="session-next-label" class="block mt-1 text-xs font-semibold text-ink truncate">Nessuna sessione successiva</span>
+            </button>
+          </nav>
 
         </section>
 
         <!-- ==================== TAB 2: ADVANCED FULL-TEXT SEARCH ==================== -->
-        <section id="tab-content-search" class="hidden space-y-6 w-full">
-          
-          <div class="rounded-xl border theme-card p-6 fantasy-gradient shadow-xs space-y-4">
-            <div class="flex items-center justify-between">
+        <section id="tab-content-search" class="hidden space-y-6 w-full max-w-4xl mx-auto">
+
+          <div class="rounded-xl border theme-card p-5 sm:p-6 fantasy-gradient shadow-sm space-y-4">
+            <div class="flex items-center justify-between gap-3">
               <div>
-                <h2 class="text-xl font-bold flex items-center gap-2 text-amber-500">
-                  <span>🔍</span> Ricerca Avanzata nel Testo
+                <h2 class="font-display text-xl font-bold flex items-center gap-2 text-amber-800 dark:text-amber-400">
+                  <span aria-hidden="true">🔍</span> Ricerca Avanzata nel Testo
                 </h2>
-                <p class="text-xs text-gray-400 mt-0.5">
+                <p class="text-xs text-muted mt-1">
                   Cerca qualsiasi parola o frase in oltre <span id="search-subtitle-sessions">105</span> sessioni trascritte e nei <span id="search-subtitle-glossaries">6</span> glossari della campagna.
                 </p>
               </div>
-              <span class="hidden sm:inline-block text-xs px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-500 font-mono font-bold border border-amber-500/25">
-                MiniSearch Inverted Index
+              <span class="hidden sm:inline-block text-xs px-2.5 py-1 rounded-md bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono font-bold border border-amber-700/25 dark:border-amber-500/25 shrink-0">
+                MiniSearch Index
               </span>
             </div>
 
             <!-- Big Search Input -->
             <div class="relative">
-              <input type="text" id="fulltext-search-input" oninput="handleFullTextSearch(this.value)" placeholder="Scrivi una parola o frase (es: galline, Atashkarev, morbo, persiana, Errick, leoni, Ava)..." class="w-full text-sm pl-11 pr-4 py-3 rounded-xl border-2 border-amber-500/40 focus:border-amber-500 theme-card focus:outline-none transition-colors shadow-inner">
-              <svg class="w-5 h-5 text-amber-500 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <label for="fulltext-search-input" class="sr-only">Cerca in sessioni, glossari e diari</label>
+              <input
+                type="search"
+                id="fulltext-search-input"
+                placeholder="Scrivi una parola o frase (es: galline, Atashkarev, morbo, persiana, Errick, leoni, Ava)..."
+                class="w-full text-sm pl-11 pr-4 py-3 rounded-xl border-2 border-amber-700/35 dark:border-amber-500/40 focus:border-amber-700 dark:focus:border-amber-400 theme-card bg-surface text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400 transition-colors shadow-inner"
+              >
+              <svg class="w-5 h-5 text-amber-700 dark:text-amber-400 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
 
             <!-- Filter Categories -->
             <div class="pt-1">
-              <div class="flex flex-wrap items-center gap-2 text-xs">
-                <span class="text-gray-400 font-semibold text-[11px] uppercase tracking-wider">Filtra per:</span>
-                <button onclick="setSearchCategory('all')" class="search-cat-pill active px-2.5 py-1 rounded-full bg-amber-500 text-white font-medium">Tutti i Documenti</button>
-                <button onclick="setSearchCategory('sessione')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📜 Solo Riassunti Sessioni</button>
-                <button onclick="setSearchCategory('glossario')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📖 Solo Glossari & Regole</button>
-                <button onclick="setSearchCategory('diario')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">🛡️ Solo Diari PG</button>
+              <div id="search-category-filters" class="flex flex-wrap items-center gap-2 text-xs" role="group" aria-label="Filtra categoria documenti">
+                <span class="text-muted font-semibold text-[11px] uppercase tracking-wider select-none">Filtra per:</span>
+                <button type="button" data-search-cat="all" aria-pressed="true" class="search-cat-pill active px-2.5 py-1 rounded-full bg-amber-700 text-white dark:bg-amber-500 dark:text-slate-950 font-semibold select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">Tutti i Documenti</button>
+                <button type="button" data-search-cat="sessione" aria-pressed="false" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-600 dark:hover:border-amber-400 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">📜 Solo Riassunti Sessioni</button>
+                <button type="button" data-search-cat="glossario" aria-pressed="false" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-600 dark:hover:border-amber-400 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">📖 Solo Glossari &amp; Regole</button>
+                <button type="button" data-search-cat="diario" aria-pressed="false" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-600 dark:hover:border-amber-400 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">🛡️ Solo Diari PG</button>
               </div>
             </div>
           </div>
 
           <!-- Search Status Bar -->
-          <div class="flex items-center justify-between text-xs px-2 text-gray-400">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs px-2 text-muted">
             <span id="search-status-text">Digita almeno 2 caratteri per effettuare la ricerca full-text.</span>
-            <span id="search-index-stats" class="font-mono text-[11px]">111 documenti in memoria</span>
+            <span id="search-index-stats" class="font-mono text-[11px]">117 documenti in memoria</span>
           </div>
 
           <!-- Results List Container -->
           <div id="search-results-container" class="space-y-3">
-            <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-gray-400 space-y-2">
-              <span class="text-3xl">📖</span>
+            <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-muted space-y-2">
+              <span class="text-3xl" aria-hidden="true">📖</span>
               <p>Trova istantaneamente qualsiasi avvenimento, battuta o PNG citato nella campagna.</p>
             </div>
           </div>
@@ -459,15 +630,15 @@
         </section>
 
         <!-- ==================== TAB 3: GLOSSARI ENCICLOPEDICI ==================== -->
-        <section id="tab-content-glossary" class="hidden space-y-6 w-full">
-          <div class="rounded-xl border theme-card p-5 fantasy-gradient space-y-3">
-            <h2 class="text-xl font-bold text-amber-500 flex items-center gap-2">
-              <span>📖</span> Compendio Enciclopedico & Diari Annuali
+        <section id="tab-content-glossary" class="hidden space-y-6 w-full max-w-4xl mx-auto">
+          <div class="rounded-xl border theme-card p-5 sm:p-6 fantasy-gradient shadow-sm space-y-3">
+            <h2 class="font-display text-xl font-bold text-amber-800 dark:text-amber-400 flex items-center gap-2">
+              <span aria-hidden="true">📖</span> Compendio Enciclopedico &amp; Diari Annuali
             </h2>
-            <p class="text-xs text-gray-400">
+            <p class="text-xs text-muted">
               Esplora l'enciclopedia tematica della campagna (PNG, Fazioni, Luoghi, Reliquie) o i diari cronologici sessione per sessione.
             </p>
-            
+
             <!-- Glossary file switcher buttons -->
             <div class="flex flex-wrap items-center gap-2 pt-2" id="glossary-switcher-buttons">
               <!-- Dynamically populated from manifest -->
@@ -475,17 +646,17 @@
           </div>
 
           <!-- Glossary Markdown Body -->
-          <article id="glossary-markdown-body" class="prose-dnd text-sm leading-relaxed rounded-xl border theme-card p-6">
-            <div class="p-6 text-center text-xs text-gray-400">Seleziona un glossario per visualizzarlo.</div>
+          <article id="glossary-markdown-body" class="prose-dnd text-[15px] leading-relaxed rounded-xl border theme-card p-5 sm:p-7 max-w-prose mx-auto shadow-sm">
+            <div class="p-6 text-center text-xs text-muted">Seleziona un glossario per visualizzarlo.</div>
           </article>
         </section>
 
         <!-- ==================== TAB 4: COMPAGNIA DEL TARALLO & PG ==================== -->
-        <section id="tab-content-characters" class="hidden space-y-6 w-full">
+        <section id="tab-content-characters" class="hidden space-y-6 w-full max-w-4xl mx-auto">
           <div id="characters-grid-view" class="space-y-6">
-            <div class="rounded-xl border theme-card p-5 fantasy-gradient">
-              <h2 class="text-xl font-bold text-amber-500">🛡️ La Compagnia del Tarallo (Personaggi Giocanti)</h2>
-              <p class="text-xs text-gray-400 mt-1">Stato dei protagonisti, allineamenti, classi e squadre attive nel Torneo dei Saggi</p>
+            <div class="rounded-xl border theme-card p-5 sm:p-6 fantasy-gradient shadow-sm">
+              <h2 class="font-display text-xl font-bold text-amber-800 dark:text-amber-400">🛡️ La Compagnia del Tarallo (Personaggi Giocanti)</h2>
+              <p class="text-xs text-muted mt-1">Stato dei protagonisti, allineamenti, classi e squadre attive nel Torneo dei Saggi</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="characters-cards-grid">
@@ -495,80 +666,78 @@
 
           <div id="character-diary-view" class="hidden space-y-6">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <button onclick="navigateTo('characters')" class="text-xs px-3 py-1.5 rounded-lg border theme-card hover:border-amber-500 hover:text-amber-500 font-medium transition-colors flex items-center gap-1.5">
+              <button type="button" id="character-back-btn" class="text-xs px-3 py-1.5 rounded-lg border theme-card hover:border-amber-600 dark:hover:border-amber-400 hover:text-amber-800 dark:hover:text-amber-300 font-medium transition-colors flex items-center gap-1.5 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
                 ← Torna ai Personaggi
               </button>
-              <button id="character-diary-filter-btn" onclick="filterByCharacterAndJump('')" class="text-xs px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium transition-colors">
+              <button type="button" id="character-diary-filter-btn" class="text-xs px-3 py-1.5 rounded-lg bg-amber-600/15 hover:bg-amber-700 text-amber-800 hover:text-white dark:bg-amber-500/15 dark:text-amber-300 dark:hover:bg-amber-500 dark:hover:text-slate-950 font-semibold transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
                 Filtra sessioni con PG ➔
               </button>
             </div>
 
-            <div class="rounded-xl border theme-card p-4 sm:p-5 fantasy-gradient shadow-xs space-y-3">
+            <div class="rounded-xl border theme-card p-4 sm:p-6 fantasy-gradient shadow-sm space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
-                  <span id="character-diary-icon" class="text-3xl">🛡️</span>
+                  <span id="character-diary-icon" class="text-3xl" aria-hidden="true">🛡️</span>
                   <div>
-                    <h2 id="character-diary-name" class="text-xl md:text-2xl font-bold text-amber-500">Diario del Personaggio</h2>
-                    <p id="character-diary-player" class="text-xs text-stone-600 dark:text-gray-400"></p>
+                    <h2 id="character-diary-name" class="font-display text-xl md:text-2xl font-bold text-amber-800 dark:text-amber-400">Diario del Personaggio</h2>
+                    <p id="character-diary-player" class="text-xs text-muted"></p>
                   </div>
                 </div>
-                <span id="character-diary-stats" class="text-xs px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 font-mono font-medium"></span>
+                <span id="character-diary-stats" class="text-xs px-2.5 py-1 rounded-md bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono font-medium"></span>
               </div>
-              <p id="character-diary-desc" class="text-xs leading-relaxed text-stone-700 dark:text-gray-300"></p>
-              <div class="pt-2 border-t theme-card text-xs grid grid-cols-1 sm:grid-cols-3 gap-1.5 text-stone-600 dark:text-gray-400">
+              <p id="character-diary-desc" class="text-xs leading-relaxed text-ink"></p>
+              <div class="pt-2.5 border-t border-line text-xs grid grid-cols-1 sm:grid-cols-3 gap-2 text-muted">
                 <div id="character-diary-role"></div>
                 <div id="character-diary-team"></div>
                 <div id="character-diary-allies"></div>
               </div>
             </div>
 
-            <article id="character-diary-markdown-body" class="prose-dnd text-sm leading-relaxed rounded-xl border theme-card p-6">
+            <article id="character-diary-markdown-body" class="prose-dnd text-[15px] leading-relaxed rounded-xl border theme-card p-5 sm:p-7 max-w-prose mx-auto shadow-sm">
               <!-- Dynamic parsed character diary HTML injected here -->
             </article>
           </div>
         </section>
 
         <!-- ==================== TAB 5: INFO & STATISTICHE ==================== -->
-        <section id="tab-content-info" class="hidden space-y-6 w-full">
-          <div class="rounded-xl border theme-card p-5 fantasy-gradient">
-            <h2 class="text-xl font-bold text-amber-500">ℹ️ Informazioni & Statistiche del Progetto</h2>
-            <p class="text-xs text-gray-400 mt-1">Archivio storico digitale automatizzato della campagna D&D di Stefano Leone</p>
+        <section id="tab-content-info" class="hidden space-y-6 w-full max-w-4xl mx-auto">
+          <div class="rounded-xl border theme-card p-5 sm:p-6 fantasy-gradient shadow-sm">
+            <h2 class="font-display text-xl font-bold text-amber-800 dark:text-amber-400">ℹ️ Informazioni &amp; Statistiche del Progetto</h2>
+            <p class="text-xs text-muted mt-1">Archivio storico digitale automatizzato della campagna D&amp;D di Stefano Leone</p>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div class="p-4 rounded-xl border theme-card">
-              <div class="text-2xl font-bold text-amber-500 font-mono" id="stat-total-sessions">105</div>
-              <div class="text-xs text-gray-400 mt-1">Sessioni Trascritte</div>
+            <div class="p-4 rounded-xl border theme-card shadow-sm">
+              <div class="text-2xl font-bold text-amber-800 dark:text-amber-400 font-mono" id="stat-total-sessions">105</div>
+              <div class="text-xs text-muted mt-1">Sessioni Trascritte</div>
             </div>
-            <div class="p-4 rounded-xl border theme-card">
-              <div class="text-2xl font-bold text-emerald-500 font-mono" id="stat-total-years">5</div>
-              <div class="text-xs text-gray-400 mt-1">Anni di Campagna (2022-2026)</div>
+            <div class="p-4 rounded-xl border theme-card shadow-sm">
+              <div class="text-2xl font-bold text-emerald-700 dark:text-emerald-400 font-mono" id="stat-total-years">5</div>
+              <div class="text-xs text-muted mt-1">Anni di Campagna (2022-2026)</div>
             </div>
-            <div class="p-4 rounded-xl border theme-card">
-              <div class="text-2xl font-bold text-purple-500 font-mono" id="stat-total-glossaries">6</div>
-              <div class="text-xs text-gray-400 mt-1">Glossari & Compendi</div>
+            <div class="p-4 rounded-xl border theme-card shadow-sm">
+              <div class="text-2xl font-bold text-purple-800 dark:text-purple-400 font-mono" id="stat-total-glossaries">6</div>
+              <div class="text-xs text-muted mt-1">Glossari &amp; Compendi</div>
             </div>
-            <div class="p-4 rounded-xl border theme-card">
-              <div class="text-2xl font-bold text-blue-500 font-mono" id="stat-audio-health">100%</div>
-              <div class="text-xs text-gray-400 mt-1">Monitoraggio Audio Live</div>
+            <div class="p-4 rounded-xl border theme-card shadow-sm">
+              <div class="text-2xl font-bold text-blue-700 dark:text-blue-400 font-mono" id="stat-audio-health">100%</div>
+              <div class="text-xs text-muted mt-1">Monitoraggio Audio Live</div>
             </div>
           </div>
 
-          <div class="p-5 rounded-xl border theme-card space-y-3">
-            <h3 class="text-sm font-bold text-amber-500 flex items-center gap-2">
-              <span>🚀</span> Come sincronizzare e pubblicare su GitHub Pages
+          <div class="p-5 sm:p-6 rounded-xl border theme-card shadow-sm space-y-3">
+            <h3 class="font-display text-sm font-bold text-amber-800 dark:text-amber-400 flex items-center gap-2">
+              <span aria-hidden="true">🚀</span> Come sincronizzare e pubblicare su GitHub Pages
             </h3>
-            <p class="text-xs text-gray-400 leading-relaxed">
-              Questo sito è una <strong>Vanilla SPA Zero-Build</strong>: non richiede Node.js, Webpack o processi di compilazione.
+            <p class="text-xs text-muted leading-relaxed">
+              Questo sito è una <strong class="text-ink">Vanilla SPA Zero-Build</strong>: non richiede Node.js, Webpack o processi di compilazione.
               Ogni volta che viene riassunta una nuova live con l'agente o con lo script, basta eseguire:
             </p>
-            <div class="bg-black/20 p-3 rounded-lg border theme-card font-mono text-xs text-amber-400">
-              py dnd_summarizer.py --build-web<br>
-              git add docs/<br>
-              git commit -m "Aggiornato archivio sessioni"<br>
-              git push
-            </div>
-            <p class="text-xs text-gray-400 leading-relaxed">
+            <pre class="theme-surface-muted p-3.5 rounded-lg border border-line font-mono text-xs text-amber-800 dark:text-amber-300 overflow-x-auto">py dnd_summarizer.py --build-web
+git add docs/
+git commit -m "Aggiornato archivio sessioni"
+git push</pre>
+            <p class="text-xs text-muted leading-relaxed">
               GitHub Pages è configurato per pubblicare direttamente dalla cartella <code>/docs</code> del branch principale.
             </p>
           </div>
@@ -576,21 +745,48 @@
 
       </div>
 
-      <!-- RIGHT SIDEBAR: Table of Contents for Current Document (Desktop) -->
-      <aside id="toc-sidebar" class="hidden xl:flex w-64 border-l theme-card p-4 flex-col text-xs shrink-0 h-full overflow-hidden">
-        <h4 class="font-bold text-gray-400 uppercase tracking-wider text-[11px] mb-3 shrink-0">In questa pagina</h4>
-        <nav id="toc-nav" class="space-y-1.5 overflow-y-auto flex-1 min-h-0">
-          <span class="text-gray-400">Caricamento indice...</span>
+      <!-- RIGHT SIDEBAR: Table of Contents (Static on >=xl, Slide-over Drawer on <xl) -->
+      <aside id="toc-sidebar" aria-label="Indice della pagina" class="hidden xl:flex fixed xl:relative inset-y-0 right-0 z-50 xl:z-20 w-72 xl:w-64 max-w-[82vw] border-l theme-card p-4 flex-col text-xs shrink-0 h-full overflow-hidden shadow-2xl xl:shadow-none">
+        <div class="flex items-center justify-between gap-2 mb-3 shrink-0">
+          <h4 class="font-bold text-muted uppercase tracking-wider text-[11px]">In questa pagina</h4>
+          <button type="button" id="toc-close-btn" aria-label="Chiudi indice" class="xl:hidden p-1 rounded-md border theme-card hover:border-amber-600 dark:hover:border-amber-400 text-xs select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">✕</button>
+        </div>
+        <nav id="toc-nav" class="space-y-1 overflow-y-auto flex-1 min-h-0">
+          <span class="text-muted">Caricamento indice...</span>
         </nav>
-        <div class="mt-auto pt-4 border-t theme-card text-[11px] text-gray-400 space-y-1 shrink-0">
-          <div>Scorciatoia Ricerca: <kbd class="px-1 py-0.2 bg-black/20 border theme-card rounded font-mono">Ctrl+K</kbd></div>
-          <div class="text-emerald-500 font-medium">✓ Client-Side SPA</div>
+        <div class="mt-auto pt-4 border-t border-line text-[11px] text-muted space-y-1.5 shrink-0">
+          <div>Scorciatoia Ricerca: <kbd class="px-1.5 py-0.5 bg-stone-200/80 text-stone-800 border border-stone-300 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 rounded font-mono">Ctrl+K</kbd></div>
+          <div class="text-emerald-700 dark:text-emerald-400 font-medium">✓ Client-Side SPA</div>
         </div>
       </aside>
 
     </main>
 
   </div>
+
+  <!-- ==================== MOBILE BOTTOM NAVIGATION BAR (<768px) ==================== -->
+  <nav id="mobile-nav" aria-label="Navigazione mobile" class="md:hidden shrink-0 border-t theme-card px-1.5 py-1 flex items-center justify-around gap-1 z-30">
+    <button type="button" data-tab-target="reader" id="mobile-nav-reader" aria-current="page" class="nav-btn flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-[10px] bg-amber-700/15 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 font-bold select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+      <span class="text-sm leading-none" aria-hidden="true">📜</span>
+      <span class="mt-0.5">Cronache</span>
+    </button>
+    <button type="button" data-tab-target="search" id="mobile-nav-search" class="nav-btn flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-[10px] font-medium text-muted select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+      <span class="text-sm leading-none" aria-hidden="true">🔍</span>
+      <span class="mt-0.5">Ricerca</span>
+    </button>
+    <button type="button" data-tab-target="glossary" id="mobile-nav-glossary" class="nav-btn flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-[10px] font-medium text-muted select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+      <span class="text-sm leading-none" aria-hidden="true">📖</span>
+      <span class="mt-0.5">Glossari</span>
+    </button>
+    <button type="button" data-tab-target="characters" id="mobile-nav-characters" class="nav-btn flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-[10px] font-medium text-muted select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+      <span class="text-sm leading-none" aria-hidden="true">🛡️</span>
+      <span class="mt-0.5">PG</span>
+    </button>
+    <button type="button" data-tab-target="info" id="mobile-nav-info" class="nav-btn flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-[10px] font-medium text-muted select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">
+      <span class="text-sm leading-none" aria-hidden="true">ℹ️</span>
+      <span class="mt-0.5">Info</span>
+    </button>
+  </nav>
 
   <!-- ==================== CORE JAVASCRIPT LOGIC ==================== -->
   <script>
@@ -603,8 +799,34 @@
     let currentActiveTab = 'reader';
     let currentCharacterFilter = 'all';
     let currentSearchCategory = 'all';
+    let tocHeadings = [];
+    let scrollSpyRaf = null;
+    let tocSupportedView = true;
 
-    // Character definitions
+    // Design System Class Helpers
+    function cn(...parts) {
+      return parts.flat().filter(Boolean).join(' ');
+    }
+
+    const VARIANT_CLASSES = {
+      navActive: 'bg-amber-700/15 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 font-bold',
+      navIdle: 'text-muted hover:text-amber-800 dark:hover:text-amber-300 font-medium',
+      pillActive: 'active bg-amber-700 text-white border-amber-700 dark:bg-amber-500 dark:text-slate-950 dark:border-amber-500 font-semibold',
+      pillIdle: 'theme-card text-ink hover:border-amber-600 dark:hover:border-amber-400',
+      glossaryActive: 'bg-amber-700 text-white border-amber-700 dark:bg-amber-500 dark:text-slate-950 dark:border-amber-500 font-bold',
+      glossaryIdle: 'theme-card text-ink hover:border-amber-600 dark:hover:border-amber-400 font-medium',
+      sessionItemBase: 'session-card-item block w-full text-left cursor-pointer p-2.5 rounded-lg border theme-card hover:border-amber-600/60 dark:hover:border-amber-400/60 transition-colors text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400',
+      sessionItemActive: 'border-amber-700 bg-amber-600/10 dark:border-amber-400 dark:bg-amber-500/10',
+      tocItemBase: 'block w-full text-left py-1 px-2 rounded-md truncate transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400',
+      tocItemActive: 'bg-amber-600/15 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300 font-semibold',
+      tocItemIdle: 'text-muted hover:text-amber-800 dark:hover:text-amber-300',
+    };
+
+    function prefersReducedMotion() {
+      return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    // Character definitions (canonical 3-way sync with dnd_summarizer.py & docs/diari/*.md)
     const CHARACTERS_INFO = [
       {
         slug: 'aerial',
@@ -612,6 +834,7 @@
         player: 'Michele (Mike)',
         icon: '🌿',
         classRole: 'Druido &bull; Circolo delle Forme',
+        badge: 'Saggio Gideon',
         team: 'Squadra del Saggio Gideon • Casata Zamin (La Tempesta Silente)',
         allies: 'Kareth El Mora (Caret), Velura, Sera Ninvil',
         accent: 'emerald',
@@ -623,6 +846,7 @@
         player: 'Nicola (Niky)',
         icon: '🪓',
         classRole: 'Barbaro &bull; Combattente Primordiale',
+        badge: 'Saggio Atashkarev',
         team: 'Squadra del Saggio Atashkarev • Casata Jokul (Il Fuoco Ascendente)',
         allies: 'Errick (in rottura), Runa, Velendoran',
         accent: 'red',
@@ -634,6 +858,7 @@
         player: 'Raffaele (Raffa)',
         icon: '👁️',
         classRole: 'Warlock / Spadaccino Arcano &bull; Investigatore Arcano',
+        badge: 'Saggio Tulamesh',
         team: 'Squadra del Saggio Tulamesh Marakbi',
         allies: 'Liora, Mirena, Darin',
         accent: 'purple',
@@ -645,6 +870,7 @@
         player: 'Giuseppe (Cici)',
         icon: '🛡️',
         classRole: 'Nano Chierico &bull; Leader Diplomatico',
+        badge: 'Saggio Osiro',
         team: 'Squadra del Saggio Osiro (Le Forme Incompiute)',
         allies: 'Cassian, Fendrel, Liren',
         accent: 'amber',
@@ -656,6 +882,7 @@
         player: 'Carlo (Carle)',
         icon: '🔮',
         classRole: 'Mago Necromante &bull; Filosofo dell\'Oltremondo',
+        badge: 'Saggio Baltasar',
         team: 'Squadra del Saggio Baltasar • Casata Enea (I Custodi del Tramonto)',
         allies: 'Cassius Orland, Sivra, Tarnel',
         accent: 'blue',
@@ -667,6 +894,7 @@
         player: 'Francesco',
         icon: '⚔️',
         classRole: 'Paladino / Barbaro &bull; Compagno Caduto (2022–2025)',
+        badge: 'Caduto · 2025',
         team: 'Compagnia Originaria (Caduto a Settembre 2025)',
         allies: 'Aerial, Lucio, Rey, Rogus',
         accent: 'amber',
@@ -674,11 +902,10 @@
       }
     ];
 
-    // Theme Management
     // Theme Management (Dark 🌙 / Light Avorio ☀️)
     function initTheme() {
       let savedTheme = localStorage.getItem('dnd_theme');
-      if (savedTheme === 'sepia') savedTheme = 'light'; // Migrazione automatica via dalla modalità pergamena
+      if (savedTheme === 'sepia') savedTheme = 'light';
       if (savedTheme !== 'light' && savedTheme !== 'dark') {
         savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       }
@@ -687,25 +914,30 @@
 
     function toggleTheme() {
       const isLight = document.documentElement.classList.contains('light');
-      const nextTheme = isLight ? 'dark' : 'light';
-      setTheme(nextTheme, true);
+      setTheme(isLight ? 'dark' : 'light', true);
     }
 
     function setTheme(theme, save = true) {
       if (theme !== 'light' && theme !== 'dark') theme = 'dark';
       document.documentElement.classList.remove('dark', 'light', 'sepia');
       document.documentElement.classList.add(theme);
-      
+      document.documentElement.dataset.theme = theme;
+
       const iconEl = document.getElementById('theme-icon');
       if (iconEl) iconEl.innerText = theme === 'dark' ? '🌙' : '☀️';
-      
+
       const btn = document.getElementById('theme-toggle-btn');
-      if (btn) btn.setAttribute('title', theme === 'dark' ? 'Passa alla modalità Chiara (Avorio)' : 'Passa alla modalità Scura');
-      
+      if (btn) {
+        const label = theme === 'dark' ? 'Passa alla modalità Chiara (Avorio)' : 'Passa alla modalità Scura';
+        btn.setAttribute('title', label);
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('aria-pressed', String(theme === 'light'));
+      }
+
       if (save) localStorage.setItem('dnd_theme', theme);
     }
 
-    // Toggle Mobile Sidebar Drawer
+    // Mobile Left Sidebar Drawer
     function toggleSidebar() {
       const sb = document.getElementById('sidebar');
       if (sb.classList.contains('hidden')) {
@@ -716,26 +948,73 @@
     }
 
     function openMobileSidebar() {
+      closeMobileToc();
       const sb = document.getElementById('sidebar');
       const bd = document.getElementById('sidebar-backdrop');
-      sb.classList.remove('hidden');
-      sb.classList.add('flex');
+      const toggleBtn = document.getElementById('sidebar-toggle-btn');
+      if (sb) {
+        sb.classList.remove('hidden');
+        sb.classList.add('flex');
+      }
       if (bd) bd.classList.remove('hidden');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
     }
 
     function closeMobileSidebar() {
       if (window.innerWidth < 1024) {
         const sb = document.getElementById('sidebar');
         const bd = document.getElementById('sidebar-backdrop');
+        const toggleBtn = document.getElementById('sidebar-toggle-btn');
         if (sb) {
           sb.classList.add('hidden');
           sb.classList.remove('flex');
         }
         if (bd) bd.classList.add('hidden');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
       }
     }
 
-    // Auto-adjust sidebar on window resize
+    // Mobile/Tablet Right TOC Drawer (<xl)
+    function toggleMobileToc() {
+      if (!tocSupportedView) return;
+      const toc = document.getElementById('toc-sidebar');
+      if (!toc) return;
+      if (toc.classList.contains('hidden')) {
+        openMobileToc();
+      } else {
+        closeMobileToc();
+      }
+    }
+
+    function openMobileToc() {
+      if (!tocSupportedView) return;
+      closeMobileSidebar();
+      const toc = document.getElementById('toc-sidebar');
+      const bd = document.getElementById('toc-backdrop');
+      const btn = document.getElementById('toc-toggle-btn');
+      if (toc) {
+        toc.classList.remove('hidden');
+        toc.classList.add('flex');
+      }
+      if (bd) bd.classList.remove('hidden');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMobileToc() {
+      if (window.innerWidth < 1280) {
+        const toc = document.getElementById('toc-sidebar');
+        const bd = document.getElementById('toc-backdrop');
+        const btn = document.getElementById('toc-toggle-btn');
+        if (toc) {
+          toc.classList.add('hidden');
+          toc.classList.remove('flex');
+        }
+        if (bd) bd.classList.add('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // Auto-adjust drawers on window resize
     window.addEventListener('resize', () => {
       const sb = document.getElementById('sidebar');
       const bd = document.getElementById('sidebar-backdrop');
@@ -745,11 +1024,24 @@
           sb.classList.add('flex');
         }
         if (bd) bd.classList.add('hidden');
-      } else {
-        if (bd && bd.classList.contains('hidden')) {
-          sb.classList.add('hidden');
-          sb.classList.remove('flex');
+      } else if (bd && bd.classList.contains('hidden') && sb) {
+        sb.classList.add('hidden');
+        sb.classList.remove('flex');
+      }
+
+      const toc = document.getElementById('toc-sidebar');
+      const tocBd = document.getElementById('toc-backdrop');
+      if (window.innerWidth >= 1280) {
+        if (tocBd) tocBd.classList.add('hidden');
+        if (toc) {
+          toc.classList.add('hidden');
+          toc.classList.remove('flex');
+          toc.classList.toggle('xl:flex', tocSupportedView);
+          toc.classList.toggle('xl:hidden', !tocSupportedView);
         }
+      } else if (tocBd && tocBd.classList.contains('hidden') && toc) {
+        toc.classList.add('hidden');
+        toc.classList.remove('flex');
       }
     });
 
@@ -757,27 +1049,27 @@
     function setActiveTab(tab, options = {}) {
       currentActiveTab = tab;
       closeMobileSidebar();
-      
-      // Update Tab Buttons
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500/20', 'text-amber-500', 'font-bold');
-        btn.classList.add('text-gray-400');
-      });
-      const activeNav = document.getElementById('nav-' + tab);
-      if (activeNav) {
-        activeNav.classList.add('bg-amber-500/20', 'text-amber-500', 'font-bold');
-        activeNav.classList.remove('text-gray-400');
-      }
+      closeMobileToc();
 
-      // Hide all tabs
+      // Update Desktop & Mobile Tab Buttons
+      const activeTokens = VARIANT_CLASSES.navActive.split(' ');
+      const idleTokens = VARIANT_CLASSES.navIdle.split(' ');
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const isActive = btn.dataset.tabTarget === tab;
+        btn.classList.remove(...activeTokens, ...idleTokens);
+        btn.classList.add(...(isActive ? activeTokens : idleTokens));
+        if (isActive) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+
+      // Hide all tabs, show selected tab
       ['reader', 'search', 'glossary', 'characters', 'info'].forEach(t => {
         const sec = document.getElementById('tab-content-' + t);
-        if (sec) sec.classList.add('hidden');
+        if (sec) sec.classList.toggle('hidden', t !== tab);
       });
-
-      // Show current tab
-      const targetSec = document.getElementById('tab-content-' + tab);
-      if (targetSec) targetSec.classList.remove('hidden');
 
       // Reset characters subview to grid unless explicitly opening a diary
       const showDiary = tab === 'characters' && Boolean(options.diaryView);
@@ -789,14 +1081,19 @@
       }
 
       // TOC visibility (reader, glossary, or character diary)
+      tocSupportedView = tab === 'reader' || tab === 'glossary' || showDiary;
       const toc = document.getElementById('toc-sidebar');
-      if (tab === 'reader' || tab === 'glossary' || showDiary) {
-        toc.classList.remove('xl:hidden');
-      } else {
-        toc.classList.add('xl:hidden');
+      if (toc) {
+        toc.classList.toggle('xl:flex', tocSupportedView);
+        toc.classList.toggle('xl:hidden', !tocSupportedView);
+      }
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+      if (tocToggleBtn) {
+        tocToggleBtn.classList.toggle('hidden', !tocSupportedView);
       }
 
-      document.getElementById('content-pane').scrollTop = 0;
+      const contentPane = document.getElementById('content-pane');
+      if (contentPane) contentPane.scrollTop = 0;
     }
 
     // Focus Search
@@ -807,17 +1104,173 @@
       }, 50);
     }
 
+    // Wire Event Listeners (Delegated & Static)
+    function initEventListeners() {
+      document.getElementById('sidebar-toggle-btn')?.addEventListener('click', toggleSidebar);
+      document.getElementById('sidebar-close-btn')?.addEventListener('click', closeMobileSidebar);
+      document.getElementById('sidebar-backdrop')?.addEventListener('click', closeMobileSidebar);
+
+      document.getElementById('toc-toggle-btn')?.addEventListener('click', toggleMobileToc);
+      document.getElementById('toc-close-btn')?.addEventListener('click', closeMobileToc);
+      document.getElementById('toc-backdrop')?.addEventListener('click', closeMobileToc);
+
+      document.getElementById('brand-home-btn')?.addEventListener('click', () => {
+        if (latestSessionId) navigateTo('session', latestSessionId);
+      });
+
+      document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+
+      document.getElementById('header-search-btn')?.addEventListener('click', () => {
+        setActiveTab('search');
+        focusSearch();
+      });
+
+      document.getElementById('sidebar-global-search-btn')?.addEventListener('click', () => {
+        setActiveTab('search');
+        focusSearch();
+      });
+
+      document.getElementById('dismiss-file-notice-btn')?.addEventListener('click', () => {
+        document.getElementById('local-file-notice')?.remove();
+      });
+
+      // Desktop & Mobile tab navigation delegation
+      document.querySelectorAll('.nav-btn[data-tab-target]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTab = btn.dataset.tabTarget;
+          if (targetTab) setActiveTab(targetTab);
+        });
+      });
+
+      // Sidebar text filter
+      document.getElementById('sidebar-filter-input')?.addEventListener('input', (e) => {
+        filterSidebar(e.target.value);
+      });
+
+      // Sidebar character pills delegation
+      document.getElementById('sidebar-char-filters')?.addEventListener('click', (e) => {
+        const pill = e.target.closest('.char-pill[data-char]');
+        if (pill) setCharFilter(pill.dataset.char);
+      });
+
+      // Sidebar tree delegation (accordions & sessions)
+      document.getElementById('sidebar-tree')?.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('[data-toggle-group]');
+        if (toggleBtn) {
+          toggleGroup(toggleBtn.dataset.toggleGroup);
+          return;
+        }
+        const sessionBtn = e.target.closest('.session-card-item[data-session-id]');
+        if (sessionBtn) {
+          navigateTo('session', sessionBtn.dataset.sessionId);
+          closeMobileSidebar();
+        }
+      });
+
+      // Session header character jump buttons
+      document.getElementById('session-characters-list')?.addEventListener('click', (e) => {
+        const charBtn = e.target.closest('[data-scroll-section]');
+        if (charBtn) scrollToSection(charBtn.dataset.scrollSection);
+      });
+
+      // Session Prev/Next pager
+      document.getElementById('session-prev-btn')?.addEventListener('click', (e) => {
+        const id = e.currentTarget.dataset.sessionId;
+        if (id) navigateTo('session', id);
+      });
+      document.getElementById('session-next-btn')?.addEventListener('click', (e) => {
+        const id = e.currentTarget.dataset.sessionId;
+        if (id) navigateTo('session', id);
+      });
+
+      // Full-text search input & category pills
+      document.getElementById('fulltext-search-input')?.addEventListener('input', (e) => {
+        handleFullTextSearch(e.target.value);
+      });
+      document.getElementById('search-category-filters')?.addEventListener('click', (e) => {
+        const pill = e.target.closest('.search-cat-pill[data-search-cat]');
+        if (pill) setSearchCategory(pill.dataset.searchCat);
+      });
+
+      // Search results delegation
+      document.getElementById('search-results-container')?.addEventListener('click', (e) => {
+        const jumpBtn = e.target.closest('[data-jump-id]');
+        if (jumpBtn) {
+          jumpFromSearch(jumpBtn.dataset.jumpId, jumpBtn.dataset.jumpType, jumpBtn.dataset.jumpPath);
+        }
+      });
+
+      // Glossary switcher delegation
+      document.getElementById('glossary-switcher-buttons')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.g-switch-btn[data-glossary-id]');
+        if (btn) loadGlossaryDoc(btn.dataset.glossaryPath, btn.dataset.glossaryId);
+      });
+
+      // Character cards grid delegation
+      document.getElementById('characters-cards-grid')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-char-slug]');
+        if (btn) navigateTo('character', btn.dataset.charSlug);
+      });
+
+      // Character diary view controls
+      document.getElementById('character-back-btn')?.addEventListener('click', () => {
+        navigateTo('characters');
+      });
+      document.getElementById('character-diary-filter-btn')?.addEventListener('click', (e) => {
+        const kw = e.currentTarget.dataset.charKeyword;
+        if (kw) filterByCharacterAndJump(kw);
+      });
+
+      // TOC smooth scroll without mutating location.hash
+      document.getElementById('toc-nav')?.addEventListener('click', (e) => {
+        const tocBtn = e.target.closest('[data-toc-target]');
+        if (!tocBtn) return;
+        const targetId = tocBtn.dataset.tocTarget;
+        const targetEl = tocHeadings.find(h => h.id === targetId) || document.getElementById(targetId);
+        const contentPane = document.getElementById('content-pane');
+        if (targetEl && contentPane) {
+          const offset = targetEl.getBoundingClientRect().top - contentPane.getBoundingClientRect().top + contentPane.scrollTop - 16;
+          contentPane.scrollTo({
+            top: Math.max(0, offset),
+            behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+          });
+          setActiveTocItem(targetId);
+          closeMobileToc();
+        }
+      });
+
+      // Scrollspy on content pane
+      document.getElementById('content-pane')?.addEventListener('scroll', () => {
+        if (scrollSpyRaf) return;
+        scrollSpyRaf = requestAnimationFrame(() => {
+          scrollSpyRaf = null;
+          updateScrollSpy();
+        });
+      });
+
+      // Global Keyboard Shortcuts (Ctrl+K search, Escape close drawers)
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          setActiveTab('search');
+          focusSearch();
+        } else if (e.key === 'Escape') {
+          closeMobileSidebar();
+          closeMobileToc();
+        }
+      });
+    }
+
     // Application Initialization
     async function initApp() {
       initTheme();
+      initEventListeners();
       renderCharacterCards();
 
-      // Check protocol
       if (window.location.protocol === 'file:') {
-        document.getElementById('local-file-notice').classList.remove('hidden');
+        document.getElementById('local-file-notice')?.classList.remove('hidden');
       }
 
-      // Load Manifest
       try {
         const res = await fetch('./data/manifest.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -828,7 +1281,6 @@
         showFallbackState();
       }
 
-      // Routing via hash
       window.addEventListener('hashchange', handleRoute);
       handleRoute();
     }
@@ -837,27 +1289,31 @@
     function renderCharacterCards() {
       const container = document.getElementById('characters-cards-grid');
       container.innerHTML = CHARACTERS_INFO.map(c => `
-        <div class="p-5 rounded-xl border theme-card space-y-3 shadow-2xs hover:border-amber-500/50 transition-all">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-3xl">${c.icon}</span>
-              <div>
-                <h3 class="font-bold text-sm md:text-base text-stone-900 dark:text-gray-100">${c.name}</h3>
-                <p class="text-xs text-stone-600 dark:text-gray-400">Giocatore: <strong class="text-stone-900 dark:text-gray-200">${c.player}</strong></p>
+        <article class="p-5 rounded-xl border theme-card space-y-3 shadow-sm hover:border-amber-600/50 dark:hover:border-amber-400/50 transition-colors">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-3xl shrink-0" aria-hidden="true">${c.icon}</span>
+              <div class="min-w-0">
+                <h3 class="font-display font-bold text-sm md:text-base text-ink truncate">${escapeHtml(c.name)}</h3>
+                <p class="text-xs text-muted">Giocatore: <strong class="text-ink">${escapeHtml(c.player)}</strong></p>
               </div>
             </div>
-            <span class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-500 font-mono font-medium">${c.team.split(' ')[2] || 'Party'}</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono font-medium shrink-0">${escapeHtml(c.badge || 'Party')}</span>
           </div>
-          <p class="text-xs leading-relaxed text-stone-700 dark:text-gray-300">${c.desc}</p>
-          <div class="pt-2 border-t theme-card text-xs space-y-1 text-stone-600 dark:text-gray-400">
-            <div><strong>Ruolo:</strong> ${c.classRole}</div>
-            <div><strong>Squadra:</strong> ${c.team}</div>
-            <div><strong>Compagni PNG:</strong> ${c.allies}</div>
+          <p class="text-xs leading-relaxed text-ink">${escapeHtml(c.desc)}</p>
+          <div class="pt-2.5 border-t border-line text-xs space-y-1 text-muted">
+            <div><strong class="text-ink">Ruolo:</strong> ${c.classRole}</div>
+            <div><strong class="text-ink">Squadra:</strong> ${escapeHtml(c.team)}</div>
+            <div><strong class="text-ink">Compagni PNG:</strong> ${escapeHtml(c.allies)}</div>
           </div>
-          <button onclick="navigateTo('character', '${c.slug}')" class="w-full text-center py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium text-xs transition-colors">
+          <button
+            type="button"
+            data-char-slug="${c.slug}"
+            class="w-full text-center py-2 rounded-lg bg-amber-600/15 hover:bg-amber-700 text-amber-800 hover:text-white dark:bg-amber-500/15 dark:text-amber-300 dark:hover:bg-amber-500 dark:hover:text-slate-950 font-semibold text-xs transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+          >
             Leggi il Diario Cronologico ➔
           </button>
-        </div>
+        </article>
       `).join('');
     }
 
@@ -889,7 +1345,6 @@
       renderSidebarTree(data);
       renderGlossarySwitcher(data);
 
-      // Lazy load search index in background
       setTimeout(loadSearchIndex, 600);
     }
 
@@ -903,39 +1358,51 @@
 
       years.forEach((yr, idx) => {
         const yrSessions = sessions.filter(s => s.year === yr);
-        const isOpen = idx === 0; // Latest year open by default
+        const isOpen = idx === 0;
 
         html += `
           <div class="year-group mb-1">
-            <button onclick="toggleGroup('grp-${yr}')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold theme-card hover:border-amber-500/40">
+            <button
+              type="button"
+              data-toggle-group="grp-${yr}"
+              aria-expanded="${isOpen ? 'true' : 'false'}"
+              aria-controls="grp-${yr}"
+              class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-transparent hover:border-amber-600/40 dark:hover:border-amber-400/40 theme-card transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+            >
               <span class="flex items-center gap-2">
-                <span id="grp-${yr}-icon" class="text-[10px] text-amber-500">${isOpen ? '▼' : '▶'}</span>
+                <span id="grp-${yr}-icon" class="text-[10px] text-amber-800 dark:text-amber-400" aria-hidden="true">${isOpen ? '▼' : '▶'}</span>
                 <span>📅 Anno ${yr}</span>
               </span>
-              <span class="text-[11px] font-mono text-gray-400">${yrSessions.length} puntate</span>
+              <span class="text-[11px] font-mono text-muted">${yrSessions.length} puntate</span>
             </button>
-            
+
             <div id="grp-${yr}" class="${isOpen ? '' : 'hidden'} pl-2 pr-1 py-1 space-y-1">
         `;
 
         yrSessions.forEach(s => {
-          const isLatest = s.id === latestSessionId;
           const isAudioOk = s.audio_status && s.audio_status.toLowerCase().includes('nessun taglio');
 
           html += `
-            <div onclick="navigateTo('session', '${s.id}')" id="side-item-${s.id}" class="session-card-item cursor-pointer p-2 rounded-lg border theme-card hover:border-amber-500/50 transition-all text-xs" data-title="${escapeHtml(s.title)}" data-chars="${(s.characters || []).join(' ')}" data-date="${s.date}">
-              <div class="flex items-center justify-between gap-1 mb-1">
-                <span class="font-bold truncate text-stone-900 dark:text-gray-100">${escapeHtml(s.title)}</span>
-                <span class="text-[10px] font-mono text-amber-600 dark:text-amber-500 shrink-0 font-medium">${s.date.slice(5)}</span>
-              </div>
-              <p class="text-[11px] text-stone-600 dark:text-gray-400 line-clamp-1">${escapeHtml(s.synopsis || '')}</p>
-              <div class="flex items-center gap-1.5 mt-1.5 text-[10px]">
-                <span class="px-1.5 py-0.2 rounded ${isAudioOk ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-amber-500/15 text-amber-700 dark:text-amber-400'} font-medium">
+            <button
+              type="button"
+              data-session-id="${escapeHtml(s.id)}"
+              id="side-item-${escapeHtml(s.id)}"
+              class="${VARIANT_CLASSES.sessionItemBase}"
+              data-title="${escapeHtml(s.title)}"
+              data-chars="${escapeHtml((s.characters || []).join(' '))}"
+              data-date="${escapeHtml(s.date)}"
+            >
+              <span class="flex items-start justify-between gap-2">
+                <span class="font-bold text-ink leading-snug">${escapeHtml(s.title)}</span>
+                <span class="text-[10px] font-mono text-amber-800 dark:text-amber-400 shrink-0 font-semibold pt-0.5">${escapeHtml(s.date.slice(5))}</span>
+              </span>
+              <span class="flex items-center gap-1.5 mt-1.5 text-[10px]">
+                <span class="px-1.5 py-0.5 rounded ${isAudioOk ? 'bg-emerald-600/15 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300' : 'bg-amber-600/15 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300'} font-medium">
                   ${isAudioOk ? 'Audio Integro' : 'Audio Segnalato'}
                 </span>
-                <span class="text-stone-500 dark:text-gray-400">&bull; ${(s.characters || []).length} PG</span>
-              </div>
-            </div>
+                <span class="text-muted">&bull; ${(s.characters || []).length} PG</span>
+              </span>
+            </button>
           `;
         });
 
@@ -953,12 +1420,18 @@
       const container = document.getElementById('glossary-switcher-buttons');
       const glossaries = data.glossaries || [];
       container.innerHTML = glossaries.map((g, idx) => `
-        <button onclick="loadGlossaryDoc('${g.path}', '${g.id}')" id="g-btn-${g.id}" class="g-switch-btn text-xs px-3 py-1.5 rounded-lg border theme-card hover:border-amber-500 transition-colors ${idx === 0 ? 'bg-amber-500 text-white font-bold' : 'text-gray-300'}">
-          ${g.title}
+        <button
+          type="button"
+          data-glossary-path="${escapeHtml(g.path)}"
+          data-glossary-id="${escapeHtml(g.id)}"
+          id="g-btn-${escapeHtml(g.id)}"
+          aria-pressed="${idx === 0 ? 'true' : 'false'}"
+          class="${cn('g-switch-btn text-xs px-3 py-1.5 rounded-lg border transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400', idx === 0 ? VARIANT_CLASSES.glossaryActive : VARIANT_CLASSES.glossaryIdle)}"
+        >
+          ${escapeHtml(g.title)}
         </button>
       `).join('');
 
-      // Auto-load first glossary in tab
       if (glossaries.length > 0) {
         loadGlossaryDoc(glossaries[0].path, glossaries[0].id, false);
       }
@@ -967,33 +1440,27 @@
     // Toggle Year Accordions
     function toggleGroup(id) {
       const el = document.getElementById(id);
+      if (!el) return;
       const icon = document.getElementById(id + '-icon');
-      if (el.classList.contains('hidden')) {
-        el.classList.remove('hidden');
-        if (icon) icon.innerText = '▼';
-      } else {
-        el.classList.add('hidden');
-        if (icon) icon.innerText = '▶';
-      }
+      const btn = document.querySelector(`[data-toggle-group="${id}"]`);
+      const willOpen = el.classList.contains('hidden');
+      el.classList.toggle('hidden', !willOpen);
+      if (icon) icon.innerText = willOpen ? '▼' : '▶';
+      if (btn) btn.setAttribute('aria-expanded', String(willOpen));
     }
 
     // Filter sidebar list by character
     function setCharFilter(charName) {
       currentCharacterFilter = charName;
-      let matched = false;
+      const activeTokens = VARIANT_CLASSES.pillActive.split(' ');
+      const idleTokens = VARIANT_CLASSES.pillIdle.split(' ');
+
       document.querySelectorAll('.char-pill').forEach(pill => {
-        pill.classList.remove('active', 'bg-amber-500', 'text-white');
-        pill.classList.add('theme-card');
-        if (pill.dataset.char === charName) {
-          pill.classList.add('active', 'bg-amber-500', 'text-white');
-          pill.classList.remove('theme-card');
-          matched = true;
-        }
+        const isMatch = pill.dataset.char === charName;
+        pill.classList.remove(...activeTokens, ...idleTokens);
+        pill.classList.add(...(isMatch ? activeTokens : idleTokens));
+        pill.setAttribute('aria-pressed', String(isMatch));
       });
-      if (!matched && typeof event !== 'undefined' && event?.target?.classList) {
-        event.target.classList.add('active', 'bg-amber-500', 'text-white');
-        event.target.classList.remove('theme-card');
-      }
 
       applySidebarFilters();
     }
@@ -1007,6 +1474,7 @@
         textQuery = document.getElementById('sidebar-filter-input').value;
       }
       textQuery = textQuery.toLowerCase().trim();
+      const hasActiveFilter = Boolean(textQuery) || currentCharacterFilter !== 'all';
 
       const items = document.querySelectorAll('.session-card-item');
       items.forEach(item => {
@@ -1017,18 +1485,30 @@
         const matchText = !textQuery || title.includes(textQuery) || date.includes(textQuery);
         const matchChar = currentCharacterFilter === 'all' || chars.includes(currentCharacterFilter.toLowerCase());
 
-        if (matchText && matchChar) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+        item.style.display = (matchText && matchChar) ? 'block' : 'none';
       });
+
+      if (hasActiveFilter) {
+        document.querySelectorAll('.year-group').forEach(grp => {
+          const hasVisible = Array.from(grp.querySelectorAll('.session-card-item')).some(it => it.style.display !== 'none');
+          const listEl = grp.querySelector('[id^="grp-"]');
+          if (hasVisible && listEl && listEl.classList.contains('hidden')) {
+            toggleGroup(listEl.id);
+          }
+        });
+      }
     }
 
     // Routing Logic
     function navigateTo(route, param = '') {
       if (route === 'session') {
-        window.location.hash = `#session/${param}`;
+        const targetHash = `#session/${param}`;
+        if (window.location.hash === targetHash) {
+          setActiveTab('reader');
+          loadSessionDoc(param);
+        } else {
+          window.location.hash = targetHash;
+        }
       } else if (route === 'character') {
         const targetHash = `#character/${param}`;
         if (window.location.hash === targetHash) {
@@ -1087,14 +1567,14 @@
       const firstName = charInfo.name.split(' ')[0];
       document.getElementById('character-diary-icon').innerText = charInfo.icon;
       document.getElementById('character-diary-name').innerText = charInfo.name;
-      document.getElementById('character-diary-player').innerHTML = `Giocatore: <strong class="text-stone-900 dark:text-gray-200">${escapeHtml(charInfo.player)}</strong>`;
+      document.getElementById('character-diary-player').innerHTML = `Giocatore: <strong class="text-ink">${escapeHtml(charInfo.player)}</strong>`;
       document.getElementById('character-diary-desc').innerText = charInfo.desc;
-      document.getElementById('character-diary-role').innerHTML = `<strong>Ruolo:</strong> ${charInfo.classRole}`;
-      document.getElementById('character-diary-team').innerHTML = `<strong>Squadra:</strong> ${escapeHtml(charInfo.team)}`;
-      document.getElementById('character-diary-allies').innerHTML = `<strong>Compagni PNG:</strong> ${escapeHtml(charInfo.allies)}`;
+      document.getElementById('character-diary-role').innerHTML = `<strong class="text-ink">Ruolo:</strong> ${charInfo.classRole}`;
+      document.getElementById('character-diary-team').innerHTML = `<strong class="text-ink">Squadra:</strong> ${escapeHtml(charInfo.team)}`;
+      document.getElementById('character-diary-allies').innerHTML = `<strong class="text-ink">Compagni PNG:</strong> ${escapeHtml(charInfo.allies)}`;
 
       const filterBtn = document.getElementById('character-diary-filter-btn');
-      filterBtn.setAttribute('onclick', `filterByCharacterAndJump('${firstName}')`);
+      filterBtn.dataset.charKeyword = firstName;
       filterBtn.innerText = `Filtra sessioni con ${firstName} ➔`;
 
       const diaryMeta = (manifestData?.diaries || []).find(d => d.id === slug);
@@ -1104,8 +1584,8 @@
 
       const bodyContainer = document.getElementById('character-diary-markdown-body');
       bodyContainer.innerHTML = `
-        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
-          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+        <div class="p-8 text-center text-xs text-muted flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-600 dark:text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
           Caricamento diario di ${escapeHtml(firstName)}...
         </div>
       `;
@@ -1119,12 +1599,48 @@
         buildTableOfContents(bodyContainer);
       } catch (err) {
         bodyContainer.innerHTML = `
-          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-400 space-y-2">
+          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-700 dark:text-red-300 space-y-2">
             <p class="font-bold">Impossibile caricare il diario: ${escapeHtml(diaryPath)}</p>
             <p>${escapeHtml(err.message)}</p>
           </div>
         `;
         buildTableOfContents(bodyContainer);
+      }
+    }
+
+    // Update Session Pager (manifestData.sessions is newest-first)
+    function updateSessionPager(session) {
+      const sessions = manifestData?.sessions || [];
+      const idx = sessions.findIndex(s => s.id === session.id);
+      const prevSession = idx >= 0 && idx < sessions.length - 1 ? sessions[idx + 1] : null;
+      const nextSession = idx > 0 ? sessions[idx - 1] : null;
+
+      const prevBtn = document.getElementById('session-prev-btn');
+      const prevLabel = document.getElementById('session-prev-label');
+      if (prevBtn && prevLabel) {
+        if (prevSession) {
+          prevBtn.disabled = false;
+          prevBtn.dataset.sessionId = prevSession.id;
+          prevLabel.innerText = `${prevSession.date} • ${prevSession.title}`;
+        } else {
+          prevBtn.disabled = true;
+          delete prevBtn.dataset.sessionId;
+          prevLabel.innerText = 'Prima sessione dell\'archivio';
+        }
+      }
+
+      const nextBtn = document.getElementById('session-next-btn');
+      const nextLabel = document.getElementById('session-next-label');
+      if (nextBtn && nextLabel) {
+        if (nextSession) {
+          nextBtn.disabled = false;
+          nextBtn.dataset.sessionId = nextSession.id;
+          nextLabel.innerText = `${nextSession.date} • ${nextSession.title}`;
+        } else {
+          nextBtn.disabled = true;
+          delete nextBtn.dataset.sessionId;
+          nextLabel.innerText = 'Ultima sessione disponibile';
+        }
       }
     }
 
@@ -1137,33 +1653,38 @@
       currentSession = session;
       closeMobileSidebar();
 
-      // Update Active Item in Sidebar
+      // Update Active Item in Sidebar & sync accordion arrow/aria-expanded
+      const activeTokens = VARIANT_CLASSES.sessionItemActive.split(' ');
       document.querySelectorAll('.session-card-item').forEach(it => {
-        it.classList.remove('border-amber-500', 'bg-amber-500/10');
+        it.classList.remove(...activeTokens);
+        it.removeAttribute('aria-current');
       });
       const activeEl = document.getElementById('side-item-' + session.id);
       if (activeEl) {
-        activeEl.classList.add('border-amber-500', 'bg-amber-500/10');
-        // Ensure parent group is open
+        activeEl.classList.add(...activeTokens);
+        activeEl.setAttribute('aria-current', 'true');
         const parentGrp = activeEl.closest('.year-group')?.querySelector('[id^="grp-"]');
         if (parentGrp && parentGrp.classList.contains('hidden')) {
-          parentGrp.classList.remove('hidden');
+          toggleGroup(parentGrp.id);
         }
       }
 
       // Update Session Header Card
       document.getElementById('session-title').innerText = session.title;
       document.getElementById('session-badge-date').innerText = `📅 ${session.date}`;
-      
+
       const isAudioOk = session.audio_status && session.audio_status.toLowerCase().includes('nessun taglio');
       const audioBadge = document.getElementById('session-badge-audio');
       const audioText = isAudioOk ? 'Audio Integro' : (session.audio_status ? session.audio_status.replace(/^[⚠️🔇\s*]+/, '').split('(')[0].trim() : 'Audio Segnalato');
       audioBadge.title = session.audio_status || '';
-      audioBadge.className = `text-xs px-2.5 py-1 rounded-full font-medium border flex items-center gap-1.5 min-w-0 max-w-full ${
-        isAudioOk ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20'
-      }`;
+      audioBadge.className = cn(
+        'text-xs px-2.5 py-1 rounded-full font-medium border flex items-center gap-1.5 min-w-0 max-w-full',
+        isAudioOk
+          ? 'bg-emerald-600/15 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border-emerald-700/25 dark:border-emerald-500/25'
+          : 'bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-700/25 dark:border-amber-500/25'
+      );
       audioBadge.innerHTML = `
-        <span class="w-1.5 h-1.5 rounded-full ${isAudioOk ? 'bg-emerald-500' : 'bg-amber-500'} shrink-0"></span>
+        <span class="w-1.5 h-1.5 rounded-full ${isAudioOk ? 'bg-emerald-600 dark:bg-emerald-400' : 'bg-amber-600 dark:bg-amber-400'} shrink-0" aria-hidden="true"></span>
         <span class="truncate max-w-[180px] sm:max-w-xs md:max-w-md">${escapeHtml(audioText)}</span>
       `;
 
@@ -1175,22 +1696,24 @@
         ytBtn.classList.add('hidden');
       }
 
+      const charsHtml = (session.characters || []).map(c => {
+        const firstWord = c.split(' ')[0];
+        return `<button type="button" data-scroll-section="${escapeHtml(firstWord)}" class="cursor-pointer text-ink hover:text-amber-800 dark:hover:text-amber-300 font-semibold transition-colors underline decoration-amber-700/30 dark:decoration-amber-400/30 underline-offset-2 rounded px-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400">${escapeHtml(c)}</button>`;
+      }).join('<span aria-hidden="true" class="text-muted">,</span> ');
+
       document.getElementById('session-characters-list').innerHTML = `
-        <span class="font-bold text-stone-800 dark:text-gray-200 shrink-0">👥 Personaggi:</span>
-        <span class="inline-flex flex-wrap items-center gap-1">
-          ${(session.characters || []).map(c => `
-            <span class="cursor-pointer hover:text-amber-500 font-medium transition-colors" onclick="scrollToSection('${c.split(' ')[0]}')">${c}</span>
-          `).join(', ')}
-        </span>
+        <span class="font-bold text-ink shrink-0">👥 Personaggi:</span>
+        <span class="inline-flex flex-wrap items-center gap-1">${charsHtml || '<span class="text-muted">Nessuno indicato</span>'}</span>
       `;
 
       document.getElementById('session-word-stats').innerText = `📖 ~${session.word_count || 1200} parole • ${session.dialogue_count || 3} citazioni`;
 
-      // Fetch and Parse Markdown
+      updateSessionPager(session);
+
       const bodyContainer = document.getElementById('session-markdown-body');
       bodyContainer.innerHTML = `
-        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
-          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+        <div class="p-8 text-center text-xs text-muted flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-600 dark:text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
           Caricamento documento markdown...
         </div>
       `;
@@ -1199,21 +1722,16 @@
         const mdRes = await fetch(`./${session.path}`);
         if (!mdRes.ok) throw new Error('HTTP ' + mdRes.status);
         const mdText = await mdRes.text();
-        
-        // Custom Markdown Post-Processing
-        const html = renderEnhancedMarkdown(mdText);
-        bodyContainer.innerHTML = html;
-
-        // Build Table of Contents
+        bodyContainer.innerHTML = renderEnhancedMarkdown(mdText);
         buildTableOfContents(bodyContainer);
-
       } catch (err) {
         bodyContainer.innerHTML = `
-          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-400 space-y-2">
-            <p class="font-bold">Impossibile caricare il file Markdown: ${session.path}</p>
-            <p>${err.message}</p>
+          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-700 dark:text-red-300 space-y-2">
+            <p class="font-bold">Impossibile caricare il file Markdown: ${escapeHtml(session.path)}</p>
+            <p>${escapeHtml(err.message)}</p>
           </div>
         `;
+        buildTableOfContents(bodyContainer);
       }
     }
 
@@ -1221,28 +1739,22 @@
     function renderEnhancedMarkdown(mdText) {
       if (typeof marked === 'undefined') return '<pre>' + escapeHtml(mdText) + '</pre>';
 
-      // Strip top H1 since it is in header
       mdText = mdText.replace(/^#\s*.+$/m, '');
-      // Strip metadata lines already shown in header
       mdText = mdText.replace(/^📅\s*\*\*Data Live:\*\*.*$/m, '');
       mdText = mdText.replace(/^🔇\s*\*\*Monitoraggio Audio:\*\*.*$/m, '');
 
       let html = marked.parse(mdText);
 
-      // Enhance dice rolls: (🎲 TS ...)
       html = html.replace(/\(\s*🎲\s*([^)]+)\)/g, '<span class="dnd-dice-badge">🎲 $1</span>');
-      // Enhance spells: (🪄 ...)
       html = html.replace(/\(\s*🪄\s*([^)]+)\)/g, '<span class="dnd-spell-badge">🪄 $1</span>');
 
-      // Enhance theatrical dialogue blockquotes:
-      // Search for blockquotes containing [[HH:MM:SS]](url)
       html = html.replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, function(match, content) {
         if (content.includes('href="https://www.youtube.com') || content.includes('💬')) {
           return `
             <div class="dnd-quote-card">
               <div class="dnd-quote-header">
-                <span class="flex items-center gap-1.5">🎬 Citazione & Dialogo Saliente</span>
-                <span class="text-[10px] font-mono opacity-75">YouTube Timestamp</span>
+                <span class="flex items-center gap-1.5">🎬 Citazione &amp; Dialogo Saliente</span>
+                <span class="text-[10px] font-mono opacity-80">YouTube Timestamp</span>
               </div>
               <div class="space-y-1 text-xs">
                 ${content}
@@ -1256,37 +1768,87 @@
       return html;
     }
 
-    // Build Table of Contents dynamically from headings
+    // Build Table of Contents dynamically from headings (scrolls #content-pane via button, preserves hash routes)
     function buildTableOfContents(container) {
       const tocNav = document.getElementById('toc-nav');
-      const headings = container.querySelectorAll('h2, h3');
+      const headings = Array.from(container.querySelectorAll('h2, h3'));
+      tocHeadings = headings;
+
       if (headings.length === 0) {
-        tocNav.innerHTML = '<span class="text-gray-400">Nessuna sezione</span>';
+        tocNav.innerHTML = '<span class="text-muted">Nessuna sezione</span>';
         return;
       }
 
-      let tocHtml = '';
-      headings.forEach((h, i) => {
-        const id = 'heading-sec-' + i;
+      const prefix = (container.id || 'heading') + '-sec-';
+      tocNav.innerHTML = headings.map((h, i) => {
+        const id = prefix + i;
         h.id = id;
         const isH3 = h.tagName.toLowerCase() === 'h3';
-        tocHtml += `
-          <a href="#${id}" class="block py-0.5 truncate transition-colors hover:text-amber-500 text-gray-400 ${isH3 ? 'pl-3 text-[11px]' : 'font-medium'}">
-            ${h.innerText}
-          </a>
+        const stateCls = i === 0 ? VARIANT_CLASSES.tocItemActive : VARIANT_CLASSES.tocItemIdle;
+        return `
+          <button
+            type="button"
+            data-toc-target="${id}"
+            ${i === 0 ? 'aria-current="location"' : ''}
+            class="${cn(VARIANT_CLASSES.tocItemBase, stateCls, isH3 ? 'pl-4 text-[11px]' : 'font-medium')}"
+          >
+            ${escapeHtml(h.innerText)}
+          </button>
         `;
-      });
+      }).join('');
+    }
 
-      tocNav.innerHTML = tocHtml;
+    function setActiveTocItem(activeId) {
+      const tocNav = document.getElementById('toc-nav');
+      if (!tocNav) return;
+      const activeTokens = VARIANT_CLASSES.tocItemActive.split(' ');
+      const idleTokens = VARIANT_CLASSES.tocItemIdle.split(' ');
+
+      tocNav.querySelectorAll('[data-toc-target]').forEach(btn => {
+        const isMatch = btn.dataset.tocTarget === activeId;
+        btn.classList.remove(...activeTokens, ...idleTokens);
+        btn.classList.add(...(isMatch ? activeTokens : idleTokens));
+        if (isMatch) {
+          btn.setAttribute('aria-current', 'location');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function updateScrollSpy() {
+      if (!tocHeadings || tocHeadings.length === 0) return;
+      const contentPane = document.getElementById('content-pane');
+      if (!contentPane) return;
+      const paneTop = contentPane.getBoundingClientRect().top;
+      let activeId = tocHeadings[0].id;
+
+      for (const h of tocHeadings) {
+        if (h.getBoundingClientRect().top - paneTop <= 110) {
+          activeId = h.id;
+        } else {
+          break;
+        }
+      }
+      setActiveTocItem(activeId);
     }
 
     function scrollToSection(keyword) {
+      const contentPane = document.getElementById('content-pane');
       const headings = document.getElementById('session-markdown-body').querySelectorAll('h3');
       for (const h of headings) {
         if (h.innerText.toLowerCase().includes(keyword.toLowerCase())) {
-          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          h.classList.add('text-amber-500');
-          setTimeout(() => h.classList.remove('text-amber-500'), 2000);
+          if (contentPane) {
+            const offset = h.getBoundingClientRect().top - contentPane.getBoundingClientRect().top + contentPane.scrollTop - 16;
+            contentPane.scrollTo({
+              top: Math.max(0, offset),
+              behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+            });
+          } else {
+            h.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+          }
+          h.classList.add('text-amber-700', 'dark:text-amber-400');
+          setTimeout(() => h.classList.remove('text-amber-700', 'dark:text-amber-400'), 2000);
           break;
         }
       }
@@ -1296,20 +1858,19 @@
     async function loadGlossaryDoc(path, id, switchTab = true) {
       if (switchTab) setActiveTab('glossary');
 
+      const activeTokens = VARIANT_CLASSES.glossaryActive.split(' ');
+      const idleTokens = VARIANT_CLASSES.glossaryIdle.split(' ');
       document.querySelectorAll('.g-switch-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500', 'text-white', 'font-bold');
-        btn.classList.add('text-gray-300');
+        const isMatch = btn.dataset.glossaryId === id;
+        btn.classList.remove(...activeTokens, ...idleTokens);
+        btn.classList.add(...(isMatch ? activeTokens : idleTokens));
+        btn.setAttribute('aria-pressed', String(isMatch));
       });
-      const activeBtn = document.getElementById('g-btn-' + id);
-      if (activeBtn) {
-        activeBtn.classList.add('bg-amber-500', 'text-white', 'font-bold');
-        activeBtn.classList.remove('text-gray-300');
-      }
 
       const body = document.getElementById('glossary-markdown-body');
       body.innerHTML = `
-        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
-          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+        <div class="p-8 text-center text-xs text-muted flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-600 dark:text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
           Caricamento glossario...
         </div>
       `;
@@ -1321,7 +1882,8 @@
         body.innerHTML = marked.parse(mdText);
         buildTableOfContents(body);
       } catch (err) {
-        body.innerHTML = `<div class="text-xs text-red-400">Errore: ${err.message}</div>`;
+        body.innerHTML = `<div class="text-xs text-red-700 dark:text-red-300">Errore: ${escapeHtml(err.message)}</div>`;
+        buildTableOfContents(body);
       }
     }
 
@@ -1333,7 +1895,6 @@
         if (!res.ok) return;
         searchIndexData = await res.json();
 
-        // Initialize MiniSearch if available
         if (typeof MiniSearch !== 'undefined') {
           miniSearchInstance = new MiniSearch({
             fields: ['title', 'content', 'characters', 'date'],
@@ -1353,11 +1914,15 @@
 
     function setSearchCategory(cat) {
       currentSearchCategory = cat;
+      const activeTokens = VARIANT_CLASSES.pillActive.split(' ');
+      const idleTokens = VARIANT_CLASSES.pillIdle.split(' ');
+
       document.querySelectorAll('.search-cat-pill').forEach(pill => {
-        pill.classList.remove('active', 'bg-amber-500', 'text-white');
-        pill.classList.add('theme-card');
+        const isMatch = pill.dataset.searchCat === cat;
+        pill.classList.remove(...activeTokens, ...idleTokens);
+        pill.classList.add(...(isMatch ? activeTokens : idleTokens));
+        pill.setAttribute('aria-pressed', String(isMatch));
       });
-      event?.target?.classList?.add('active', 'bg-amber-500', 'text-white');
 
       const q = document.getElementById('fulltext-search-input').value;
       if (q) handleFullTextSearch(q);
@@ -1384,8 +1949,8 @@
       if (!query || query.length < 2) {
         statusEl.innerText = 'Digita almeno 2 caratteri per effettuare la ricerca full-text.';
         container.innerHTML = `
-          <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-gray-400 space-y-2">
-            <span class="text-3xl">📖</span>
+          <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-muted space-y-2">
+            <span class="text-3xl" aria-hidden="true">📖</span>
             <p>Esplora il testo completo delle ${manifestData ? manifestData.total_sessions : 105} sessioni trascritte e dei glossari.</p>
           </div>
         `;
@@ -1401,11 +1966,9 @@
       const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
 
       if (miniSearchInstance) {
-        // Use MiniSearch
         const searchRes = miniSearchInstance.search(query);
         results = searchRes.filter(r => currentSearchCategory === 'all' || r.type === currentSearchCategory);
       } else if (searchIndexData) {
-        // Pure-JS fallback
         results = searchIndexData.filter(item => {
           if (currentSearchCategory !== 'all' && item.type !== currentSearchCategory) return false;
           const combined = (item.title + ' ' + item.content + ' ' + (item.characters || []).join(' ')).toLowerCase();
@@ -1414,23 +1977,23 @@
       }
 
       const elapsed = (performance.now() - t0).toFixed(1);
-      statusEl.innerHTML = `Trovati <strong>${results.length}</strong> documenti per "<em>${escapeHtml(query)}</em>" in <strong>${elapsed} ms</strong>.`;
+      statusEl.innerHTML = `Trovati <strong class="text-ink">${results.length}</strong> documenti per "<em>${escapeHtml(query)}</em>" in <strong class="text-ink">${elapsed} ms</strong>.`;
 
       if (results.length === 0) {
         container.innerHTML = `
           <div class="p-8 text-center rounded-xl border theme-card text-xs space-y-2">
-            <span class="text-2xl">🔎</span>
-            <p class="font-bold">Nessun risultato trovato per "${escapeHtml(query)}"</p>
-            <p class="text-gray-400">Verifica l'ortografia oppure prova con un sinonimo o variante fonetica.</p>
+            <span class="text-2xl" aria-hidden="true">🔎</span>
+            <p class="font-bold text-ink">Nessun risultato trovato per "${escapeHtml(query)}"</p>
+            <p class="text-muted">Verifica l'ortografia oppure prova con un sinonimo o variante fonetica.</p>
           </div>
         `;
         return;
       }
 
       const SEARCH_TYPE_BADGES = {
-        sessione: { cls: 'bg-blue-500/15 text-blue-700 dark:text-blue-400', label: '📜 Sessione' },
-        diario: { cls: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', label: '🛡️ Diario PG' },
-        glossario: { cls: 'bg-purple-500/15 text-purple-700 dark:text-purple-400', label: '📖 Glossario' }
+        sessione: { cls: 'bg-blue-600/15 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300', label: '📜 Sessione' },
+        diario: { cls: 'bg-amber-600/15 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300', label: '🛡️ Diario PG' },
+        glossario: { cls: 'bg-purple-600/15 text-purple-800 dark:bg-purple-500/15 dark:text-purple-300', label: '📖 Glossario' }
       };
 
       container.innerHTML = results.slice(0, 35).map(item => {
@@ -1439,31 +2002,37 @@
         const badge = SEARCH_TYPE_BADGES[item.type] || SEARCH_TYPE_BADGES.glossario;
 
         return `
-          <div class="p-4 rounded-xl border theme-card hover:border-amber-500/50 transition-all space-y-2 shadow-2xs">
+          <article class="p-4 rounded-xl border theme-card hover:border-amber-600/50 dark:hover:border-amber-400/50 transition-colors space-y-2 shadow-sm">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2">
                 <span class="text-[11px] px-2 py-0.5 rounded font-medium ${badge.cls}">
                   ${badge.label}
                 </span>
-                <span class="text-xs font-mono text-stone-500 dark:text-gray-400">${item.date || ''}</span>
+                <span class="text-xs font-mono text-muted">${escapeHtml(item.date || '')}</span>
               </div>
-              <button onclick="jumpFromSearch('${item.id}', '${item.type}', '${item.path}')" class="text-xs px-2.5 py-1 rounded bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium transition-colors flex items-center gap-1">
+              <button
+                type="button"
+                data-jump-id="${escapeHtml(item.id)}"
+                data-jump-type="${escapeHtml(item.type)}"
+                data-jump-path="${escapeHtml(item.path)}"
+                class="text-xs px-2.5 py-1 rounded bg-amber-600/15 hover:bg-amber-700 text-amber-800 hover:text-white dark:bg-amber-500/15 dark:text-amber-300 dark:hover:bg-amber-500 dark:hover:text-slate-950 font-semibold transition-colors flex items-center gap-1 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 dark:focus-visible:ring-amber-400"
+              >
                 Apri nel testo ➔
               </button>
             </div>
 
-            <h4 class="font-bold text-sm text-stone-900 dark:text-gray-100">${titleHighlight}</h4>
+            <h4 class="font-bold text-sm text-ink">${titleHighlight}</h4>
 
-            <p class="text-xs leading-relaxed text-stone-700 dark:text-gray-300 p-2.5 rounded-lg border theme-card">
+            <p class="text-xs leading-relaxed text-ink p-2.5 rounded-lg border border-line theme-surface-muted">
               ${snippetHighlight}
             </p>
 
             ${item.characters && item.characters.length > 0 ? `
-              <div class="text-[11px] text-stone-500 dark:text-gray-400 pt-1">
-                Personaggi: <span class="text-stone-900 dark:text-gray-200 font-medium">${item.characters.join(', ')}</span>
+              <div class="text-[11px] text-muted pt-1">
+                Personaggi: <span class="text-ink font-medium">${escapeHtml(item.characters.join(', '))}</span>
               </div>
             ` : ''}
-          </div>
+          </article>
         `;
       }).join('');
     }
@@ -1478,10 +2047,24 @@
       }
     }
 
+    // Match raw text BEFORE escapeHtml so HTML entities (&amp;, &#039;, etc.) are never corrupted
     function highlightMatch(text, terms) {
       if (!text) return '';
-      const regex = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi');
-      return escapeHtml(text).replace(regex, '<mark class="search-highlight">$1</mark>');
+      const cleanTerms = (terms || []).filter(Boolean);
+      if (cleanTerms.length === 0) return escapeHtml(text);
+
+      const regex = new RegExp(`(${cleanTerms.map(escapeRegExp).join('|')})`, 'gi');
+      let result = '';
+      let lastIndex = 0;
+
+      for (const match of text.matchAll(regex)) {
+        const idx = match.index;
+        result += escapeHtml(text.slice(lastIndex, idx));
+        result += `<mark class="search-highlight">${escapeHtml(match[0])}</mark>`;
+        lastIndex = idx + match[0].length;
+      }
+      result += escapeHtml(text.slice(lastIndex));
+      return result;
     }
 
     function createSnippet(text, terms) {
@@ -1510,28 +2093,19 @@
     }
 
     function escapeHtml(text) {
-      return (text || '').replace(/[&<>"']/g, function(m) {
+      return String(text || '').replace(/[&<>"']/g, function(m) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
       });
     }
 
     function showFallbackState() {
       document.getElementById('sidebar-tree').innerHTML = `
-        <div class="p-4 rounded-lg border theme-card text-xs text-amber-500 space-y-2">
+        <div class="p-4 rounded-lg border theme-card text-xs text-amber-800 dark:text-amber-400 space-y-2">
           <p class="font-bold">⚠️ Impossibile caricare manifest.json</p>
-          <p class="text-gray-400">Assicurati che i file in <code>docs/data/</code> siano stati generati tramite <code>py dnd_summarizer.py --build-web</code>.</p>
+          <p class="text-muted">Assicurati che i file in <code>docs/data/</code> siano stati generati tramite <code>py dnd_summarizer.py --build-web</code>.</p>
         </div>
       `;
     }
-
-    // Global Keyboard Shortcut: Ctrl+K or Cmd+K
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        setActiveTab('search');
-        focusSearch();
-      }
-    });
 
     // Start App on Load
     window.addEventListener('DOMContentLoaded', initApp);
