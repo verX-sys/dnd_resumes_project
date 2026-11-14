@@ -1386,11 +1386,10 @@ git push</pre>
               data-chars="${escapeHtml((s.characters || []).join(' '))}"
               data-date="${escapeHtml(s.date)}"
             >
-              <span class="flex items-center justify-between gap-1 mb-1">
-                <span class="font-bold truncate text-ink">${escapeHtml(s.title)}</span>
-                <span class="text-[10px] font-mono text-amber-800 dark:text-amber-400 shrink-0 font-semibold">${escapeHtml(s.date.slice(5))}</span>
+              <span class="flex items-start justify-between gap-2">
+                <span class="font-bold text-ink leading-snug">${escapeHtml(s.title)}</span>
+                <span class="text-[10px] font-mono text-amber-800 dark:text-amber-400 shrink-0 font-semibold pt-0.5">${escapeHtml(s.date.slice(5))}</span>
               </span>
-              <span class="block text-[11px] text-muted line-clamp-1">${escapeHtml(s.synopsis || '')}</span>
               <span class="flex items-center gap-1.5 mt-1.5 text-[10px]">
                 <span class="px-1.5 py-0.5 rounded ${isAudioOk ? 'bg-emerald-600/15 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300' : 'bg-amber-600/15 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300'} font-medium">
                   ${isAudioOk ? 'Audio Integro' : 'Audio Segnalato'}
