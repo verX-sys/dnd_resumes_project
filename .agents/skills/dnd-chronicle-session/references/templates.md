@@ -138,3 +138,16 @@ I sottotitoli automatici di YouTube storpiano frequentemente i nomi fantasy. Ver
 - `"Yokul"` ➔ **Casata Jokul**
 - `"Atasharev"` ➔ **Saggio Atashkarev**
 - Altre trascrizioni fonetiche frequenti da controllare: *"Velendoran"*, *"Osiro"*, *"Baltasar"*, *"Gideon"*.
+
+---
+
+## 5. Diari Cronologici dei Personaggi (`docs/diari/<slug>.md`)
+
+Ogni personaggio giocante ha un diario cronologico dedicato nella cartella `docs/diari/` indicizzato da `--build-web` e reso navigabile nel frontend via `#character/<slug>`:
+
+- **Slug canonici (`<slug>.md`)**: `aerial.md` (Aerial Aldebaran), `lucio.md` (Lucio Malaver), `rey.md` (Rey Sekigan), `rogus.md` (Rogus Harndrekker), `prometheus.md` (Prometheus), `quarion.md` (Quarion).
+- **Struttura compatibile con `renderEnhancedMarkdown()` e `buildTableOfContents()`**:
+  - Prima riga `# <Titolo del Diario>` (rimossa automaticamente dal body perché i metadati stanno nell'header della vista `#character-diary-view`).
+  - Organizzazione rigorosamente cronologica con titoli `##` (es. anno / arco narrativo) e `###` (es. `YYYY-MM-DD — <Titolo Episodio>` con link al riassunto se utile) per popolare la TOC laterale (`#toc-nav`).
+  - Narrazione in terza persona fedele ai riassunti in `docs/riassunti/`, conservando eventuali badge `(🎲 ...)` / `(🪄 ...)` e i blockquote `> 💬 **[[HH:MM:SS - HH:MM:SS]](...)**` (con riga `>` vuota prima dei bullet).
+- **Aggiornamento Semantico (No Append Ciechi)**: prima di modificare `docs/diari/<slug>.md`, verifica le date già presenti; inserisci o arricchisci la voce della sessione nella sua posizione cronologica esatta senza mai duplicare episodi già trascritti.

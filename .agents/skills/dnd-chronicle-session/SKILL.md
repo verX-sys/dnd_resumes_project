@@ -64,10 +64,13 @@ py dnd_summarizer.py --refresh-cache
   - Consolidate **once at the end of a month** (or after `--rebuild-glossary`) by reading summaries oldest-to-newest.
   - Apply the **Encyclopedic Relevance Filter**: include only permanent/recurring NPCs, locations, relics, factions, or persistent mechanics (no single-session tactical micro-events).
   - **Upsert > Create**: search for existing entries (including nicknames/phonetic variants) and enrich them in place within the exact regional/thematic subsection (`Hillsfar`, `Simbar`, `Caderish`, etc. — see `references/templates.md`) instead of creating duplicate bullets; align `🛡️ Membri del Party` and `🏆 Quadro Riepilogativo delle Squadre`.
+- **Character chronological diaries (`docs/diari/<slug>.md`) — Semantic Narrative Upsert**:
+  - Maintain one chronological diary per PC slug (`aerial`, `lucio`, `rey`, `rogus`, `prometheus`, `quarion`) following the format in `references/templates.md`.
+  - After processing new sessions (or reconciling arcs), read each involved PC's diary and insert/update their arc in **strict chronological order** (using `##` / `###` headings so the SPA TOC stays navigable, preserving `(🎲 ...)` / `(🪄 ...)` badges and `> 💬` timestamped quotes), never duplicating existing session entries.
 
 ## 5. Build Web Index & Post to Discord
 
-1. Regenerate the frontend indices (`docs/data/manifest.json`, `docs/data/search_index.json`):
+1. Regenerate the frontend indices (`docs/data/manifest.json`, `docs/data/search_index.json`), which scan `docs/riassunti/`, `docs/glossari/`, and `docs/diari/*.md` (`diaries` in manifest, `type: "diario"` in search index):
    ```powershell
    py dnd_summarizer.py --build-web
    ```

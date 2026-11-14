@@ -59,6 +59,7 @@ if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
 BASE_DIR = Path(__file__).parent.resolve()
 DOCS_DIR = BASE_DIR / "docs"
 DOCS_DATA_DIR = DOCS_DIR / "data"
+DIARIES_DIR = DOCS_DIR / "diari"
 GLOSSARIES_DIR = DOCS_DIR / "glossari"
 GLOSSARY_PATH = GLOSSARIES_DIR / "glossario.md"
 PROCESSED_PATH = BASE_DIR / "processed_videos.json"
@@ -1594,7 +1595,7 @@ def build_web_data(verbose: bool = True) -> dict:
         audio_m = re.search(r"🔇\s*\*\*Monitoraggio Audio:\*\*\s*(.+)$", raw_text, re.M)
         audio_status = audio_m.group(1).strip() if audio_m else "Nessun taglio rilevato"
 
-        raw_pgs = re.findall(r"###\s*🛡️\s*([^\n\(]+)", raw_text)
+        raw_pgs = re.findall(r"###\s*🛡️\s*([^\n]+)", raw_text)
         found_chars = set()
         for p in raw_pgs:
             p_clean = p.strip()
@@ -1681,6 +1682,36 @@ def build_web_data(verbose: bool = True) -> dict:
             "snippet": clean_g[:260] + ("..." if len(clean_g) > 260 else ""),
         })
 
+    diary_files = sorted(list(DIARIES_DIR.glob("*.md"))) if DIARIES_DIR.exists() else []
+    diaries_meta = []
+    for df in diary_files:
+        raw_d = df.read_text(encoding="utf-8")
+        clean_d = clean_search_text(raw_d)
+        d_title_m = re.search(r"^#\s*(.+)$", raw_d, re.M)
+        d_title = d_title_m.group(1).strip() if d_title_m else df.stem
+        char_name = CANONICAL_CHARACTERS.get(df.stem.lower(), df.stem)
+
+        diaries_meta.append({
+            "id": df.stem,
+            "title": d_title,
+            "path": f"diari/{df.name}",
+            "word_count": len(raw_d.split()),
+            "line_count": len(raw_d.splitlines()),
+        })
+
+        search_docs.append({
+            "id": df.stem,
+            "type": "diario",
+            "title": d_title,
+            "date": "Diario PG",
+            "year": "Tutti",
+            "month": "Tutti",
+            "characters": [char_name],
+            "path": f"diari/{df.name}",
+            "content": clean_d,
+            "snippet": clean_d[:260] + ("..." if len(clean_d) > 260 else ""),
+        })
+
     years_map = {}
     for s in sessions_meta:
         y = s["year"]
@@ -1699,6 +1730,7 @@ def build_web_data(verbose: bool = True) -> dict:
         "tree": years_map,
         "sessions": sessions_meta,
         "glossaries": glossaries_meta,
+        "diaries": diaries_meta,
     }
 
     manifest_path = DOCS_DATA_DIR / "manifest.json"
@@ -1713,6 +1745,7 @@ def build_web_data(verbose: bool = True) -> dict:
         print(f"   📁 Cartella di output:              {DOCS_DIR.relative_to(BASE_DIR)}")
         print(f"   📜 Sessioni sincronizzate/indicizzate: {len(sessions_meta)}")
         print(f"   📖 Glossari sincronizzati/indicizzati: {len(glossaries_meta)}")
+        print(f"   🛡️ Diari PG sincronizzati/indicizzati: {len(diaries_meta)}")
         print(f"   📄 Manifest generato:               {manifest_path.relative_to(BASE_DIR)} ({round(manifest_path.stat().st_size / 1024, 1)} KB)")
         print(f"   🔍 Search Index generato:           {search_index_path.relative_to(BASE_DIR)} ({round(search_index_path.stat().st_size / 1024, 1)} KB)")
         print(f"{'='*65}\n")
