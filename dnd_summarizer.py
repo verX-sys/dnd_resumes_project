@@ -57,15 +57,13 @@ if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
     sys.stderr.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(__file__).parent.resolve()
-GLOSSARIES_DIR = BASE_DIR / "glossari"
-GLOSSARY_PATH = GLOSSARIES_DIR / "glossario.md"
-PROCESSED_PATH = BASE_DIR / "processed_videos.json"
-SUMMARIES_DIR = BASE_DIR / "riassunti"
-TRANSCRIPTS_DIR = BASE_DIR / "trascrizioni"
 DOCS_DIR = BASE_DIR / "docs"
 DOCS_DATA_DIR = DOCS_DIR / "data"
-DOCS_SUMMARIES_DIR = DOCS_DIR / "riassunti"
-DOCS_GLOSSARIES_DIR = DOCS_DIR / "glossari"
+GLOSSARIES_DIR = DOCS_DIR / "glossari"
+GLOSSARY_PATH = GLOSSARIES_DIR / "glossario.md"
+PROCESSED_PATH = BASE_DIR / "processed_videos.json"
+SUMMARIES_DIR = DOCS_DIR / "riassunti"
+TRANSCRIPTS_DIR = BASE_DIR / "trascrizioni"
 
 
 def get_yearly_glossary_path(date_or_year: str = "") -> Path:
@@ -1532,13 +1530,13 @@ def clean_search_text(text: str) -> str:
 
 
 def build_web_data(verbose: bool = True) -> dict:
-    """Scansiona tutti i riassunti in `riassunti/` e i glossari in `glossari/`,
-    sincronizza i file Markdown in `docs/` e genera `docs/data/manifest.json` e `docs/data/search_index.json`
+    """Scansiona tutti i riassunti in `docs/riassunti/` e i glossari in `docs/glossari/`,
+    e genera `docs/data/manifest.json` e `docs/data/search_index.json`
     per il frontend Vanilla SPA su GitHub Pages."""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     DOCS_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    DOCS_SUMMARIES_DIR.mkdir(parents=True, exist_ok=True)
-    DOCS_GLOSSARIES_DIR.mkdir(parents=True, exist_ok=True)
+    SUMMARIES_DIR.mkdir(parents=True, exist_ok=True)
+    GLOSSARIES_DIR.mkdir(parents=True, exist_ok=True)
 
     summary_files = sorted(list(SUMMARIES_DIR.rglob("*.md")))
     sessions_meta = []
@@ -1555,10 +1553,6 @@ def build_web_data(verbose: bool = True) -> dict:
 
     for sf in summary_files:
         rel_subpath = sf.relative_to(SUMMARIES_DIR)
-        dest_file = DOCS_SUMMARIES_DIR / rel_subpath
-        dest_file.parent.mkdir(parents=True, exist_ok=True)
-        if not dest_file.exists() or dest_file.stat().st_mtime < sf.stat().st_mtime:
-            shutil.copy2(sf, dest_file)
 
         raw_text = sf.read_text(encoding="utf-8")
         title_m = re.search(r"^#\s*🐉?\s*(.+)$", raw_text, re.M)
@@ -1635,10 +1629,6 @@ def build_web_data(verbose: bool = True) -> dict:
     glossary_files = sorted(list(GLOSSARIES_DIR.glob("*.md")))
     glossaries_meta = []
     for gf in glossary_files:
-        dest_g = DOCS_GLOSSARIES_DIR / gf.name
-        if not dest_g.exists() or dest_g.stat().st_mtime < gf.stat().st_mtime:
-            shutil.copy2(gf, dest_g)
-
         raw_g = gf.read_text(encoding="utf-8")
         clean_g = clean_search_text(raw_g)
         is_general = gf.name == "glossario.md"
