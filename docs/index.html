@@ -266,7 +266,7 @@
       </button>
       <button onclick="setActiveTab('search')" id="nav-search" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 flex items-center gap-1 shrink-0">
         <span>🔍</span> Ricerca
-        <span id="search-count-badge" class="hidden xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono">110</span>
+        <span id="search-count-badge" class="hidden xl:inline-block text-[10px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-500 font-mono">111</span>
       </button>
       <button onclick="setActiveTab('glossary')" id="nav-glossary" class="nav-btn whitespace-nowrap text-xs font-medium px-2.5 xl:px-3 py-1.5 rounded-md transition-colors text-gray-400 hover:text-amber-500 shrink-0">
         📖 Glossari
@@ -331,12 +331,13 @@
       <!-- Quick Character Filters -->
       <div class="px-3 py-2 border-b theme-card flex items-center gap-1.5 overflow-x-auto text-xs scrollbar-none shrink-0">
         <span class="text-gray-400 text-[11px] uppercase tracking-wider shrink-0 font-semibold">PG:</span>
-        <button onclick="setCharFilter('all')" class="char-pill active px-2 py-0.5 rounded-full text-xs bg-amber-500 text-white font-medium shrink-0">Tutti</button>
-        <button onclick="setCharFilter('Aerial')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Aerial</button>
-        <button onclick="setCharFilter('Lucio')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Lucio</button>
-        <button onclick="setCharFilter('Rey')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rey</button>
-        <button onclick="setCharFilter('Rogus')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rogus</button>
-        <button onclick="setCharFilter('Prometheus')" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Prometheus</button>
+        <button onclick="setCharFilter('all')" data-char="all" class="char-pill active px-2 py-0.5 rounded-full text-xs bg-amber-500 text-white font-medium shrink-0">Tutti</button>
+        <button onclick="setCharFilter('Aerial')" data-char="Aerial" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Aerial</button>
+        <button onclick="setCharFilter('Lucio')" data-char="Lucio" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Lucio</button>
+        <button onclick="setCharFilter('Rey')" data-char="Rey" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rey</button>
+        <button onclick="setCharFilter('Rogus')" data-char="Rogus" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Rogus</button>
+        <button onclick="setCharFilter('Prometheus')" data-char="Prometheus" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Prometheus</button>
+        <button onclick="setCharFilter('Quarion')" data-char="Quarion" class="char-pill px-2 py-0.5 rounded-full text-xs border theme-card hover:border-amber-500 shrink-0">Quarion</button>
       </div>
 
       <!-- Tree Session Archive List -->
@@ -349,7 +350,7 @@
 
       <!-- Bottom Session Counter Status -->
       <div class="p-2.5 border-t theme-card text-[11px] text-gray-400 flex items-center justify-between shrink-0">
-        <span id="sidebar-stats">104 sessioni indicizzate</span>
+        <span id="sidebar-stats">105 sessioni indicizzate</span>
         <button onclick="setActiveTab('search')" class="text-amber-500 hover:underline">Ricerca Globale ➔</button>
       </div>
     </aside>
@@ -415,7 +416,7 @@
                   <span>🔍</span> Ricerca Avanzata nel Testo
                 </h2>
                 <p class="text-xs text-gray-400 mt-0.5">
-                  Cerca qualsiasi parola o frase in oltre 104 sessioni trascritte e nei 6 glossari della campagna.
+                  Cerca qualsiasi parola o frase in oltre <span id="search-subtitle-sessions">105</span> sessioni trascritte e nei <span id="search-subtitle-glossaries">6</span> glossari della campagna.
                 </p>
               </div>
               <span class="hidden sm:inline-block text-xs px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-500 font-mono font-bold border border-amber-500/25">
@@ -443,7 +444,7 @@
           <!-- Search Status Bar -->
           <div class="flex items-center justify-between text-xs px-2 text-gray-400">
             <span id="search-status-text">Digita almeno 2 caratteri per effettuare la ricerca full-text.</span>
-            <span id="search-index-stats" class="font-mono text-[11px]">110 documenti in memoria</span>
+            <span id="search-index-stats" class="font-mono text-[11px]">111 documenti in memoria</span>
           </div>
 
           <!-- Results List Container -->
@@ -499,7 +500,7 @@
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div class="p-4 rounded-xl border theme-card">
-              <div class="text-2xl font-bold text-amber-500 font-mono" id="stat-total-sessions">104</div>
+              <div class="text-2xl font-bold text-amber-500 font-mono" id="stat-total-sessions">105</div>
               <div class="text-xs text-gray-400 mt-1">Sessioni Trascritte</div>
             </div>
             <div class="p-4 rounded-xl border theme-card">
@@ -573,8 +574,8 @@
         player: 'Michele (Mike)',
         icon: '🌿',
         classRole: 'Druido &bull; Circolo delle Forme',
-        team: 'Squadra del Saggio Gideon',
-        allies: 'Caret, Velura, Sera Rinvale',
+        team: 'Squadra del Saggio Gideon • Casata Zamin (La Tempesta Silente)',
+        allies: 'Kareth El Mora (Caret), Velura, Sera Ninvil',
         accent: 'emerald',
         desc: 'Portatore dei tatuaggi alchemici primordiali innestati da Julius e legato al mistero di sua madre Ymeris.'
       },
@@ -583,7 +584,7 @@
         player: 'Nicola (Niky)',
         icon: '🪓',
         classRole: 'Barbaro &bull; Combattente Primordiale',
-        team: 'Squadra della Forgia / Yokul',
+        team: 'Squadra del Saggio Atashkarev • Casata Jokul (Il Fuoco Ascendente)',
         allies: 'Errick (in rottura), Runa, Velendoran',
         accent: 'red',
         desc: 'Tempra d\'acciaio, legato al destino degli Smart e alle rivelazioni sui cristalli primordiali.'
@@ -592,8 +593,8 @@
         name: 'Rey Sekigan',
         player: 'Raffaele (Raffa)',
         icon: '👁️',
-        classRole: 'Occultista &bull; Investigatore Arcano',
-        team: 'Squadra Indipendente',
+        classRole: 'Warlock / Spadaccino Arcano &bull; Investigatore Arcano',
+        team: 'Squadra del Saggio Tulamesh Marakbi',
         allies: 'Liora, Mirena, Darin',
         accent: 'purple',
         desc: 'Mente analitica e strategica, protagonista degli interrogatori chiave sulle cripte dei Saggi.'
@@ -602,8 +603,8 @@
         name: 'Rogus Harndrekker',
         player: 'Giuseppe (Cici)',
         icon: '🛡️',
-        classRole: 'Guerriero Nanico &bull; Leader Diplomatico',
-        team: 'Squadra del Saggio Osiro',
+        classRole: 'Nano Chierico &bull; Leader Diplomatico',
+        team: 'Squadra del Saggio Osiro (Le Forme Incompiute)',
         allies: 'Cassian, Fendrel, Liren',
         accent: 'amber',
         desc: 'Custode del tomo Le Mille Forme dopo il riscatto coi leoni Rud e Zallen, combatte la minaccia di Bane.'
@@ -613,10 +614,20 @@
         player: 'Carlo (Carle)',
         icon: '🔮',
         classRole: 'Mago Necromante &bull; Filosofo dell\'Oltremondo',
-        team: 'Squadra del Saggio Baltasar',
+        team: 'Squadra del Saggio Baltasar • Casata Enea (I Custodi del Tramonto)',
         allies: 'Cassius Orland, Sivra, Tarnel',
         accent: 'blue',
         desc: 'Discepolo di Baltasar, indaga sul ciclo della vita e sul risveglio del Custode delle Otto Pupille.'
+      },
+      {
+        name: 'Quarion',
+        player: 'Francesco',
+        icon: '⚔️',
+        classRole: 'Paladino / Barbaro &bull; Compagno Caduto (2022–2025)',
+        team: 'Compagnia Originaria (Caduto a Settembre 2025)',
+        allies: 'Aerial, Lucio, Rey, Rogus',
+        accent: 'amber',
+        desc: 'Guerriero devoto e braccio armato del gruppo nelle prime stagioni della campagna, caduto eroicamente nel settembre 2025.'
       }
     ];
 
@@ -805,11 +816,17 @@
 
     // Manifest Loaded Handler
     function onManifestLoaded(data) {
-      document.getElementById('stat-total-sessions').innerText = data.total_sessions || '104';
+      document.getElementById('stat-total-sessions').innerText = data.total_sessions || '105';
       document.getElementById('stat-total-years').innerText = (data.years || []).length || '5';
       document.getElementById('stat-total-glossaries').innerText = data.total_glossaries || '6';
       document.getElementById('sidebar-stats').innerText = `${data.total_sessions} sessioni censite`;
       document.getElementById('search-count-badge').innerText = `${data.total_sessions + data.total_glossaries} doc`;
+      const subSessions = document.getElementById('search-subtitle-sessions');
+      if (subSessions) subSessions.innerText = data.total_sessions || '105';
+      const subGlossaries = document.getElementById('search-subtitle-glossaries');
+      if (subGlossaries) subGlossaries.innerText = data.total_glossaries || '6';
+      const indexStats = document.getElementById('search-index-stats');
+      if (indexStats) indexStats.innerText = (data.total_sessions + data.total_glossaries) + ' documenti in memoria';
 
       if (data.sessions && data.sessions.length > 0) {
         latestSessionId = data.sessions[0].id;
@@ -909,11 +926,20 @@
     // Filter sidebar list by character
     function setCharFilter(charName) {
       currentCharacterFilter = charName;
+      let matched = false;
       document.querySelectorAll('.char-pill').forEach(pill => {
         pill.classList.remove('active', 'bg-amber-500', 'text-white');
         pill.classList.add('theme-card');
+        if (pill.dataset.char === charName) {
+          pill.classList.add('active', 'bg-amber-500', 'text-white');
+          pill.classList.remove('theme-card');
+          matched = true;
+        }
       });
-      event?.target?.classList?.add('active', 'bg-amber-500', 'text-white');
+      if (!matched && typeof event !== 'undefined' && event?.target?.classList) {
+        event.target.classList.add('active', 'bg-amber-500', 'text-white');
+        event.target.classList.remove('theme-card');
+      }
 
       applySidebarFilters();
     }
@@ -1242,7 +1268,7 @@
         container.innerHTML = `
           <div class="p-8 text-center rounded-xl border border-dashed theme-card text-xs text-gray-400 space-y-2">
             <span class="text-3xl">📖</span>
-            <p>Esplora il testo completo delle 104 sessioni trascritte e dei glossari.</p>
+            <p>Esplora il testo completo delle ${manifestData ? manifestData.total_sessions : 105} sessioni trascritte e dei glossari.</p>
           </div>
         `;
         return;
