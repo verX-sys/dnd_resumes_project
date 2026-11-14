@@ -437,6 +437,7 @@
                 <button onclick="setSearchCategory('all')" class="search-cat-pill active px-2.5 py-1 rounded-full bg-amber-500 text-white font-medium">Tutti i Documenti</button>
                 <button onclick="setSearchCategory('sessione')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📜 Solo Riassunti Sessioni</button>
                 <button onclick="setSearchCategory('glossario')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">📖 Solo Glossari & Regole</button>
+                <button onclick="setSearchCategory('diario')" class="search-cat-pill px-2.5 py-1 rounded-full border theme-card hover:border-amber-500">🛡️ Solo Diari PG</button>
               </div>
             </div>
           </div>
@@ -481,13 +482,49 @@
 
         <!-- ==================== TAB 4: COMPAGNIA DEL TARALLO & PG ==================== -->
         <section id="tab-content-characters" class="hidden space-y-6 w-full">
-          <div class="rounded-xl border theme-card p-5 fantasy-gradient">
-            <h2 class="text-xl font-bold text-amber-500">🛡️ La Compagnia del Tarallo (Personaggi Giocanti)</h2>
-            <p class="text-xs text-gray-400 mt-1">Stato dei protagonisti, allineamenti, classi e squadre attive nel Torneo dei Saggi</p>
+          <div id="characters-grid-view" class="space-y-6">
+            <div class="rounded-xl border theme-card p-5 fantasy-gradient">
+              <h2 class="text-xl font-bold text-amber-500">🛡️ La Compagnia del Tarallo (Personaggi Giocanti)</h2>
+              <p class="text-xs text-gray-400 mt-1">Stato dei protagonisti, allineamenti, classi e squadre attive nel Torneo dei Saggi</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="characters-cards-grid">
+              <!-- Populated via script -->
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="characters-cards-grid">
-            <!-- Populated via script -->
+          <div id="character-diary-view" class="hidden space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <button onclick="navigateTo('characters')" class="text-xs px-3 py-1.5 rounded-lg border theme-card hover:border-amber-500 hover:text-amber-500 font-medium transition-colors flex items-center gap-1.5">
+                ← Torna ai Personaggi
+              </button>
+              <button id="character-diary-filter-btn" onclick="filterByCharacterAndJump('')" class="text-xs px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium transition-colors">
+                Filtra sessioni con PG ➔
+              </button>
+            </div>
+
+            <div class="rounded-xl border theme-card p-4 sm:p-5 fantasy-gradient shadow-xs space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <span id="character-diary-icon" class="text-3xl">🛡️</span>
+                  <div>
+                    <h2 id="character-diary-name" class="text-xl md:text-2xl font-bold text-amber-500">Diario del Personaggio</h2>
+                    <p id="character-diary-player" class="text-xs text-stone-600 dark:text-gray-400"></p>
+                  </div>
+                </div>
+                <span id="character-diary-stats" class="text-xs px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 font-mono font-medium"></span>
+              </div>
+              <p id="character-diary-desc" class="text-xs leading-relaxed text-stone-700 dark:text-gray-300"></p>
+              <div class="pt-2 border-t theme-card text-xs grid grid-cols-1 sm:grid-cols-3 gap-1.5 text-stone-600 dark:text-gray-400">
+                <div id="character-diary-role"></div>
+                <div id="character-diary-team"></div>
+                <div id="character-diary-allies"></div>
+              </div>
+            </div>
+
+            <article id="character-diary-markdown-body" class="prose-dnd text-sm leading-relaxed rounded-xl border theme-card p-6">
+              <!-- Dynamic parsed character diary HTML injected here -->
+            </article>
           </div>
         </section>
 
@@ -570,6 +607,7 @@
     // Character definitions
     const CHARACTERS_INFO = [
       {
+        slug: 'aerial',
         name: 'Aerial Aldebaran',
         player: 'Michele (Mike)',
         icon: '🌿',
@@ -580,6 +618,7 @@
         desc: 'Portatore dei tatuaggi alchemici primordiali innestati da Julius e legato al mistero di sua madre Ymeris.'
       },
       {
+        slug: 'lucio',
         name: 'Lucio Malaver',
         player: 'Nicola (Niky)',
         icon: '🪓',
@@ -590,6 +629,7 @@
         desc: 'Tempra d\'acciaio, legato al destino degli Smart e alle rivelazioni sui cristalli primordiali.'
       },
       {
+        slug: 'rey',
         name: 'Rey Sekigan',
         player: 'Raffaele (Raffa)',
         icon: '👁️',
@@ -600,6 +640,7 @@
         desc: 'Mente analitica e strategica, protagonista degli interrogatori chiave sulle cripte dei Saggi.'
       },
       {
+        slug: 'rogus',
         name: 'Rogus Harndrekker',
         player: 'Giuseppe (Cici)',
         icon: '🛡️',
@@ -610,6 +651,7 @@
         desc: 'Custode del tomo Le Mille Forme dopo il riscatto coi leoni Rud e Zallen, combatte la minaccia di Bane.'
       },
       {
+        slug: 'prometheus',
         name: 'Prometheus',
         player: 'Carlo (Carle)',
         icon: '🔮',
@@ -620,6 +662,7 @@
         desc: 'Discepolo di Baltasar, indaga sul ciclo della vita e sul risveglio del Custode delle Otto Pupille.'
       },
       {
+        slug: 'quarion',
         name: 'Quarion',
         player: 'Francesco',
         icon: '⚔️',
@@ -711,7 +754,7 @@
     });
 
     // Tab Navigation
-    function setActiveTab(tab) {
+    function setActiveTab(tab, options = {}) {
       currentActiveTab = tab;
       closeMobileSidebar();
       
@@ -736,9 +779,18 @@
       const targetSec = document.getElementById('tab-content-' + tab);
       if (targetSec) targetSec.classList.remove('hidden');
 
-      // TOC visibility (only on reader & glossary)
+      // Reset characters subview to grid unless explicitly opening a diary
+      const showDiary = tab === 'characters' && Boolean(options.diaryView);
+      const gridView = document.getElementById('characters-grid-view');
+      const diaryView = document.getElementById('character-diary-view');
+      if (gridView && diaryView) {
+        gridView.classList.toggle('hidden', showDiary);
+        diaryView.classList.toggle('hidden', !showDiary);
+      }
+
+      // TOC visibility (reader, glossary, or character diary)
       const toc = document.getElementById('toc-sidebar');
-      if (tab === 'reader' || tab === 'glossary') {
+      if (tab === 'reader' || tab === 'glossary' || showDiary) {
         toc.classList.remove('xl:hidden');
       } else {
         toc.classList.add('xl:hidden');
@@ -802,8 +854,8 @@
             <div><strong>Squadra:</strong> ${c.team}</div>
             <div><strong>Compagni PNG:</strong> ${c.allies}</div>
           </div>
-          <button onclick="filterByCharacterAndJump('${c.name.split(' ')[0]}')" class="w-full text-center py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium text-xs transition-colors">
-            Vedi tutte le sessioni con ${c.name.split(' ')[0]} ➔
+          <button onclick="navigateTo('character', '${c.slug}')" class="w-full text-center py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500 text-amber-600 dark:text-amber-500 hover:text-white font-medium text-xs transition-colors">
+            Leggi il Diario Cronologico ➔
           </button>
         </div>
       `).join('');
@@ -816,17 +868,19 @@
 
     // Manifest Loaded Handler
     function onManifestLoaded(data) {
+      const totalDiaries = (data.diaries || []).length;
+      const totalDocs = (data.total_sessions || 0) + (data.total_glossaries || 0) + totalDiaries;
       document.getElementById('stat-total-sessions').innerText = data.total_sessions || '105';
       document.getElementById('stat-total-years').innerText = (data.years || []).length || '5';
       document.getElementById('stat-total-glossaries').innerText = data.total_glossaries || '6';
       document.getElementById('sidebar-stats').innerText = `${data.total_sessions} sessioni censite`;
-      document.getElementById('search-count-badge').innerText = `${data.total_sessions + data.total_glossaries} doc`;
+      document.getElementById('search-count-badge').innerText = `${totalDocs} doc`;
       const subSessions = document.getElementById('search-subtitle-sessions');
       if (subSessions) subSessions.innerText = data.total_sessions || '105';
       const subGlossaries = document.getElementById('search-subtitle-glossaries');
       if (subGlossaries) subGlossaries.innerText = data.total_glossaries || '6';
       const indexStats = document.getElementById('search-index-stats');
-      if (indexStats) indexStats.innerText = (data.total_sessions + data.total_glossaries) + ' documenti in memoria';
+      if (indexStats) indexStats.innerText = totalDocs + ' documenti in memoria';
 
       if (data.sessions && data.sessions.length > 0) {
         latestSessionId = data.sessions[0].id;
@@ -975,6 +1029,13 @@
     function navigateTo(route, param = '') {
       if (route === 'session') {
         window.location.hash = `#session/${param}`;
+      } else if (route === 'character') {
+        const targetHash = `#character/${param}`;
+        if (window.location.hash === targetHash) {
+          loadCharacterDiary(param);
+        } else {
+          window.location.hash = targetHash;
+        }
       } else if (route === 'search') {
         window.location.hash = param ? `#search?q=${encodeURIComponent(param)}` : '#search';
       } else {
@@ -995,6 +1056,9 @@
         const id = hash.replace('session/', '');
         setActiveTab('reader');
         loadSessionDoc(id);
+      } else if (hash.startsWith('character/')) {
+        const slug = hash.slice('character/'.length);
+        loadCharacterDiary(slug);
       } else if (hash.startsWith('search')) {
         setActiveTab('search');
         if (hash.includes('?q=')) {
@@ -1007,6 +1071,60 @@
         setActiveTab('characters');
       } else if (hash === 'info') {
         setActiveTab('info');
+      }
+    }
+
+    // Load and Render Character Diary
+    async function loadCharacterDiary(slug) {
+      const charInfo = CHARACTERS_INFO.find(c => c.slug === slug);
+      if (!charInfo) {
+        setActiveTab('characters');
+        return;
+      }
+
+      setActiveTab('characters', { diaryView: true });
+
+      const firstName = charInfo.name.split(' ')[0];
+      document.getElementById('character-diary-icon').innerText = charInfo.icon;
+      document.getElementById('character-diary-name').innerText = charInfo.name;
+      document.getElementById('character-diary-player').innerHTML = `Giocatore: <strong class="text-stone-900 dark:text-gray-200">${escapeHtml(charInfo.player)}</strong>`;
+      document.getElementById('character-diary-desc').innerText = charInfo.desc;
+      document.getElementById('character-diary-role').innerHTML = `<strong>Ruolo:</strong> ${charInfo.classRole}`;
+      document.getElementById('character-diary-team').innerHTML = `<strong>Squadra:</strong> ${escapeHtml(charInfo.team)}`;
+      document.getElementById('character-diary-allies').innerHTML = `<strong>Compagni PNG:</strong> ${escapeHtml(charInfo.allies)}`;
+
+      const filterBtn = document.getElementById('character-diary-filter-btn');
+      filterBtn.setAttribute('onclick', `filterByCharacterAndJump('${firstName}')`);
+      filterBtn.innerText = `Filtra sessioni con ${firstName} ➔`;
+
+      const diaryMeta = (manifestData?.diaries || []).find(d => d.id === slug);
+      document.getElementById('character-diary-stats').innerText = diaryMeta
+        ? `📖 ${diaryMeta.word_count} parole`
+        : '📖 Diario Cronologico';
+
+      const bodyContainer = document.getElementById('character-diary-markdown-body');
+      bodyContainer.innerHTML = `
+        <div class="p-8 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          Caricamento diario di ${escapeHtml(firstName)}...
+        </div>
+      `;
+
+      const diaryPath = diaryMeta?.path || `diari/${slug}.md`;
+      try {
+        const res = await fetch(`./${diaryPath}`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const mdText = await res.text();
+        bodyContainer.innerHTML = renderEnhancedMarkdown(mdText);
+        buildTableOfContents(bodyContainer);
+      } catch (err) {
+        bodyContainer.innerHTML = `
+          <div class="p-6 rounded-xl border border-red-500/30 bg-red-500/10 text-xs text-red-400 space-y-2">
+            <p class="font-bold">Impossibile caricare il diario: ${escapeHtml(diaryPath)}</p>
+            <p>${escapeHtml(err.message)}</p>
+          </div>
+        `;
+        buildTableOfContents(bodyContainer);
       }
     }
 
@@ -1309,17 +1427,23 @@
         return;
       }
 
+      const SEARCH_TYPE_BADGES = {
+        sessione: { cls: 'bg-blue-500/15 text-blue-700 dark:text-blue-400', label: '📜 Sessione' },
+        diario: { cls: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', label: '🛡️ Diario PG' },
+        glossario: { cls: 'bg-purple-500/15 text-purple-700 dark:text-purple-400', label: '📖 Glossario' }
+      };
+
       container.innerHTML = results.slice(0, 35).map(item => {
         const titleHighlight = highlightMatch(item.title, terms);
         const snippetHighlight = createSnippet(item.content || item.snippet || '', terms);
-        const isSession = item.type === 'sessione';
+        const badge = SEARCH_TYPE_BADGES[item.type] || SEARCH_TYPE_BADGES.glossario;
 
         return `
           <div class="p-4 rounded-xl border theme-card hover:border-amber-500/50 transition-all space-y-2 shadow-2xs">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2">
-                <span class="text-[11px] px-2 py-0.5 rounded font-medium ${isSession ? 'bg-blue-500/15 text-blue-700 dark:text-blue-400' : 'bg-purple-500/15 text-purple-700 dark:text-purple-400'}">
-                  ${isSession ? '📜 Sessione' : '📖 Glossario'}
+                <span class="text-[11px] px-2 py-0.5 rounded font-medium ${badge.cls}">
+                  ${badge.label}
                 </span>
                 <span class="text-xs font-mono text-stone-500 dark:text-gray-400">${item.date || ''}</span>
               </div>
@@ -1347,6 +1471,8 @@
     function jumpFromSearch(id, type, path) {
       if (type === 'glossario') {
         loadGlossaryDoc(path, id, true);
+      } else if (type === 'diario') {
+        navigateTo('character', id);
       } else {
         navigateTo('session', id);
       }
