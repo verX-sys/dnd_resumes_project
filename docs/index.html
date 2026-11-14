@@ -834,6 +834,7 @@ git push</pre>
         player: 'Michele (Mike)',
         icon: '🌿',
         classRole: 'Druido &bull; Circolo delle Forme',
+        badge: 'Saggio Gideon',
         team: 'Squadra del Saggio Gideon • Casata Zamin (La Tempesta Silente)',
         allies: 'Kareth El Mora (Caret), Velura, Sera Ninvil',
         accent: 'emerald',
@@ -845,6 +846,7 @@ git push</pre>
         player: 'Nicola (Niky)',
         icon: '🪓',
         classRole: 'Barbaro &bull; Combattente Primordiale',
+        badge: 'Saggio Atashkarev',
         team: 'Squadra del Saggio Atashkarev • Casata Jokul (Il Fuoco Ascendente)',
         allies: 'Errick (in rottura), Runa, Velendoran',
         accent: 'red',
@@ -856,6 +858,7 @@ git push</pre>
         player: 'Raffaele (Raffa)',
         icon: '👁️',
         classRole: 'Warlock / Spadaccino Arcano &bull; Investigatore Arcano',
+        badge: 'Saggio Tulamesh',
         team: 'Squadra del Saggio Tulamesh Marakbi',
         allies: 'Liora, Mirena, Darin',
         accent: 'purple',
@@ -867,6 +870,7 @@ git push</pre>
         player: 'Giuseppe (Cici)',
         icon: '🛡️',
         classRole: 'Nano Chierico &bull; Leader Diplomatico',
+        badge: 'Saggio Osiro',
         team: 'Squadra del Saggio Osiro (Le Forme Incompiute)',
         allies: 'Cassian, Fendrel, Liren',
         accent: 'amber',
@@ -878,6 +882,7 @@ git push</pre>
         player: 'Carlo (Carle)',
         icon: '🔮',
         classRole: 'Mago Necromante &bull; Filosofo dell\'Oltremondo',
+        badge: 'Saggio Baltasar',
         team: 'Squadra del Saggio Baltasar • Casata Enea (I Custodi del Tramonto)',
         allies: 'Cassius Orland, Sivra, Tarnel',
         accent: 'blue',
@@ -889,6 +894,7 @@ git push</pre>
         player: 'Francesco',
         icon: '⚔️',
         classRole: 'Paladino / Barbaro &bull; Compagno Caduto (2022–2025)',
+        badge: 'Caduto · 2025',
         team: 'Compagnia Originaria (Caduto a Settembre 2025)',
         allies: 'Aerial, Lucio, Rey, Rogus',
         accent: 'amber',
@@ -1292,7 +1298,7 @@ git push</pre>
                 <p class="text-xs text-muted">Giocatore: <strong class="text-ink">${escapeHtml(c.player)}</strong></p>
               </div>
             </div>
-            <span class="text-xs px-2 py-0.5 rounded bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono font-medium shrink-0">${escapeHtml(c.team.split(' ')[2] || 'Party')}</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-600/15 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono font-medium shrink-0">${escapeHtml(c.badge || 'Party')}</span>
           </div>
           <p class="text-xs leading-relaxed text-ink">${escapeHtml(c.desc)}</p>
           <div class="pt-2.5 border-t border-line text-xs space-y-1 text-muted">
