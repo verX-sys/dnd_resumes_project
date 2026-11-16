@@ -802,6 +802,7 @@ git push</pre>
     let tocHeadings = [];
     let scrollSpyRaf = null;
     let tocSupportedView = true;
+    let glossaryLoadSeq = 0;
 
     // Design System Class Helpers
     function cn(...parts) {
@@ -1094,6 +1095,13 @@ git push</pre>
 
       const contentPane = document.getElementById('content-pane');
       if (contentPane) contentPane.scrollTop = 0;
+
+      const activeTocContainer = getActiveTocContainer();
+      if (activeTocContainer) {
+        buildTableOfContents(activeTocContainer);
+      } else {
+        tocHeadings = [];
+      }
     }
 
     // Focus Search
@@ -1768,8 +1776,21 @@ git push</pre>
       return html;
     }
 
+    function getActiveTocContainer() {
+      if (currentActiveTab === 'reader') return document.getElementById('session-markdown-body');
+      if (currentActiveTab === 'glossary') return document.getElementById('glossary-markdown-body');
+      if (currentActiveTab === 'characters') {
+        const diaryView = document.getElementById('character-diary-view');
+        if (diaryView && !diaryView.classList.contains('hidden')) {
+          return document.getElementById('character-diary-markdown-body');
+        }
+      }
+      return null;
+    }
+
     // Build Table of Contents dynamically from headings (scrolls #content-pane via button, preserves hash routes)
     function buildTableOfContents(container) {
+      if (!container || container !== getActiveTocContainer()) return;
       const tocNav = document.getElementById('toc-nav');
       const headings = Array.from(container.querySelectorAll('h2, h3'));
       tocHeadings = headings;
@@ -1856,6 +1877,7 @@ git push</pre>
 
     // Load and Render Glossary Documents
     async function loadGlossaryDoc(path, id, switchTab = true) {
+      const reqSeq = ++glossaryLoadSeq;
       if (switchTab) setActiveTab('glossary');
 
       const activeTokens = VARIANT_CLASSES.glossaryActive.split(' ');
@@ -1874,14 +1896,17 @@ git push</pre>
           Caricamento glossario...
         </div>
       `;
+      buildTableOfContents(body);
 
       try {
         const res = await fetch(`./${path}`);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const mdText = await res.text();
+        if (reqSeq !== glossaryLoadSeq) return;
         body.innerHTML = marked.parse(mdText);
         buildTableOfContents(body);
       } catch (err) {
+        if (reqSeq !== glossaryLoadSeq) return;
         body.innerHTML = `<div class="text-xs text-red-700 dark:text-red-300">Errore: ${escapeHtml(err.message)}</div>`;
         buildTableOfContents(body);
       }
