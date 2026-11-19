@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T14:00:56.458688",
-  "total_sessions": 105,
+  "generated_at": "2026-11-19T13:16:06.628027",
+  "total_sessions": 106,
   "total_glossaries": 6,
   "years": [
     "2026",
@@ -12,6 +12,7 @@
   "tree": {
     "2026": {
       "2026-11": [
+        "2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius",
         "2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus",
         "2026-11-02_DkkO0eeqbAo_La_Riconquista_del_Libro_i_Segreti_dei_Cristalli_e_la_Cospirazione_dei_Saggi"
       ],
@@ -215,6 +216,27 @@
     }
   },
   "sessions": [
+    {
+      "id": "2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius",
+      "title": "Il Serpente di Velendoran, il Volto del Balor e la Vendetta di Cassius",
+      "date": "2026-11-16",
+      "year": "2026",
+      "month": "2026-11",
+      "youtube_url": "https://www.youtube.com/watch?v=ynv8ydwl14I",
+      "audio_status": "Nessun taglio rilevato (flusso audio integro e continuo per l'intera durata della sessione, ~3h 16m).",
+      "characters": [
+        "Aerial Aldebaran",
+        "Lucio Malaver",
+        "Prometheus",
+        "Rey Sekigan",
+        "Rogus Harndrekker"
+      ],
+      "synopsis": "Mentre l'Accademia di Caderish scivola in un clima di crescente sospetto, la serata di lunedì si trasforma in una fitta scacchiera di visioni, spionaggi e confessioni inquietanti. Diretto verso la Sala Grande, Lucio avverte una presenza invisibile e scopre Velendoran stranamente privo della sua aura illusoria; al contatto fisico, una visione rivela un gigantesco serpente dagli occhi gialli che si contorce imprigionato dentro il tiefling. A cena, mentre i Saggi discutono animatamente di tradimenti e menzogne e Tulamesh neutralizza con un sorriso la ricognizione del Pixie di Aerial, Rey invia in gran segreto una succube all'ottavo piano per sottrarre il cristallo di Victoria Zamart, scoprendo però con allarme che il demone rimane intrappolato ai piani superiori senza spezzare la concentrazione. Intanto Rogus, ormai a mezzanotte alla Forgia con Cassian e Fendrel, mette a punto il piano delle erbe febbricitanti per tornare di nascosto sul ghiacciaio dell'Akanamer. La notte culmina infine alla Forgia del sesto piano, dove Cassius Orland guida parte del gruppo tra rivelazioni sui costrutti e un sinistro presagio di fuoco: quando Lucio attizza le braci col suo mazzafrusto, dalle fiamme emerge il volto demoniaco del Balor, spingendo Cassius a svelare la propria sete di vendetta e a reclamare l'anima di un potente burattinaio nascosto nel castello.",
+      "dialogue_count": 6,
+      "filename": "2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius.md",
+      "path": "riassunti/2026-11/2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius.md",
+      "word_count": 3057
+    },
     {
       "id": "2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus",
       "title": "La Falsa Bacchetta, il Blocco del Nexus e l'Avvertimento di Atashkarev",
@@ -2505,7 +2527,7 @@
       "title": "Diario Cronologico 2026",
       "is_general": false,
       "path": "glossari/glossario_2026.md",
-      "line_count": 208
+      "line_count": 217
     }
   ],
   "diaries": [
@@ -2513,22 +2535,22 @@
       "id": "aerial",
       "title": "📖 Diario di Aerial Aldebaran — Storia Cronologica",
       "path": "diari/aerial.md",
-      "word_count": 6781,
-      "line_count": 228
+      "word_count": 7005,
+      "line_count": 236
     },
     {
       "id": "lucio",
       "title": "📖 Diario di Lucio Malaver — Storia Cronologica",
       "path": "diari/lucio.md",
-      "word_count": 4398,
-      "line_count": 194
+      "word_count": 4663,
+      "line_count": 202
     },
     {
       "id": "prometheus",
       "title": "📖 Diario di Prometheus — Storia Cronologica",
       "path": "diari/prometheus.md",
-      "word_count": 6698,
-      "line_count": 206
+      "word_count": 6922,
+      "line_count": 215
     },
     {
       "id": "quarion",
@@ -2541,15 +2563,15 @@
       "id": "rey",
       "title": "📖 Diario di Rey Sekigan — Storia Cronologica",
       "path": "diari/rey.md",
-      "word_count": 4686,
-      "line_count": 213
+      "word_count": 4935,
+      "line_count": 221
     },
     {
       "id": "rogus",
       "title": "📖 Diario di Rogus Harndrekker — Storia Cronologica",
       "path": "diari/rogus.md",
-      "word_count": 4315,
-      "line_count": 166
+      "word_count": 4544,
+      "line_count": 174
     }
   ]
 }

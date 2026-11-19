@@ -164,3 +164,11 @@ Superata l'alba del patto nella cripta ([26 ottobre 2026](#session/2026-10-26_Lv
 > - **Rud & Zallen:** *"La tua garanzia ha peso, ragazzo. Il patto è suggellato. Prendete il tomo proibito e ricordate: il sapere incatenato non perdona coloro che ne perdono il controllo."*
 
 Infine, dopo un tentativo nella Stanza delle Pergamene e l'incontro in biblioteca con **Fazio**, Rogus concorda con Liren l'alibi delle erbe febbricitanti del Tormir per tornare all'alba sull'Akanamer e supera la prova delle ombre di Tulamesh *(🎲 Furtività: 16)* salendo a 25 punti ([9 novembre 2026](#session/2026-11-09_Xlh0tMNw6AY_La_Falsa_Bacchetta_e_il_Blocco_del_Nexus)).
+
+Allo scoccare della mezzanotte, terminata la lezione con Tulamesh, Rogus raggiunge **Cassian Dorello** e **Fendrel Offblom** alla Forgia per definire la spedizione clandestina delle nove del mattino ([16 novembre 2026](#session/2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius)): pur senza l'assente Liren — che ha già consegnato a Cassian le **erbe febbricitanti del Tormir** — il nano sceglie di ingerirle intere all'alba per simulare un malore credibile davanti a Kareth e purificarsi subito dopo lontano da sguardi indiscreti con *(🪄 Ristorare Superiore)*, preparando anche *Ristorare Inferiore* durante il riposo mentre Fendrel promette di svegliare Liren e coprire il gruppo con incantesimi contro il gelo.
+
+> 💬 **[[01:36:13 - 01:39:01]](https://www.youtube.com/watch?v=ynv8ydwl14I&t=1h36m13s) — Il Piano delle Erbe sul Ghiacciaio dell'Akanamer**
+>
+> - **Rogus Harndrekker:** *"Prenderò io le erbe febbricitanti domattina, e tu, Cassian, ti offrirai di riaccompagnarmi e accudirmi: Kareth si fida di te. E quando saremo lontani dal resto della spedizione, userò i miei poteri da chierico per curarmi!"*
+> - **Fendrel Offblom:** *"È un azzardo, Rogus. Liren è noto per avere erbe dai rimedi imprevedibili, e il ghiacciaio dell'Akanamer nasconde insidie reali. Essere lì in due, con uno di voi debilitato, non mi sembra prudente... vedrò di raggiungervi anch'io e coprirvi le spalle."*
+> - **Cassian Dorello:** *"Io posso preparare incantesimi per modellarci un riparo tra neve e ghiaccio e proteggervi dal freddo. Ma se vogliamo davvero sbloccare il quinto indizio domattina alle nove, servirà anche Liren."*

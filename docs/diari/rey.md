@@ -211,3 +211,11 @@ L'arco si chiude su una frattura aperta negli alloggi di Gideon durante [l'ultim
 > - **Rey Sekigan:** *"La difesa è sacrosanta, ma qui si tratta di totale disonestà e mancanza di rispetto. Ne prenderò atto, e puoi riferirlo chiaramente anche al tuo padrone Gideon!"*
 
 Disgustato dalla doppiezza dei saggi, Rey abbandona la stanza e raggiunge Prometheus al terzo piano della biblioteca per decifrare da solo la verità sui costrutti e sul Balor.
+
+Dopo ulteriori ricerche in biblioteca sui legami forzati e sulle origini dei diavoli (giunto a 15 ore di studio, con i rituali celesti al 100%), a cena Rey tenta una mossa audace in segreto ([2026-11-16](#session/2026-11-16_ynv8ydwl14I_Il_Volto_del_Balor_e_la_Vendetta_di_Cassius)): ritiratosi in bagno, invoca una **Succube** *(🪄 Evoca Demone Maggiore — 🎲 d100: 96)* ordinandole di infiltrarsi all'ottavo piano e sottrarre il cristallo dalla vasca di Victoria Zamart entro un'ora. Trascorso il termine, tuttavia, il demone non ritorna pur lasciando intatta la concentrazione dell'incantesimo, segno che la creatura è bloccata ai piani alti. Salito alla Forgia per crearsi un alibi mentre sente la connessione con la succube intensificarsi verso l'ottavo piano, Rey tocca e lecca senza paura il mazzafrusto infuocato di Lucio, prima di scontrarsi verbalmente con **Cassius Orland** sulle sue reticenze dinanzi al volto del Balor affiorato nelle braci.
+
+> 💬 **[[03:03:12 - 03:04:48]](https://www.youtube.com/watch?v=ynv8ydwl14I&t=3h03m12s) — L'Insofferenza di Rey davanti ai Misteri di Cassius**
+>
+> - **Rey Sekigan:** *"Non mi sembra affatto che tu stia rispondendo alle mie domande dirette, Cassius. Dici soltanto parole vuote al vento. Se non parlassi di fuffa, potremmo davvero collaborare e trovare un aiuto reciproco."*
+> - **Cassius Orland:** *"Capisco la tua frustrazione, ma trattare con un diavolo non è mai il massimo, e dovresti saperlo bene."*
+> - **Rey Sekigan:** *"Collaborare con un diavolo mi ha portato molto più avanti di quanto credi! E qui non si tratta di un diavolo solo, ma di un'intera compagnia pronta a trattare... se solo smettessi di nasconderti dietro gli enigmi."*
